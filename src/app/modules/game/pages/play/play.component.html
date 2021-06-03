@@ -1,0 +1,18 @@
+
+<app-code-editor 
+    [defaultValue]="defaultHtmlValue"
+    mode = "html"
+    (codeChange)="htmlChange($event)"
+></app-code-editor>
+
+<app-code-editor 
+    [defaultValue]="defaultCssValue"
+    mode = "css"
+    (codeChange)="cssChange($event)" 
+></app-code-editor>
+
+
+<app-editor-display
+    [innerHtml]="innerHtml"
+    
+></app-editor-display>
