@@ -8,8 +8,8 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 export class PlayComponent implements OnInit {
 
   @ViewChild('iframe', { static: true }) iframe!: ElementRef;
-  defaultHtmlValue = "<div>Let's play</div>"
-  defaultCssValue = "div {color: red}"
+  defaultHtmlValue = ""
+  defaultCssValue = ""
   doc: any
   html = ""
   css = ""
@@ -17,14 +17,7 @@ export class PlayComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    let content = '<div>Ok</div><style>div{color:red}</style>';
     this.doc =  this.iframe.nativeElement.contentDocument || this.iframe.nativeElement.contentWindow;
-    this.doc.open();
-    this.doc.write(content);
-    this.doc.close();
-  }
-
-  getDoc() {
   }
 
   htmlChange(code: string) {

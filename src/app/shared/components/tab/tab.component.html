@@ -1,0 +1,9 @@
+
+<div class="tab-container">
+
+    <button (click)="active = 'html'" [ngClass]="{active: active === 'html'}">HTML</button>
+    <button (click)="active = 'css'" [ngClass]="{active: active === 'css'}">CSS</button>
+    <ng-content *ngIf="active === 'html'" select="[html]"></ng-content>
+    <ng-content *ngIf="active === 'css'" select="[css]"></ng-content>
+
+</div>

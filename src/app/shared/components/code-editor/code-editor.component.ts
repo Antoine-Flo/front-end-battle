@@ -10,7 +10,6 @@ import * as ace from "ace-builds";
 export class CodeEditorComponent implements AfterViewInit {
 
   @ViewChild("editor") private editor!: ElementRef<HTMLElement>;
-  @Input() defaultValue = "";
   @Input() mode = ""
 
   @Output() codeChange = new EventEmitter<string>();
@@ -19,12 +18,11 @@ export class CodeEditorComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
 
-    ace.config.set("fontSize", "20px");
+    ace.config.set("fontSize", "25px");
     ace.config.set('basePath', 'https://unpkg.com/ace-builds@1.4.12/src-noconflict');
 
     const editor = ace.edit(this.editor.nativeElement);
 
-    editor.session.setValue(this.defaultValue);
     editor.setTheme('ace/theme/monokai');
     editor.session.setMode(`ace/mode/${this.mode}`);
 

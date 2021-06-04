@@ -6,10 +6,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { CodeEditorComponent } from './components/code-editor/code-editor.component';
 import { EditorDisplayComponent } from './components/editor-display/editor-display.component';
 import { SafePipe } from './pipes/safe.pipe';
+import { TabComponent } from './components/tab/tab.component';
 
 
 @NgModule({
-  declarations: [CodeEditorComponent, EditorDisplayComponent, SafePipe],
+  declarations: [CodeEditorComponent, EditorDisplayComponent, SafePipe, TabComponent],
   imports: [
     RouterModule,
     HttpClientModule,
@@ -17,6 +18,7 @@ import { SafePipe } from './pipes/safe.pipe';
     FormsModule
   ],
   exports: [
+    TabComponent,
     SafePipe,
     FormsModule,
     CodeEditorComponent,
