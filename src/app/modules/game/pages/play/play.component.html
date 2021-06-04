@@ -1,18 +1,23 @@
+<div class="game">
 
-<app-code-editor 
-    [defaultValue]="defaultHtmlValue"
-    mode = "html"
-    (codeChange)="htmlChange($event)"
-></app-code-editor>
+    <div class="editor">
+        <app-code-editor 
+            [defaultValue]="defaultHtmlValue" 
+            mode="html" 
+            (codeChange)="htmlChange($event)"
+            ></app-code-editor>
 
-<app-code-editor 
-    [defaultValue]="defaultCssValue"
-    mode = "css"
-    (codeChange)="cssChange($event)" 
-></app-code-editor>
+        <app-code-editor 
+            [defaultValue]="defaultCssValue" 
+            mode="css" 
+            (codeChange)="cssChange($event)"
+            ></app-code-editor>
+    </div>
+
+    <iframe 
+        #iframe 
+        frameborder="0"
+        ></iframe>
 
 
-<app-editor-display
-    [innerHtml]="innerHtml"
-    
-></app-editor-display>
+</div>

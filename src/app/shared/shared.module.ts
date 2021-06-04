@@ -17,6 +17,7 @@ import { SafePipe } from './pipes/safe.pipe';
     FormsModule
   ],
   exports: [
+    SafePipe,
     FormsModule,
     CodeEditorComponent,
     EditorDisplayComponent

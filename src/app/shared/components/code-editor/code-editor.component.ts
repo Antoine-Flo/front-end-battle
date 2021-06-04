@@ -33,7 +33,4 @@ export class CodeEditorComponent implements AfterViewInit {
       this.codeChange.emit(editor.getValue())
     });
   }
-
-
-
 }

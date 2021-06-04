@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-play',
@@ -7,23 +7,38 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PlayComponent implements OnInit {
 
-  defaultHtmlValue = "<div></div>"
-  defaultCssValue = `
-.div {
-  background-color: black;
-}
-  `
-  innerHtml = ""
+  @ViewChild('iframe', { static: true }) iframe!: ElementRef;
+  defaultHtmlValue = "<div>Let's play</div>"
+  defaultCssValue = "div {color: red}"
+  doc: any
+  html = ""
+  css = ""
+
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    let content = '<div>Ok</div><style>div{color:red}</style>';
+    this.doc =  this.iframe.nativeElement.contentDocument || this.iframe.nativeElement.contentWindow;
+    this.doc.open();
+    this.doc.write(content);
+    this.doc.close();
+  }
+
+  getDoc() {
   }
 
   htmlChange(code: string) {
-    this.innerHtml = code;
+    this.html = code;
+    this.doc.open();
+    this.doc.write(`${code}<style>${this.css}</style>`);
+    this.doc.close();
   }
 
   cssChange(code: string) {
-    console.log("Css : " + code);
+    this.css = code;
+    this.doc.open();
+    this.doc.write(`${this.html}<style>${code}</style>`);
+    this.doc.close();
   }
+
 }
