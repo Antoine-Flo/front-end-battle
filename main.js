@@ -250,13 +250,13 @@ class PlayComponent {
         this.css = "";
     }
     ngOnInit() {
-        this.doc = this.iframe.nativeElement.contentDocument || this.iframe.nativeElement.contentWindow;
+        this.doc = this.iframe.nativeElement;
     }
     htmlChange(code) {
         this.html = code;
-        this.doc.open();
-        this.doc.write(`${code}<style>${this.css}</style>`);
-        this.doc.close();
+        this.doc.contentWindow.document.open('text/htmlreplace');
+        this.doc.contentWindow.document.write(`${code}<style>${this.css}</style>`);
+        this.doc.contentWindow.document.close();
     }
     cssChange(code) {
         this.css = code;
