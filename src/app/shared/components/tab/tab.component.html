@@ -1,9 +1,18 @@
+<div class="tab">
 
-<div class="tab-container">
+  <div class="tab__label">
+      
+    <p class="tab__label-item">Code Editor</p>
+    <p class="tab__label-item">Options</p>
+  </div>
 
-    <button (click)="active = 'html'" [ngClass]="{active: active === 'html'}">HTML</button>
-    <button (click)="active = 'css'" [ngClass]="{active: active === 'css'}">CSS</button>
-    <ng-content *ngIf="active === 'html'" select="[html]"></ng-content>
-    <ng-content *ngIf="active === 'css'" select="[css]"></ng-content>
+
+  <div class="tab__btns">
+    <button class="tab__btn" (click)="active = 'html'" [ngClass]="{active: active === 'html'}">HTML</button>
+    <button class="tab__btn" (click)="active = 'css'" [ngClass]="{active: active === 'css'}">CSS</button>
+  </div>
+
+  <ng-content *ngIf="active === 'html'" select="[html]"></ng-content>
+  <ng-content *ngIf="active === 'css'" select="[css]"></ng-content>
 
 </div>
