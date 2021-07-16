@@ -4,7 +4,7 @@ import { PlayComponent } from './pages/play/play.component';
 
 
 const routes: Routes = [
-  { path: "", component: PlayComponent}
+  // { path: "**", component: PlayComponent}
 ];
 
 

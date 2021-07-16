@@ -4,11 +4,13 @@ import { CommonModule } from '@angular/common';
 import { HomeRoutingModule } from './home-routing.module';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { HomeComponent } from './pages/home/home.component';
+import { ChallengesComponent } from './components/challenges/challenges.component';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [HomeComponent, ChallengesComponent],
   imports: [
     SharedModule,
     FormsModule,
