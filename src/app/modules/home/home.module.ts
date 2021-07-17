@@ -9,6 +9,7 @@ import { ChallengesComponent } from './challenges/challenges.component';
 
 
 
+
 @NgModule({
   declarations: [HomeComponent, ChallengesComponent],
   imports: [
@@ -16,6 +17,10 @@ import { ChallengesComponent } from './challenges/challenges.component';
     FormsModule,
     CommonModule,
     HomeRoutingModule
+  ],
+  exports: [
+    HomeComponent,
+    ChallengesComponent
   ]
 })
 export class HomeModule { }

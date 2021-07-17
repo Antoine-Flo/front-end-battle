@@ -12,6 +12,9 @@ import { PlayComponent } from './play/play.component';
     SharedModule,
     CommonModule,
     GameRoutingModule
+  ],
+  exports: [
+    PlayComponent
   ]
 })
 export class GameModule { }
