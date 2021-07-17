@@ -2,25 +2,15 @@
 
 /* You can add global styles to this file, and also import other style files */
 :root {
-  --dark: #222831;
+  --black: #222831;
   --grey: #393e46;
   --white: #eeeeee;
   --blue: #00adb5;
   --purple: #c785ce;
 }
-body {
-  background-color: var(--white);
-}
-a, li, p {
-  color: var(--white);
-  font-family: "Noto Sans JP";
-  font-weight: 200;
-  letter-spacing: 1px;
-}
 button {
-  background-color: var(--grey);
   color: var(--white);
-  border: none;
+  transition: all 0.2s;
 }
 button:active {
   outline: none;
@@ -29,17 +19,34 @@ button:active {
 button:focus {
   outline: none;
 }
+button:hover {
+  opacity: 0.8;
+}
 .main-btn {
+  font-family: "Noto Sans JP";
+  font-size: 1.5rem;
   background-color: var(--blue);
   border: 2px solid var(--blue);
   padding: 0.5rem 2rem;
   border-radius: 3px;
 }
 .scd-btn {
+  font-family: "Noto Sans JP";
+  font-size: 1.5rem;
   background-color: var(--grey);
   border: 2px solid var(--blue);
   padding: 0.5rem 2rem;
   border-radius: 3px;
+}
+a, li, p, h1, h2, button {
+  letter-spacing: 1px;
+  font-family: "Noto Sans JP";
+}
+.font-white {
+  color: var(--white);
+}
+.font-black {
+  color: var(--black);
 }
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 /* Document
