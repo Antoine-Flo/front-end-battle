@@ -1,9 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthModule } from './auth/auth.module';
 import { StartComponent } from './auth/start/start.component';
+import { GameModule } from './modules/game/game.module';
 
 import { PlayComponent } from './modules/game/play/play.component';
 import { ChallengesComponent } from './modules/home/challenges/challenges.component';
+import { HomeModule } from './modules/home/home.module';
 import { HomeComponent } from './modules/home/home/home.component';
 
 const routes: Routes = [
@@ -20,7 +23,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes), HomeModule, GameModule, AuthModule],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
