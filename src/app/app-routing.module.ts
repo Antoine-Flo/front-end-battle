@@ -11,16 +11,16 @@ import { ChallengesComponent } from './modules/home/challenges/challenges.compon
 import { HomeComponent } from './modules/home/home/home.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  {
-    path: 'home',
-    component: HomeComponent,
-    children: [
-      { path: 'game', component: PlayComponent },
-      { path: '', component: ChallengesComponent },
-    ],
-  },
-  { path: 'start', component: StartComponent },
+  // { path: '', redirectTo: 'home', pathMatch: 'full' },
+  // {
+  //   path: 'home',
+  //   component: HomeComponent,
+  //   children: [
+  //     { path: 'game', component: PlayComponent },
+  //     { path: '', component: ChallengesComponent },
+  //   ],
+  // },
+  // { path: 'start', component: StartComponent },
 ];
 
 @NgModule({
