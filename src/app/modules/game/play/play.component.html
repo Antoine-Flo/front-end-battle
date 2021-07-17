@@ -1,0 +1,28 @@
+<div class="game">
+
+    <app-tab class="editor">
+
+        <app-code-editor 
+            html
+            mode="html" 
+            (codeChange)="htmlChange($event)"
+            ></app-code-editor>
+
+        <app-code-editor 
+            css
+            mode="css" 
+            (codeChange)="cssChange($event)"
+            ></app-code-editor>
+
+    </app-tab>
+
+
+
+    <iframe 
+        #iframe 
+        frameborder="0"
+        class="iframe"
+        ></iframe>
+<!--  -->
+
+</div>

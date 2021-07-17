@@ -1,0 +1,14 @@
+.challenge {
+    margin: 2rem auto;
+    padding: 2rem;
+    border-radius: 10px;
+    width: clamp(140px, 70%, 1500px);
+    background-color: var(--grey);
+
+    &__select {
+        background-color: var(--blue);
+        padding: 1rem 2rem;
+        border-radius: 10px;
+        margin-left: 80%;
+    }
+}

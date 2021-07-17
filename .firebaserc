@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "front-end-battle": {
+      "hosting": {
+        "frontEndBattle": [
+          "front-end-battle"
+        ]
+      }
+    }
+  }
+}

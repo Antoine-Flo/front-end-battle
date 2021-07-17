@@ -1,0 +1,25 @@
+.nav {
+    background-color: var(--grey);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    box-shadow: 0px 5px 10px grey;
+
+    &__items {
+        width: 500px;
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    &__logo {
+        font-size: 5rem;
+    }
+}
+
+.log {
+    width: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
