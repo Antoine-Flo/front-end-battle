@@ -1,0 +1,21 @@
+.modal-background {
+
+
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    place-content: center;
+}
+
+.modal {
+    position: relative;
+    width: 800px;
+    height: 400px;
+
+    background-color: var(--dark);
+
+    &__actions {
+        position: absolute;
+        bottom: 2rem;
+    }
+}

@@ -1,0 +1,25 @@
+<div (click)="onDismissClick()" class="modal-background">
+
+    <div (click)="$event.stopPropagation()" class="modal">
+
+        <i class="modal__close" (click)="onDismissClick()">X</i>
+
+        <div class="header">
+            <ng-content select="[modalTitle]"></ng-content>
+        </div>
+
+        <div class="content">
+            <ng-content></ng-content>
+        </div>
+
+        <div class="actions actions-default">
+            <button (click)="onDismissClick()" class="ui button primary">Ok</button>
+        </div>
+
+        <div class="modal__actions">
+            <ng-content select="[modalFooter]"></ng-content>
+        </div>
+        
+    </div>
+
+</div>

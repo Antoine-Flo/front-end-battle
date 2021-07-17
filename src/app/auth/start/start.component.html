@@ -1,3 +1,16 @@
 <app-nav></app-nav>
 <p>start works!</p>
+
+
+<button (click)="showModal = true" class="main-btn">
+    Se connecter
+</button>
+
+<app-modal *ngIf="showModal" (dismiss)="showModal = false" >
+    <div modalTitle>Compose</div>
+    <app-sign-in></app-sign-in>
+</app-modal>
+
 <app-footer></app-footer>
+
+

@@ -26,7 +26,6 @@ import { HomeModule } from './modules/home/home.module';
     GameModule,
     HomeModule,
     BrowserModule,
-    AppRoutingModule,
     CoreModule,
     AuthModule
   ],

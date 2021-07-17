@@ -4,22 +4,22 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { CodeEditorComponent } from './components/code-editor/code-editor.component';
-import { EditorDisplayComponent } from './components/editor-display/editor-display.component';
 import { SafePipe } from './pipes/safe.pipe';
 import { TabComponent } from './components/tab/tab.component';
-import { LayoutComponent } from './components/layout/layout.component';
-import { NavComponent } from './components/nav/nav.component';
+
 import { FooterComponent } from './components/footer/footer.component';
+import { NavComponent } from './components/nav/nav.component';
+import { ModalComponent } from './components/modal/modal.component';
+
 
 @NgModule({
   declarations: [
     CodeEditorComponent,
-    EditorDisplayComponent,
     SafePipe,
     TabComponent,
-    LayoutComponent,
     NavComponent,
     FooterComponent,
+    ModalComponent,
   ],
   imports: [RouterModule, HttpClientModule, CommonModule, FormsModule],
   exports: [
@@ -27,9 +27,9 @@ import { FooterComponent } from './components/footer/footer.component';
     SafePipe,
     FormsModule,
     CodeEditorComponent,
-    EditorDisplayComponent,
     NavComponent,
     FooterComponent,
+    ModalComponent
   ],
 })
 export class SharedModule {}
