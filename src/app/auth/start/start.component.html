@@ -1,16 +1,22 @@
 <app-nav></app-nav>
-<p>start works!</p>
 
+<div class="start-container">
 
-<button (click)="showModal = true" class="main-btn">
-    Se connecter
-</button>
+  <h1 class="start__title">Bienvenue sur Front-End-Battle</h1>
 
-<app-modal *ngIf="showModal" (dismiss)="showModal = false" >
-    <div modalTitle>Compose</div>
+  <div class="start__logs">
+    <button (click)="showModal = true" class="main-btn start__btn">
+      Se connecter
+    </button>
+    <button (click)="showModal = true" class="scd-btn start__btn">
+      S'inscrire
+    </button>
+  </div>
+
+  <app-modal *ngIf="showModal" (dismiss)="showModal = false">
     <app-sign-in></app-sign-in>
-</app-modal>
+  </app-modal>
+
+</div>
 
 <app-footer></app-footer>
-
-
