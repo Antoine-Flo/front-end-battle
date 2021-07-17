@@ -1,5 +1,10 @@
 import { NgModule } from '@angular/core';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from "@angular/fire/firestore";
+import { AngularFireAuthModule } from "@angular/fire/auth";
+
 import { BrowserModule } from '@angular/platform-browser';
+import { environment } from 'src/environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,6 +19,9 @@ import { HomeModule } from './modules/home/home.module';
     AppComponent,
   ],
   imports: [
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireAuthModule,
     AppRoutingModule,
     GameModule,
     HomeModule,
