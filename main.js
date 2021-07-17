@@ -543,6 +543,7 @@ class AppModule {
 }
 AppModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵdefineNgModule"]({ type: AppModule, bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_2__["AppComponent"]] });
 AppModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵdefineInjector"]({ factory: function AppModule_Factory(t) { return new (t || AppModule)(); }, providers: [], imports: [[
+            _app_routing_module__WEBPACK_IMPORTED_MODULE_1__["AppRoutingModule"],
             _modules_game_game_module__WEBPACK_IMPORTED_MODULE_5__["GameModule"],
             _modules_home_home_module__WEBPACK_IMPORTED_MODULE_6__["HomeModule"],
             _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
@@ -550,7 +551,8 @@ AppModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵdefineInjector
             _core_core_module__WEBPACK_IMPORTED_MODULE_4__["CoreModule"],
             _auth_auth_module__WEBPACK_IMPORTED_MODULE_3__["AuthModule"]
         ]] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵsetNgModuleScope"](AppModule, { declarations: [_app_component__WEBPACK_IMPORTED_MODULE_2__["AppComponent"]], imports: [_modules_game_game_module__WEBPACK_IMPORTED_MODULE_5__["GameModule"],
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵsetNgModuleScope"](AppModule, { declarations: [_app_component__WEBPACK_IMPORTED_MODULE_2__["AppComponent"]], imports: [_app_routing_module__WEBPACK_IMPORTED_MODULE_1__["AppRoutingModule"],
+        _modules_game_game_module__WEBPACK_IMPORTED_MODULE_5__["GameModule"],
         _modules_home_home_module__WEBPACK_IMPORTED_MODULE_6__["HomeModule"],
         _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
         _app_routing_module__WEBPACK_IMPORTED_MODULE_1__["AppRoutingModule"],
@@ -895,7 +897,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _auth_auth_module__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./auth/auth.module */ "Yj9t");
 /* harmony import */ var _modules_game_game_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/game/game.module */ "Bxvx");
 /* harmony import */ var _modules_home_home_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/home/home.module */ "iydT");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _auth_start_start_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./auth/start/start.component */ "lE8l");
+/* harmony import */ var _modules_game_play_play_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/game/play/play.component */ "KfXN");
+/* harmony import */ var _modules_home_challenges_challenges_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/home/challenges/challenges.component */ "hlF6");
+/* harmony import */ var _modules_home_home_home_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/home/home/home.component */ "FReH");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/core */ "fXoL");
+
+
+
+
 
 
 
@@ -903,22 +913,22 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const routes = [
-// { path: '', redirectTo: 'home', pathMatch: 'full' },
-// {
-//   path: 'home',
-//   component: HomeComponent,
-//   children: [
-//     { path: 'game', component: PlayComponent },
-//     { path: '', component: ChallengesComponent },
-//   ],
-// },
-// { path: 'start', component: StartComponent },
+    { path: '', redirectTo: 'home', pathMatch: 'full' },
+    {
+        path: 'home',
+        component: _modules_home_home_home_component__WEBPACK_IMPORTED_MODULE_7__["HomeComponent"],
+        children: [
+            { path: 'game', component: _modules_game_play_play_component__WEBPACK_IMPORTED_MODULE_5__["PlayComponent"] },
+            { path: '', component: _modules_home_challenges_challenges_component__WEBPACK_IMPORTED_MODULE_6__["ChallengesComponent"] },
+        ],
+    },
+    { path: 'start', component: _auth_start_start_component__WEBPACK_IMPORTED_MODULE_4__["StartComponent"] },
 ];
 class AppRoutingModule {
 }
-AppRoutingModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineNgModule"]({ type: AppRoutingModule });
-AppRoutingModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineInjector"]({ factory: function AppRoutingModule_Factory(t) { return new (t || AppRoutingModule)(); }, imports: [[_angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"].forRoot(routes), _modules_home_home_module__WEBPACK_IMPORTED_MODULE_3__["HomeModule"], _modules_game_game_module__WEBPACK_IMPORTED_MODULE_2__["GameModule"], _auth_auth_module__WEBPACK_IMPORTED_MODULE_1__["AuthModule"]], _angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"]] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵsetNgModuleScope"](AppRoutingModule, { imports: [_angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"], _modules_home_home_module__WEBPACK_IMPORTED_MODULE_3__["HomeModule"], _modules_game_game_module__WEBPACK_IMPORTED_MODULE_2__["GameModule"], _auth_auth_module__WEBPACK_IMPORTED_MODULE_1__["AuthModule"]], exports: [_angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"]] }); })();
+AppRoutingModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵdefineNgModule"]({ type: AppRoutingModule });
+AppRoutingModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵdefineInjector"]({ factory: function AppRoutingModule_Factory(t) { return new (t || AppRoutingModule)(); }, imports: [[_angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"].forRoot(routes), _modules_home_home_module__WEBPACK_IMPORTED_MODULE_3__["HomeModule"], _modules_game_game_module__WEBPACK_IMPORTED_MODULE_2__["GameModule"], _auth_auth_module__WEBPACK_IMPORTED_MODULE_1__["AuthModule"]], _angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"]] });
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵsetNgModuleScope"](AppRoutingModule, { imports: [_angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"], _modules_home_home_module__WEBPACK_IMPORTED_MODULE_3__["HomeModule"], _modules_game_game_module__WEBPACK_IMPORTED_MODULE_2__["GameModule"], _auth_auth_module__WEBPACK_IMPORTED_MODULE_1__["AuthModule"]], exports: [_angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"]] }); })();
 
 
 /***/ }),
