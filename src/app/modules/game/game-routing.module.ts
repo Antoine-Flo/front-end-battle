@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PlayComponent } from './pages/play/play.component';
+import { PlayComponent } from './play/play.component';
 
 
 const routes: Routes = [

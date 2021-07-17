@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common';
 import { HomeRoutingModule } from './home-routing.module';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { HomeComponent } from './pages/home/home.component';
-import { ChallengesComponent } from './components/challenges/challenges.component';
+import { HomeComponent } from './home/home.component';
+import { ChallengesComponent } from './challenges/challenges.component';
 
 
 

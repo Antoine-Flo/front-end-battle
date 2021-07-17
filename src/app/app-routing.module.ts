@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PlayComponent } from './modules/game/pages/play/play.component';
-import { ChallengesComponent } from './modules/home/components/challenges/challenges.component';
-import { HomeComponent } from './modules/home/pages/home/home.component';
+import { StartComponent } from './auth/start/start.component';
+
+import { PlayComponent } from './modules/game/play/play.component';
+import { ChallengesComponent } from './modules/home/challenges/challenges.component';
+import { HomeComponent } from './modules/home/home/home.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -14,6 +16,7 @@ const routes: Routes = [
       { path: '', component: ChallengesComponent },
     ],
   },
+  { path: 'start', component: StartComponent },
 ];
 
 @NgModule({

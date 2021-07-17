@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { GameRoutingModule } from './game-routing.module';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { PlayComponent } from './pages/play/play.component';
+import { PlayComponent } from './play/play.component';
 
 
 @NgModule({

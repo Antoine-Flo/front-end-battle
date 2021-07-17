@@ -1,5 +1,5 @@
 body {
-    background-color: var(--dark);
+    background-color: var(--white);
 }
 
 a, li, p {
@@ -22,4 +22,19 @@ button {
     &:focus {
         outline: none;
     }
+}
+
+
+.main-btn {
+    background-color: var(--blue);
+    border: 2px solid var(--blue);
+    padding: .5rem 2rem;
+    border-radius: 3px;
+}
+
+.scd-btn {
+    background-color: var(--grey);
+    border: 2px solid var(--blue);
+    padding: .5rem 2rem;
+    border-radius: 3px;
 }
