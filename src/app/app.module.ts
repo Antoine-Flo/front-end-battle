@@ -14,6 +14,7 @@ import { HomeModule } from './modules/home/home.module';
     AppComponent,
   ],
   imports: [
+    AppRoutingModule,
     GameModule,
     HomeModule,
     BrowserModule,
