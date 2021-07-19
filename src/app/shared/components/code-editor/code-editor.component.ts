@@ -10,7 +10,7 @@ import * as ace from "ace-builds";
 export class CodeEditorComponent implements AfterViewInit {
 
   @ViewChild("editor") private editor!: ElementRef<HTMLElement>;
-  @Input() mode = ""
+  @Input() mode = "";
 
   @Output() codeChange = new EventEmitter<string>();
 

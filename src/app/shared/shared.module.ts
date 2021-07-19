@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { CodeEditorComponent } from './components/code-editor/code-editor.component';
-import { SafePipe } from './pipes/safe.pipe';
 import { TabComponent } from './components/tab/tab.component';
 
 import { FooterComponent } from './components/footer/footer.component';
@@ -15,17 +14,14 @@ import { ModalComponent } from './components/modal/modal.component';
 @NgModule({
   declarations: [
     CodeEditorComponent,
-    SafePipe,
     TabComponent,
     NavComponent,
     FooterComponent,
-    ModalComponent,
+    ModalComponent
   ],
-  imports: [RouterModule, HttpClientModule, CommonModule, FormsModule],
+  imports: [CommonModule,RouterModule, HttpClientModule,  ReactiveFormsModule],
   exports: [
     TabComponent,
-    SafePipe,
-    FormsModule,
     CodeEditorComponent,
     NavComponent,
     FooterComponent,

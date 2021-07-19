@@ -1,3 +1,15 @@
-<form (ngSubmit)="onSubmit()" #form="ngForm">
-    <input [formControl]="name" type="text" id="name">
+<h1 class="signin__title font-white">Se connecter</h1>
+
+<form class="signin" (ngSubmit)="onSubmit()" [formGroup]="signinForm">
+
+  <div class="">
+    <label for="nom">Nom</label>
+    <input class="signin__input" formControlName="name" type="text" id="nom">
+  </div>
+
+  <div class="">
+    <label for="prenom">Prénom</label>
+    <input class="signin__input" formControlName="prenom" type="text" id="prenom">
+  </div>
+
 </form>
