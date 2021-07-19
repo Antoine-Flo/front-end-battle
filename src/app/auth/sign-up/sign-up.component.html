@@ -1,1 +1,15 @@
-<p>sign-up works!</p>
+<h1 class="signup__title font-white">Se connecter</h1>
+
+<form class="signup" (ngSubmit)="onSubmit()" [formGroup]="signupForm">
+
+  <div class="">
+    <label for="nom">Nom</label>
+    <input class="signup__input" formControlName="name" type="text" id="nom">
+  </div>
+
+  <div class="">
+    <label for="prenom">Prénom</label>
+    <input class="signup__input" formControlName="prenom" type="text" id="prenom">
+  </div>
+
+</form>
