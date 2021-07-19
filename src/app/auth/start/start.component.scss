@@ -5,17 +5,22 @@
 }
 
 .start {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
     &__title {
         margin: 3rem 0;
-        text-align: center;
+        // text-align: center;
         font-size: 4rem;
     }
     
-    &__logs {
-        text-align: center;
-    }
+
 
     &__btn {
         margin: 2rem;
     }
+
+
+
 }

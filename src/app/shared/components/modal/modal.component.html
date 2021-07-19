@@ -4,19 +4,19 @@
 
         <i class="modal__close" (click)="onDismissClick()">X</i>
 
-        <div class="header">
+        <div class="modal__header">
             <ng-content select="[modalTitle]"></ng-content>
         </div>
 
-        <div class="content">
+        <div class="modal__content">
             <ng-content></ng-content>
         </div>
 
-        <div class="actions actions-default">
+        <div class="modal__actions">
             <button (click)="onDismissClick()" class="ui button primary">Ok</button>
         </div>
 
-        <div class="modal__actions">
+        <div class="modal__footer">
             <ng-content select="[modalFooter]"></ng-content>
         </div>
         

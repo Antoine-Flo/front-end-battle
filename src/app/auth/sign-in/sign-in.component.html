@@ -1,1 +1,3 @@
-<p>sign-in works!</p>
+<form (ngSubmit)="onSubmit()" #form="ngForm">
+    <input [formControl]="name" type="text" id="name">
+</form>

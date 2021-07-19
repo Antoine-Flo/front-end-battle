@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-sign-in',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SignInComponent implements OnInit {
 
+  name = new FormControl('');
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onSubmit() {
+    
   }
 
 }

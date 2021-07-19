@@ -4,6 +4,8 @@ import { SharedModule } from '../shared/shared.module';
 import { StartComponent } from './start/start.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -11,6 +13,8 @@ import { SignUpComponent } from './sign-up/sign-up.component';
   declarations: [StartComponent, SignInComponent, SignUpComponent],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
+    RouterModule,
     SharedModule
   ],
   exports: [

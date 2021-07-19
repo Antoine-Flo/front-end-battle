@@ -11,7 +11,7 @@ import { ChallengesComponent } from './modules/home/challenges/challenges.compon
 import { HomeComponent } from './modules/home/home/home.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', redirectTo: 'start', pathMatch: 'full' },
   {
     path: 'home',
     component: HomeComponent,

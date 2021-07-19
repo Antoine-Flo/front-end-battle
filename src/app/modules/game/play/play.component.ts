@@ -17,19 +17,19 @@ export class PlayComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.doc =  this.iframe.nativeElement ;
+    this.doc =  this.iframe.nativeElement.contentWindow.document ;
   }
 
   htmlChange(code: string) {
     this.html = code;
-    this.doc.contentWindow.document.open('text/htmlreplace');
-    this.doc.contentWindow.document.write(`${code}<style>${this.css}</style>`);
-    this.doc.contentWindow.document.close();
+    this.doc.open('text/htmlreplace');
+    this.doc.write(`${code}<style>${this.css}</style>`);
+    this.doc.close();
   }
 
   cssChange(code: string) {
     this.css = code;
-    this.doc.open();
+    this.doc.open('text/htmlreplace');
     this.doc.write(`${this.html}<style>${code}</style>`);
     this.doc.close();
   }

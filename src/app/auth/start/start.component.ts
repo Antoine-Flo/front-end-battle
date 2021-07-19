@@ -7,7 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StartComponent implements OnInit {
 
-  showModal = false;
+
+  modalSignIn = false;
+  modalSignUp = false;
 
   constructor() { }
 
