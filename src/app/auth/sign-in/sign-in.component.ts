@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+// import { AngularFirestoreDocument } from '@angular/fire/firestore';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/core/services/auth.service';
 
@@ -9,29 +10,23 @@ import { AuthService } from 'src/app/core/services/auth.service';
 })
 export class SignInComponent implements OnInit {
 
-  signinForm = new FormGroup({
-    nom: new FormControl('', [
-      Validators.required,
-      Validators.minLength(3),
-      Validators.maxLength(20),
-      Validators.pattern(/^[a-z0-9]+$/)
-    ]),
-    prenom: new FormControl('', [
-      Validators.required,
-      Validators.minLength(3),
-      Validators.maxLength(20),
-      Validators.pattern(/^[a-z0-9]+$/)
-    ]),
-
-  })
-
   constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
   }
 
-  onSubmit() {
-    
+  connectWithGoogle() {
+    this.authService.signinGoogle().then((userData: any) => {
+      this.updateUser(userData)
+    })
+  }
+  
+  logOut() {
+    this.authService.logout()
   }
 
+  updateUser(userData :any) {
+    console.log(userData)
+
+  }
 }

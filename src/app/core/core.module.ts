@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { SharedModule } from '../shared/shared.module';
 import { HttpClientModule } from '@angular/common/http'
-import { AngularFireAuth } from '@angular/fire/auth';
+
 
 
 @NgModule({
@@ -12,7 +12,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
     CommonModule,
     SharedModule,
     HttpClientModule,
-    AngularFireAuth
+
   ]
 })
 export class CoreModule { }
