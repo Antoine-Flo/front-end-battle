@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 // import { AngularFirestoreDocument } from '@angular/fire/firestore';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/core/services/auth.service';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -26,6 +26,7 @@ export class SignInComponent implements OnInit {
   }
 
   updateUser(userData :any) {
+    
     console.log(userData)
 
   }
