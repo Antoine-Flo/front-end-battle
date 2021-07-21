@@ -9,14 +9,18 @@ import { StartComponent } from './auth/start/start.component';
 import { PlayComponent } from './modules/game/play/play.component';
 import { ChallengesComponent } from './modules/home/challenges/challenges.component';
 import { HomeComponent } from './modules/home/home/home.component';
-import { AuthGuard } from './core/guards/auth.guard';
+
+import { canActivate } from '@angular/fire/auth-guard';
+import { redirectUnauthorizedTo } from '@angular/fire/auth-guard';
+
+const redirectUnauthorizedToStart = () => redirectUnauthorizedTo(['start'])
 
 const routes: Routes = [
   { path: '', redirectTo: 'start', pathMatch: 'full' },
   {
     path: 'home',
-    canActivate: [AuthGuard],
     component: HomeComponent,
+    ...canActivate(redirectUnauthorizedToStart),
     children: [
       { path: 'game', component: PlayComponent },
       { path: '', component: ChallengesComponent },
