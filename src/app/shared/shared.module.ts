@@ -17,15 +17,21 @@ import { ModalComponent } from './components/modal/modal.component';
     TabComponent,
     NavComponent,
     FooterComponent,
-    ModalComponent
+    ModalComponent,
   ],
-  imports: [CommonModule,RouterModule, HttpClientModule,  ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+
+  ],
   exports: [
     TabComponent,
     CodeEditorComponent,
     NavComponent,
     FooterComponent,
-    ModalComponent
+    ModalComponent,
   ],
 })
 export class SharedModule {}

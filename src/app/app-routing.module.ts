@@ -10,10 +10,11 @@ import { PlayComponent } from './modules/game/play/play.component';
 import { ChallengesComponent } from './modules/home/challenges/challenges.component';
 import { HomeComponent } from './modules/home/home/home.component';
 
-import { canActivate } from '@angular/fire/auth-guard';
+import { canActivate, redirectLoggedInTo } from '@angular/fire/auth-guard';
 import { redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 
 const redirectUnauthorizedToStart = () => redirectUnauthorizedTo(['start'])
+const redirectLoggedInToHome = () => redirectLoggedInTo(['home']);
 
 const routes: Routes = [
   { path: '', redirectTo: 'start', pathMatch: 'full' },
@@ -26,7 +27,7 @@ const routes: Routes = [
       { path: '', component: ChallengesComponent },
     ],
   },
-  { path: 'start', component: StartComponent },
+  { path: 'start', component: StartComponent, ...canActivate(redirectLoggedInToHome) },
 ];
 
 @NgModule({
