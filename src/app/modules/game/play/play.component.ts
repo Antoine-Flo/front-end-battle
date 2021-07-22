@@ -7,22 +7,22 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 })
 export class PlayComponent implements OnInit {
 
-  @ViewChild('iframe', { static: true }) iframe!: ElementRef;
-  doc: any
-  code = ""
+  @ViewChild('iframeResult', { static: true }) iframeResult!: ElementRef;
+  @ViewChild('iframeObjective', { static: true }) iframeObjective!: ElementRef;
+  result: any;
+
 
   constructor() { }
 
   ngOnInit() {
-    this.doc =  this.iframe.nativeElement.contentWindow.document;
-    this.doc = this.doc
+    this.result = this.iframeResult.nativeElement.contentWindow.document;
   }
 
+
   onCodeChange(code: string) {
-    this.code = code;
-    this.doc.open('text/htmlreplace');
-    this.doc.write(`${code}`);
-    this.doc.close();
+    this.result.open('text/htmlreplace');
+    this.result.write(`${code}`);
+    this.result.close();
   }
 
 }

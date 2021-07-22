@@ -1,5 +1,3 @@
-
-
 .game {
   display: flex;
 }
@@ -10,3 +8,15 @@
   width: 100%;
 }
 
+.displays {
+  width: 100%;
+
+}
+
+.displays__objective, .displays:hover .displays__result {
+  display: none
+}
+
+.displays:hover .displays__objective {
+  display: block
+}

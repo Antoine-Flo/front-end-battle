@@ -1,14 +1,16 @@
 <div class="game">
 
-  <app-code-editor 
-    mode="html" 
-    (codeChange)="onCodeChange($event)"
-    ></app-code-editor>
+  <app-code-editor mode="html" (codeChange)="onCodeChange($event)"></app-code-editor>
 
-  <iframe 
-    #iframe 
-    frameborder="0" 
-    class="iframe"
-    ></iframe>
+
+<div class="displays">
+
+  <iframe class="iframe displays__objective" src="assets/test.html" #iframeObjective frameborder="0"></iframe>
+
+  <iframe class="iframe displays__result" #iframeResult frameborder="0"></iframe>
+
+</div>
+
+
 
 </div>
