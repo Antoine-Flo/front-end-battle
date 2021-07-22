@@ -284,36 +284,38 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_components_code_editor_code_editor_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../shared/components/code-editor/code-editor.component */ "37rE");
 
 
-const _c0 = ["iframe"];
+const _c0 = ["iframeResult"];
+const _c1 = ["iframeObjective"];
 class PlayComponent {
-    constructor() {
-        this.code = "";
-    }
+    constructor() { }
     ngOnInit() {
-        this.doc = this.iframe.nativeElement.contentWindow.document;
-        this.doc = this.doc;
+        this.result = this.iframeResult.nativeElement.contentWindow.document;
     }
     onCodeChange(code) {
-        this.code = code;
-        this.doc.open('text/htmlreplace');
-        this.doc.write(`${code}`);
-        this.doc.close();
+        this.result.open('text/htmlreplace');
+        this.result.write(`${code}`);
+        this.result.close();
     }
 }
 PlayComponent.ɵfac = function PlayComponent_Factory(t) { return new (t || PlayComponent)(); };
 PlayComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: PlayComponent, selectors: [["app-play"]], viewQuery: function PlayComponent_Query(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵviewQuery"](_c0, 3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵviewQuery"](_c1, 3);
     } if (rf & 2) {
         let _t;
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵloadQuery"]()) && (ctx.iframe = _t.first);
-    } }, decls: 4, vars: 0, consts: [[1, "game"], ["mode", "html", 3, "codeChange"], ["frameborder", "0", 1, "iframe"], ["iframe", ""]], template: function PlayComponent_Template(rf, ctx) { if (rf & 1) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵloadQuery"]()) && (ctx.iframeResult = _t.first);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵloadQuery"]()) && (ctx.iframeObjective = _t.first);
+    } }, decls: 7, vars: 0, consts: [[1, "game"], ["mode", "html", 3, "codeChange"], [1, "displays"], ["src", "assets/test.html", "frameborder", "0", 1, "iframe", "displays__objective"], ["iframeObjective", ""], ["frameborder", "0", 1, "iframe", "displays__result"], ["iframeResult", ""]], template: function PlayComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "app-code-editor", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("codeChange", function PlayComponent_Template_app_code_editor_codeChange_1_listener($event) { return ctx.onCodeChange($event); });
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](2, "iframe", 2, 3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "div", 2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](3, "iframe", 3, 4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](5, "iframe", 5, 6);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    } }, directives: [_shared_components_code_editor_code_editor_component__WEBPACK_IMPORTED_MODULE_1__["CodeEditorComponent"]], styles: [".game[_ngcontent-%COMP%] {\n  display: flex;\n}\n\n.iframe[_ngcontent-%COMP%] {\n  border: 5px solid grey;\n  height: 80vh;\n  width: 100%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uLy4uL3BsYXkuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBRUE7RUFDRSxhQUFBO0FBREY7O0FBSUE7RUFDRSxzQkFBQTtFQUNBLFlBQUE7RUFDQSxXQUFBO0FBREYiLCJmaWxlIjoicGxheS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIlxuXG4uZ2FtZSB7XG4gIGRpc3BsYXk6IGZsZXg7XG59XG5cbi5pZnJhbWUge1xuICBib3JkZXI6IDVweCBzb2xpZCBncmV5O1xuICBoZWlnaHQ6IDgwdmg7XG4gIHdpZHRoOiAxMDAlO1xufVxuXG4iXX0= */"] });
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+    } }, directives: [_shared_components_code_editor_code_editor_component__WEBPACK_IMPORTED_MODULE_1__["CodeEditorComponent"]], styles: [".game[_ngcontent-%COMP%] {\n  display: flex;\n}\n\n.iframe[_ngcontent-%COMP%] {\n  border: 5px solid grey;\n  height: 80vh;\n  width: 100%;\n}\n\n.displays[_ngcontent-%COMP%] {\n  width: 100%;\n}\n\n.displays__objective[_ngcontent-%COMP%], .displays[_ngcontent-%COMP%]:hover   .displays__result[_ngcontent-%COMP%] {\n  display: none;\n}\n\n.displays[_ngcontent-%COMP%]:hover   .displays__objective[_ngcontent-%COMP%] {\n  display: block;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uLy4uL3BsYXkuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxhQUFBO0FBQ0Y7O0FBRUE7RUFDRSxzQkFBQTtFQUNBLFlBQUE7RUFDQSxXQUFBO0FBQ0Y7O0FBRUE7RUFDRSxXQUFBO0FBQ0Y7O0FBR0E7RUFDRSxhQUFBO0FBQUY7O0FBR0E7RUFDRSxjQUFBO0FBQUYiLCJmaWxlIjoicGxheS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5nYW1lIHtcbiAgZGlzcGxheTogZmxleDtcbn1cblxuLmlmcmFtZSB7XG4gIGJvcmRlcjogNXB4IHNvbGlkIGdyZXk7XG4gIGhlaWdodDogODB2aDtcbiAgd2lkdGg6IDEwMCU7XG59XG5cbi5kaXNwbGF5cyB7XG4gIHdpZHRoOiAxMDAlO1xuXG59XG5cbi5kaXNwbGF5c19fb2JqZWN0aXZlLCAuZGlzcGxheXM6aG92ZXIgLmRpc3BsYXlzX19yZXN1bHQge1xuICBkaXNwbGF5OiBub25lXG59XG5cbi5kaXNwbGF5czpob3ZlciAuZGlzcGxheXNfX29iamVjdGl2ZSB7XG4gIGRpc3BsYXk6IGJsb2NrXG59Il19 */"] });
 
 
 /***/ }),
