@@ -6,16 +6,9 @@ import { Injectable } from '@angular/core';
 })
 export class DbService {
 
-  // optionRequete = {
-  //   headers: new HttpHeaders({ 
-  //     'Access-Control-Allow-Origin':'*',
-
-  //   })
-  // };
-
   constructor(private http: HttpClient) { }
 
   testBackend() {
-    this.http.get('http://localhost:3000/', {responseType: 'text'}).subscribe(x => console.log(x))
+    this.http.get('https://front-end-battle.herokuapp.com/', {responseType: 'text'}).subscribe(x => console.log(x))
   }
 }

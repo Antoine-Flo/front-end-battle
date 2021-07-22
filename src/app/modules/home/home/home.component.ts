@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DbService } from 'src/app/core/services/db.service';
+
 
 @Component({
   selector: 'app-home',
@@ -8,12 +8,10 @@ import { DbService } from 'src/app/core/services/db.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private db: DbService) { }
+  constructor() { }
 
   ngOnInit(): void {
   }
 
-  onTest() {
-    this.db.testBackend()
-  }
+
 }
