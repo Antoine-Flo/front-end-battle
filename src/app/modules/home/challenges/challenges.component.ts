@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChallengeService } from 'src/app/core/services/challenge.service';
 
 @Component({
   selector: 'app-challenges',
@@ -6,10 +7,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./challenges.component.scss']
 })
 export class ChallengesComponent implements OnInit {
+  challenges: any;
+  iframe: any;
 
-  constructor() { }
+  @ViewChild('iframeExemple', { static: true }) iframeExemple!: ElementRef;
+
+
+  constructor(private challengesService: ChallengeService) { }
 
   ngOnInit(): void {
+    this.challengesService.getChallenges().subscribe(x => this.challenges = x);
+    this.iframe = this.iframeExemple.nativeElement.contentWindow.document;
   }
+
 
 }

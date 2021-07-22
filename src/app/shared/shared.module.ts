@@ -9,6 +9,7 @@ import { TabComponent } from './components/tab/tab.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { NavComponent } from './components/nav/nav.component';
 import { ModalComponent } from './components/modal/modal.component';
+import { SafePipe } from './pipes/safe.pipe';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { ModalComponent } from './components/modal/modal.component';
     NavComponent,
     FooterComponent,
     ModalComponent,
+    SafePipe,
   ],
   imports: [
     CommonModule,
@@ -32,6 +34,7 @@ import { ModalComponent } from './components/modal/modal.component';
     NavComponent,
     FooterComponent,
     ModalComponent,
+    SafePipe
   ],
 })
 export class SharedModule {}

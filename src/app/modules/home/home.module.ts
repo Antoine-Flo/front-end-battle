@@ -8,8 +8,6 @@ import { HomeComponent } from './home/home.component';
 import { ChallengesComponent } from './challenges/challenges.component';
 
 
-
-
 @NgModule({
   declarations: [HomeComponent, ChallengesComponent],
   imports: [
