@@ -9,24 +9,21 @@
       Se connecter
     </button>
 
-    <button (click)="modalSignUp = true" class="scd-btn start__btn">
+    <!-- <button (click)="modalSignUp = true" class="scd-btn start__btn">
       S'inscrire
-    </button>
+    </button> -->
   </div>
 
-  <button [routerLink]="['/home/game']"  class="scd-btn start__test">
-    Tester l'app
-  </button>
 
   <app-modal *ngIf="modalSignIn" (dismiss)="modalSignIn = false">
     <app-sign-in></app-sign-in>
   </app-modal>
 
 
-  <app-modal *ngIf="modalSignUp" (dismiss)="modalSignUp = false">
+  <!-- <app-modal *ngIf="modalSignUp" (dismiss)="modalSignUp = false">
     <h1 modalTitle class="signUp__title font-white">S'inscrire</h1>
     <app-sign-up></app-sign-up>
-  </app-modal>
+  </app-modal> -->
 
 
 

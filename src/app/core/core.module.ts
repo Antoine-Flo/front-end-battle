@@ -12,7 +12,6 @@ import { HttpClientModule } from '@angular/common/http'
     CommonModule,
     SharedModule,
     HttpClientModule,
-
   ]
 })
 export class CoreModule { }

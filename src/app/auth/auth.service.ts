@@ -21,6 +21,12 @@ export class AuthService {
     this.updateUser(credentials.user);
   }
 
+  async signinGitHub() {
+    const provider = new app.auth.GithubAuthProvider()
+    const credentials = await this.auth.signInWithPopup(provider);
+    this.updateUser(credentials.user);
+  }
+
   logout() {
     this.auth.signOut().then(() => {
       console.log("Signed Out");

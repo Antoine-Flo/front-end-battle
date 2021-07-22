@@ -2,7 +2,7 @@
 
     <div (click)="$event.stopPropagation()" class="modal">
 
-        <i class="modal__close" (click)="onDismissClick()">X</i>
+        <p class="modal__close font-white" (click)="onDismissClick()">Fermer</p>
 
         <div class="modal__header">
             <ng-content select="[modalTitle]"></ng-content>
@@ -10,10 +10,6 @@
 
         <div class="modal__content">
             <ng-content></ng-content>
-        </div>
-
-        <div class="modal__actions">
-            <button (click)="onDismissClick()" class="ui button primary">Ok</button>
         </div>
 
         <div class="modal__footer">

@@ -22,8 +22,11 @@ export class SignInComponent implements OnInit {
     });
   }
 
-  logOut() {
-    this.authService.logout();
+  connectWithGitHub() {
+    this.authService.signinGitHub().then((userData: any) => {
+      this.updateUser(userData);
+      this.router.navigate(['home'])
+    });
   }
 
   updateUser(userData: any) {

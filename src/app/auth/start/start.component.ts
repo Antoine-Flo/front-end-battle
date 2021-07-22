@@ -9,7 +9,7 @@ export class StartComponent implements OnInit {
 
 
   modalSignIn = false;
-  modalSignUp = false;
+  // modalSignUp = false;
 
   constructor() { }
 
