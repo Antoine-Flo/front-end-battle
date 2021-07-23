@@ -1,8 +1,16 @@
-<div *ngFor="let challenge of challenges" class="challenge">
+<!-- <div *ngFor="let challenge of challenges" class="challenge">
     <h2 class="challenge__title font-white">{{ challenge.id }}</h2>
     <p>{{ challenge.src }}</p>
 
     <iframe class="iframe displays__result" #iframeExemple frameborder="0"></iframe>
+    <button [routerLink]="['game']" class="challenge__select">Résoudre</button>
+
+</div> -->
+<div class="challenge">
+    <h2 class="challenge__title font-white">Let's try the text-editor</h2>
+    
+
+    <!-- <iframe class="iframe displays__result" #iframeExemple frameborder="0"></iframe> -->
     <button [routerLink]="['game']" class="challenge__select">Résoudre</button>
 
 </div>

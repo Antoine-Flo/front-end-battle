@@ -16,8 +16,8 @@ export class ChallengesComponent implements OnInit {
   constructor(private challengesService: ChallengeService) { }
 
   ngOnInit(): void {
-    this.challengesService.getChallenges().subscribe(x => this.challenges = x);
-    this.iframe = this.iframeExemple.nativeElement.contentWindow.document;
+    // this.challengesService.getChallenges().subscribe(x => this.challenges = x);
+    // this.iframe = this.iframeExemple.nativeElement.contentWindow.document;
   }
 
 
