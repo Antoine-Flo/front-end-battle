@@ -18,7 +18,6 @@ export class PlayComponent implements OnInit {
     this.result = this.iframeResult.nativeElement.contentWindow.document;
   }
 
-
   onCodeChange(code: string) {
     this.result.open('text/htmlreplace');
     this.result.write(`${code}`);
