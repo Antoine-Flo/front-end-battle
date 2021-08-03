@@ -11,27 +11,9 @@ export class CodeEditorComponent implements AfterViewInit {
 
   @ViewChild("editor") private editor!: ElementRef<HTMLElement>;
   @Input() mode = "";
+  @Input() defaultCode: string;
   @Output() codeChange = new EventEmitter<string>();
 
-  defaultCode = 
-`<h1 class="title">Bonne Chance 😀<h1>
-
-<style>
-
-    body {
-        background-color: #00adb5;
-    }
-    
-    .title {
-        font-size: 4rem;
-        font-family: sans-serif;
-        color: #ddeeee;
-        margin-top: 5rem;
-        text-align: center;
-    }
-
-</style>
-`;
 
   constructor() { }
 

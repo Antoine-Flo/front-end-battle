@@ -9,6 +9,24 @@ export class CreateComponent implements OnInit {
 
   @ViewChild('iframeResult', { static: true }) iframeResult!: ElementRef;
   result: any;
+  defaultCode = `<h1 class="title">Laissez libre cours à votre imagination 🎨<h1>
+
+  <style>
+  
+      body {
+          background-color: #00adb5;
+      }
+      
+      .title {
+          font-size: 2.5rem;
+          font-family: sans-serif;
+          color: #ddeeee;
+          margin-top: 8rem;
+          text-align: center;
+      }
+  
+  </style>
+  `
 
   constructor() { }
 
