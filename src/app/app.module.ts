@@ -12,6 +12,8 @@ import { AuthModule } from './auth/auth.module';
 import { CoreModule } from './core/core.module';
 import { GameModule } from './modules/game/game.module';
 import { HomeModule } from './modules/home/home.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ProfilModule } from './modules/profil/profil.module';
 
 
 
@@ -24,11 +26,13 @@ import { HomeModule } from './modules/home/home.module';
     AngularFirestoreModule,
     AngularFireAuthModule,
     AppRoutingModule,
+    ReactiveFormsModule,
     GameModule,
     HomeModule,
     BrowserModule,
     CoreModule,
-    AuthModule
+    AuthModule,
+    ProfilModule
   ],
   providers: [],
   bootstrap: [AppComponent]

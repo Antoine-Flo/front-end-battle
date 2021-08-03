@@ -1,9 +1,9 @@
 <nav class="nav">
   <div class="nav__logo"> <a [routerLink]="['/home']">FEB</a></div>
 
-
-  <ul class="nav__items font-white">
-      <li *ngIf="user"> <a (click)="onLogOut()" class="nav__item">Log Out</a></li>
+  <ul *ngIf="user" class="nav__items font-white">
+      <li> <a [routerLink]="['/profil']"  class="nav__item">Profile</a></li>
+      <li> <a (click)="onLogOut()" class="nav__item">Log Out</a></li>
   </ul>
 
 </nav>
