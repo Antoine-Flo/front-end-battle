@@ -8,17 +8,15 @@
 
     &__items {
         margin-right: 2rem;
+        display: flex;
+    }
+
+    &__item {
+        margin-right: 2rem;
     }
 
     &__logo {
-        font-size: 5rem;
+        font-size: 4rem;
         color: var(--blue);
     }
-}
-
-.log {
-    width: 300px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
 }

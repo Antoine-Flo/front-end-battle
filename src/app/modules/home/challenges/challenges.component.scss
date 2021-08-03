@@ -2,7 +2,6 @@
     margin: 2rem auto;
     padding: 2rem;
     border-radius: 10px;
-    width: clamp(140px, 70%, 1500px);
     background-color: var(--grey);
 
     &__select {
@@ -11,9 +10,4 @@
         border-radius: 10px;
         margin-left: 80%;
     }
-}
-
-.iframe {
-    height: 80vh;
-    width: 100%;
 }

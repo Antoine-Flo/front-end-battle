@@ -4,40 +4,40 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { CodeEditorComponent } from './components/code-editor/code-editor.component';
-import { TabComponent } from './components/tab/tab.component';
 
 import { FooterComponent } from './components/footer/footer.component';
 import { NavComponent } from './components/nav/nav.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { SafePipe } from './pipes/safe.pipe';
-import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { LayoutComponent } from './components/layout/layout.component';
+import { InputComponent } from './components/input/input.component';
 
 
 @NgModule({
   declarations: [
     CodeEditorComponent,
-    TabComponent,
     NavComponent,
     FooterComponent,
     ModalComponent,
     SafePipe,
-    PageNotFoundComponent,
+    LayoutComponent,
+    InputComponent,
   ],
   imports: [
     CommonModule,
     RouterModule,
     HttpClientModule,
     ReactiveFormsModule,
-
   ],
   exports: [
-    TabComponent,
+    ReactiveFormsModule,
+    LayoutComponent,
     CodeEditorComponent,
     NavComponent,
     FooterComponent,
     ModalComponent,
+    InputComponent,
     SafePipe,
-    PageNotFoundComponent
   ],
 })
 export class SharedModule {}

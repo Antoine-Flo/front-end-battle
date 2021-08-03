@@ -1,0 +1,9 @@
+.home {
+    margin: 2rem auto;
+    width: clamp(140px, 70%, 1500px);
+
+    &__btn {
+        display: block;
+        margin: 0 auto;
+    }
+}

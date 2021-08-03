@@ -1,16 +1,31 @@
-<div class="game">
+<app-layout>
 
-  <app-code-editor mode="html" (codeChange)="onCodeChange($event)"></app-code-editor>
-
-
-<div class="displays">
-
-  <iframe class="iframe displays__objective" src="assets/challenges/test.html" #iframeObjective frameborder="0"></iframe>
-
-  <iframe class="iframe displays__result" #iframeResult frameborder="0"></iframe>
-
-</div>
+  <div class="tuto">
 
 
+    <p class="tuto__text"><span class="tuto__title"> Bienvenue sur le tutoriel.</span> L'écran de jeux se divise en deux
+      parties. Sur la gauche l'éditeur de
+      texte que vous aurez reconnu. Sur la droite se trouve le rendu de votre code et l'objectif du challenge. Passer la
+      souris dessus pour voir apparaitre l'objectif. Essayer
+      de reproduire le modèle en écrivant le code le plus propre et accessible possible, bonne chance 💪.
+    </p>
+  </div>
 
-</div>
+  <div class="game">
+
+    <app-code-editor [defaultCode]="defaultCode" mode="html" (codeChange)="onCodeChange($event)"></app-code-editor>
+
+    <div class="displays">
+      <iframe class="iframe displays__objective" src="assets/challenges/tuto.html" #iframeObjective
+        frameborder="0"></iframe>
+      <iframe class="iframe displays__result" #iframeResult frameborder="0"></iframe>
+    </div>
+
+  </div>
+
+    <button class="main-btn game__btn">Enregistrer</button>
+    <button [routerLink]="['/home']" class="scd-btn game__btn">Annuler</button>
+
+
+
+</app-layout>

@@ -1,0 +1,26 @@
+<app-layout>
+
+  <div class="profile">
+
+    <h1 class="profile__title">Profile</h1>
+
+    <form class="profile__form" (ngSubmit)="onSubmit()" [formGroup]="profileForm">
+
+      <app-input class="profile__item" inputType="text" label="Nom"></app-input>
+
+      <app-input class="profile__item" inputType="text" label="Prénom"></app-input>
+
+      <app-input class="profile__item" inputType="text" label="Email"></app-input>
+
+      <app-input class="profile__item" inputType="text" label="Xp"></app-input>
+
+
+      <button class="profile__btn">Sauvegarder</button>
+
+    </form>
+
+  </div>
+
+
+
+</app-layout>
