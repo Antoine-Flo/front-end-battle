@@ -10,6 +10,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { NavComponent } from './components/nav/nav.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { SafePipe } from './pipes/safe.pipe';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { SafePipe } from './pipes/safe.pipe';
     FooterComponent,
     ModalComponent,
     SafePipe,
+    PageNotFoundComponent,
   ],
   imports: [
     CommonModule,
@@ -34,7 +36,8 @@ import { SafePipe } from './pipes/safe.pipe';
     NavComponent,
     FooterComponent,
     ModalComponent,
-    SafePipe
+    SafePipe,
+    PageNotFoundComponent
   ],
 })
 export class SharedModule {}

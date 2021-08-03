@@ -12,12 +12,15 @@ import { HomeComponent } from './modules/home/home/home.component';
 
 import { canActivate, redirectLoggedInTo } from '@angular/fire/auth-guard';
 import { redirectUnauthorizedTo } from '@angular/fire/auth-guard';
+import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
 
 const redirectUnauthorizedToStart = () => redirectUnauthorizedTo(['start'])
 const redirectLoggedInToHome = () => redirectLoggedInTo(['home']);
 
 const routes: Routes = [
   { path: '', redirectTo: 'start', pathMatch: 'full' },
+  { path: 'start', component: StartComponent, ...canActivate(redirectLoggedInToHome) },
+  { path: 'game', component: PlayComponent,  ...canActivate(redirectUnauthorizedToStart)},
   {
     path: 'home',
     component: HomeComponent,
@@ -27,7 +30,7 @@ const routes: Routes = [
       { path: '', component: ChallengesComponent },
     ],
   },
-  { path: 'start', component: StartComponent, ...canActivate(redirectLoggedInToHome) },
+  { path: '**', component:  PageNotFoundComponent}
 ];
 
 @NgModule({
