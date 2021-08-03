@@ -28,15 +28,16 @@ import { InputComponent } from './components/input/input.component';
     RouterModule,
     HttpClientModule,
     ReactiveFormsModule,
-
   ],
   exports: [
+    ReactiveFormsModule,
     LayoutComponent,
     CodeEditorComponent,
     NavComponent,
     FooterComponent,
     ModalComponent,
-    SafePipe
+    InputComponent,
+    SafePipe,
   ],
 })
 export class SharedModule {}
