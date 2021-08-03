@@ -6,13 +6,7 @@
 
     <form class="profile__form" (ngSubmit)="onSubmit()" [formGroup]="profileForm">
 
-      <app-input class="profile__item" inputType="text" label="Nom"></app-input>
-
-      <app-input class="profile__item" inputType="text" label="Prénom"></app-input>
-
-      <app-input class="profile__item" inputType="text" label="Email"></app-input>
-
-      <app-input class="profile__item" inputType="text" label="Xp"></app-input>
+      <app-input class="profile__item" inputType="text"  label="Nom" [control]="profileForm.get('nom')"></app-input>
 
 
       <button class="profile__btn">Sauvegarder</button>

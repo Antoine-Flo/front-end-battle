@@ -7,11 +7,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./profil.component.scss']
 })
 export class ProfilComponent implements OnInit {
-  // profileForm = new FormGroup({
-  //   nom: new FormControl('', [
-  //     Validators.required
-  //   ])
-  // })
+
 
   profileForm = new FormGroup({
     nom: new FormControl('', [
