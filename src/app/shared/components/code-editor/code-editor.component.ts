@@ -18,7 +18,8 @@ export class CodeEditorComponent implements AfterViewInit {
   constructor() { }
 
   changeFont() {
-
+    console.log("changefont");
+    
   }
 
   changeTheme() {

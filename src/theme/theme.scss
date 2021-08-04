@@ -1,38 +1,45 @@
-
-
 button {
-    color: var(--white);
-    transition: all .2s;
-    
-    &:active {
-        outline: none;
-        border: none;
-      }
+  color: var(--white);
+  transition: all 0.2s;
 
-    &:focus {
-        outline: none;
-    }
+  &:active {
+    outline: none;
+    border: none;
+  }
 
-    &:hover {
-        opacity: .8;
-    }
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    opacity: 0.8;
+  }
 }
 
-
 .main-btn {
-    font-family: 'Noto Sans JP';
-    font-size: 1.5rem;
-    background-color: var(--blue);
-    border: 2px solid var(--blue);
-    padding: .5rem 2rem;
-    border-radius: 3px;
+  font-family: "Noto Sans JP";
+  font-size: 1.1rem;
+  background-color: var(--blue);
+  border: 2px solid var(--blue);
+  padding: 0.5rem 2rem;
+  border-radius: 3px;
 }
 
 .scd-btn {
-    font-family: 'Noto Sans JP';
-    font-size: 1.5rem;
-    background-color: var(--grey);
-    border: 2px solid var(--blue);
-    padding: .5rem 2rem;
-    border-radius: 3px;
+  font-family: "Noto Sans JP";
+  font-size: 1.1rem;
+  background-color: var(--grey);
+  border: 2px solid var(--blue);
+  padding: 0.5rem 2rem;
+  border-radius: 3px;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  margin: 2rem auto;
+  border-radius: 4px;
+  background-color: var(--grey);
+  border: 2px solid var(--light-grey);
 }

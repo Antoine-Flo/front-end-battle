@@ -1,9 +1,17 @@
+.challenges {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
 .challenge {
-    display: flex;
-    padding: 1rem;
-    margin: 2rem auto;
-    border-radius: 4px;
-    background-color: var(--grey);
+
+    &:hover {
+        opacity: 1.5;
+        cursor: pointer;
+        background-color: var(--light-grey);
+        border: 2px solid var(--black);
+    }
 
     &__content {
         margin: 1rem;
@@ -11,7 +19,7 @@
     }
 
     &__title {
-        font-size: 2rem;
+        font-size: 1.8rem;
         margin-bottom: 1rem;
     }
 
@@ -20,13 +28,11 @@
     }
 
     &__img {
-        height: 200px;
+        width: 20vw;
     }
 
     &__select {
         align-self: flex-end;
-        background-color: var(--blue);
-        padding: 1rem 2rem;
-        border-radius: 10px;
     }
+
 }

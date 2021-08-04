@@ -1,6 +1,7 @@
 .profile {
     background-color: var(--grey);
     margin: 2rem auto;
+    padding: 2rem;
     border-radius: 3px;
     width: clamp(400px, 80%, 1400px);
     display: flex;
@@ -14,15 +15,11 @@
         color: var(--white);
     }
 
-    // &__form {
-
-    // }
-
     &__item {
         margin: 1rem;
     }
 
-    // &__btn {
-
-    // }
+    &__btn {
+        margin-top: 2rem;
+    }
 }

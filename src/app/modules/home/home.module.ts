@@ -6,10 +6,11 @@ import { FormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { HomeComponent } from './home/home.component';
 import { ChallengesComponent } from './challenges/challenges.component';
+import { ProgressionComponent } from './progression/progression.component';
 
 
 @NgModule({
-  declarations: [HomeComponent, ChallengesComponent],
+  declarations: [HomeComponent, ChallengesComponent, ProgressionComponent],
   imports: [
     SharedModule,
     FormsModule,
