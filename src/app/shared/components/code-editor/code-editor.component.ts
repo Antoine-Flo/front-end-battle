@@ -17,9 +17,17 @@ export class CodeEditorComponent implements AfterViewInit {
 
   constructor() { }
 
+  changeFont() {
+
+  }
+
+  changeTheme() {
+
+  }
+
   ngAfterViewInit(): void {
 
-    ace.config.set("fontSize", "25px");
+    ace.config.set("fontSize", "20px");
     ace.config.set('basePath', 'https://unpkg.com/ace-builds@1.4.12/src-noconflict');
 
     const editor = ace.edit(this.editor.nativeElement);
