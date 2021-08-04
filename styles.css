@@ -2,10 +2,14 @@
 
 /* You can add global styles to this file, and also import other style files */
 :root {
+  --deep-black: #1B2027;
   --black: #222831;
   --grey: #393e46;
+  --light-grey: #656E7C;
+  --deep-white: #DEDEDE;
   --white: #eeeeee;
   --blue: #00adb5;
+  --light-blue: #24F5FF;
   --purple: #c785ce;
 }
 button {
@@ -24,7 +28,7 @@ button:hover {
 }
 .main-btn {
   font-family: "Noto Sans JP";
-  font-size: 1.5rem;
+  font-size: 1.1rem;
   background-color: var(--blue);
   border: 2px solid var(--blue);
   padding: 0.5rem 2rem;
@@ -32,11 +36,20 @@ button:hover {
 }
 .scd-btn {
   font-family: "Noto Sans JP";
-  font-size: 1.5rem;
+  font-size: 1.1rem;
   background-color: var(--grey);
   border: 2px solid var(--blue);
   padding: 0.5rem 2rem;
   border-radius: 3px;
+}
+.box {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  margin: 2rem auto;
+  border-radius: 4px;
+  background-color: var(--grey);
+  border: 2px solid var(--light-grey);
 }
 a, li, p, h1, h2, button {
   letter-spacing: 1px;
