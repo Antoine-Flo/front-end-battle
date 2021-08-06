@@ -1,14 +1,16 @@
 .home {
     margin: 2rem auto;
-    width: clamp(140px, 90%, 1500px);
 
     &__title {
         font-size: 2rem;
     }
 
     &__section {
-        margin: 1rem;
         padding: 1rem;
+    }
 
+    &__challenges {
+        padding: 2rem 0;
+        // background-color: var(--grey);
     }
 }

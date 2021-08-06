@@ -1,15 +1,34 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Challenge } from '../models/challenge.model'
+
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ChallengeService {
 
-  constructor(private http: HttpClient) { }
+  url = 'https://front-end-battle.herokuapp.com/challenges'
 
-  // Launch server: json-server --watch ./mock/db.json
-  // getChallenges() {
-  //   return this.http.get('http://localhost:3000/challenges')
-  // }
+  constructor(private http: HttpClient) {}
+
+  getChallenge(id: string) {
+    
+  }
+
+  getChallenges() {
+    return this.http.get(this.url);
+  }
+
+  createChallenge(challenge: Challenge): Observable<Challenge> {
+    return this.http
+      .post<Challenge>(this.url, challenge)
+
+  }
+
+  updateChallenge() {}
+
+  deleteChallenge(id: string) {}
+
 }

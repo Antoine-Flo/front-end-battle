@@ -1,5 +1,7 @@
 <div class="challenges">
 
+  <button (click)="onShowChallenges()" class="main-btn">Show Challenges</button>
+  <p>{{challenges | json}}</p>
 
   <div [routerLink]="['/play']" class="challenge box">
     <img class="challenge__img" src="assets/challenges/tuto/tuto.jpg" alt="image challenge">

@@ -2,19 +2,21 @@
 
   <div class="home">
 
-    <div class="home__progression home__section">
+    <div class="home__section container">
       <h2 class="home__title font-white">Progression</h2>
       <app-progression></app-progression>
     </div>
 
-    <div class="home__create-challenge home__section">
-      <h2 class="home__title font-white">Créer un challenge</h2>
-      <div class="box">
+    <div class="home__challenges">
+      <div class="container">
+        <h2 class="home__title font-white">Créer un challenge</h2>
+        <div class="box">
           <button class="font-white main-btn home__btn" [routerLink]="['/create']">C'est partis</button>
+        </div>
       </div>
     </div>
 
-    <div class="home__challenges home__section">
+    <div class="home__section container">
       <h2 class="home__title font-white">Challenges</h2>
       <app-challenges></app-challenges>
     </div>

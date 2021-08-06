@@ -1,3 +1,7 @@
+///////////////////////////////////
+/////////// Buttons /////////////
+///////////////////////////////////
+
 button {
   color: var(--white);
   transition: all 0.2s;
@@ -11,27 +15,46 @@ button {
     outline: none;
   }
 
-  &:hover {
-    opacity: 0.8;
-  }
 }
 
 .main-btn {
   font-family: "Noto Sans JP";
   font-size: 1.1rem;
-  background-color: var(--blue);
-  border: 2px solid var(--blue);
+  background-color: var(--main);
+  border: 2px solid var(--main);
   padding: 0.5rem 2rem;
   border-radius: 3px;
+
+  &:hover {
+    background-color: var(--deep-main);
+    border: 2px solid var(--light-main);
+    color: var(--deep-white);
+  }
 }
 
 .scd-btn {
   font-family: "Noto Sans JP";
   font-size: 1.1rem;
   background-color: var(--grey);
-  border: 2px solid var(--blue);
+  border: 2px solid var(--main);
   padding: 0.5rem 2rem;
   border-radius: 3px;
+
+  &:hover {
+    background-color: var(--main);
+    border: 2px solid var(--deep-white);
+    color: var(--deep-white);
+  }
+}
+
+///////////////////////////////////
+/////////// Utilitary /////////////
+///////////////////////////////////
+
+
+.container {
+  margin: 0 auto;
+  width: clamp(140px, 90%, 1500px);
 }
 
 .box {
