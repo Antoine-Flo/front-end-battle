@@ -8,9 +8,11 @@
   --light-grey: #656E7C;
   --deep-white: #DEDEDE;
   --white: #eeeeee;
-  --blue: #00adb5;
-  --light-blue: #24F5FF;
-  --purple: #c785ce;
+  --deep-main: #00585C;
+  --main: #00adb5;
+  --light-main: #24F5FF;
+  --secondary: #c785ce;
+  --transparent: rgba($color: #000000, $alpha: .2);
 }
 button {
   color: var(--white);
@@ -23,24 +25,35 @@ button:active {
 button:focus {
   outline: none;
 }
-button:hover {
-  opacity: 0.8;
-}
 .main-btn {
   font-family: "Noto Sans JP";
   font-size: 1.1rem;
-  background-color: var(--blue);
-  border: 2px solid var(--blue);
+  background-color: var(--main);
+  border: 2px solid var(--main);
   padding: 0.5rem 2rem;
   border-radius: 3px;
+}
+.main-btn:hover {
+  background-color: var(--deep-main);
+  border: 2px solid var(--light-main);
+  color: var(--deep-white);
 }
 .scd-btn {
   font-family: "Noto Sans JP";
   font-size: 1.1rem;
   background-color: var(--grey);
-  border: 2px solid var(--blue);
+  border: 2px solid var(--main);
   padding: 0.5rem 2rem;
   border-radius: 3px;
+}
+.scd-btn:hover {
+  background-color: var(--main);
+  border: 2px solid var(--deep-white);
+  color: var(--deep-white);
+}
+.container {
+  margin: 0 auto;
+  width: clamp(140px, 90%, 1500px);
 }
 .box {
   display: flex;
