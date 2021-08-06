@@ -14,7 +14,7 @@ export class ChallengeService {
   constructor(private http: HttpClient) {}
 
   getChallenge(id: string) {
-    
+    return this.http.get<Challenge>(`${this.url}/${id}`)
   }
 
   getChallenges() {
@@ -24,7 +24,6 @@ export class ChallengeService {
   createChallenge(challenge: Challenge): Observable<Challenge> {
     return this.http
       .post<Challenge>(this.url, challenge)
-
   }
 
   updateChallenge() {}
