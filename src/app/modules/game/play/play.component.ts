@@ -50,10 +50,6 @@ export class PlayComponent implements OnInit {
       pluck('code'),
       tap(x => this.updateIframe(this.objective, window.atob(x)))
     ).subscribe()
-    
-    this.objective.open('text/htmlreplace');
-    this.objective.write(`${this.objectiveCode}`);
-    this.objective.close();
   }
 
   onCodeChange(code: string) {

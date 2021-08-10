@@ -2,7 +2,7 @@
 
   <div class="create">
 
-    <app-code-editor [defaultCode]="defaultCode" mode="html" (codeChange)="onCodeChange($event)"></app-code-editor>
+    <app-code-editor defaultCode="defaultCode" mode="html" (codeChange)="onCodeChange($event)"></app-code-editor>
 
     <iframe class="create__iframe" #iframeResult frameborder="0"></iframe>
 
