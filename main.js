@@ -1655,7 +1655,7 @@ __webpack_require__.r(__webpack_exports__);
 class ChallengeService {
     constructor(http) {
         this.http = http;
-        this.url = 'https://front-end-battle.herokuapp.com/challenges';
+        this.url = 'https://feb-api.com/challenges';
     }
     getChallenge(id) {
         return this.http.get(`${this.url}/${id}`);
