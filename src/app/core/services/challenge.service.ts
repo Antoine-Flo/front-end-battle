@@ -9,7 +9,7 @@ import { Challenge } from '../models/challenge.model'
 })
 export class ChallengeService {
 
-  url = 'https://front-end-battle.herokuapp.com/challenges'
+  url = 'https://feb-api.com/challenges'
 
   constructor(private http: HttpClient) {}
 
