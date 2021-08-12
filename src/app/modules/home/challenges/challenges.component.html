@@ -1,9 +1,8 @@
 <div class="challenges">
 
-  <div class="box">
+  <div class="box challenges__show">
 
-    <button (click)="onShowChallenges()" class="main-btn">Show Challenges</button>
-    <p class="font-white">{{challenges | json}}</p>
+    <button (click)="onShowChallenges()" class="main-btn">Show Id</button>
   </div>
 
   <div [routerLink]="['/play']" class="challenge box">

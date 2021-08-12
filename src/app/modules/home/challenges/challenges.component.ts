@@ -7,7 +7,7 @@ import { ChallengeService } from 'src/app/core/services/challenge.service';
   styleUrls: ['./challenges.component.scss']
 })
 export class ChallengesComponent implements OnInit {
-  challenges: any;
+  challenges: {};
   iframe: any;
 
   @ViewChild('iframeExemple', { static: true }) iframeExemple!: ElementRef;
@@ -16,10 +16,10 @@ export class ChallengesComponent implements OnInit {
   constructor(private challengesService: ChallengeService) { }
 
   ngOnInit(): void {
+    this.challengesService.getChallenges().subscribe(x => this.challenges = x);
   }
   
   onShowChallenges() {
-    return this.challengesService.getChallenges().subscribe(x => this.challenges = x);
     
   }
 
