@@ -2,12 +2,24 @@
 
   <div class="create">
 
-    <app-code-editor defaultCode="defaultCode" mode="html" (codeChange)="onCodeChange($event)"></app-code-editor>
+    <app-code-editor [defaultCode]="defaultCode" mode="html" (codeChange)="onCodeChange($event)"></app-code-editor>
 
     <iframe class="create__iframe" #iframeResult frameborder="0"></iframe>
 
   </div>
 
-  <button class="main-btn create__btn">Enregistrer</button>
-  <button [routerLink]="['/home']"  class="scd-btn create__btn">Annuler</button>
+  <button class="main-btn create__btn" (click)="modalSaveNew = true">Enregistrer</button>
+  <button class="scd-btn create__btn" [routerLink]="['/home']" >Annuler</button>
+
+  <app-modal *ngIf="modalSaveNew" (dismiss)="modalSaveNew = false">
+    <form>
+      <label for="title">Title</label>
+      <input type="text" name="title">
+
+      <label for="Description">Description</label>
+      <input type="text" name="Description">
+
+      <button class="main-btn">Save</button>
+    </form>
+  </app-modal>
 </app-layout>

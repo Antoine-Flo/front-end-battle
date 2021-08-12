@@ -8,6 +8,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 export class CreateComponent implements OnInit {
 
   @ViewChild('iframeResult', { static: true }) iframeResult!: ElementRef;
+  modalSaveNew = false;
   result: any;
   defaultCode = `
 <h1 class="title">Laissez libre cours à votre imagination 🎨<h1>
@@ -20,7 +21,6 @@ export class CreateComponent implements OnInit {
     
   .title {
       font-size: 2.5rem;
-      font-family: sans-serif;
       color: #ddeeee;
       margin-top: 8rem;
       text-align: center;
@@ -28,7 +28,7 @@ export class CreateComponent implements OnInit {
   
 </style>
   `
-
+  
   constructor() { }
 
   ngOnInit() {
