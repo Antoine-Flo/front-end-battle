@@ -1,26 +1,18 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { scan, tap } from 'rxjs/operators';
 import { ChallengeService } from 'src/app/core/services/challenge.service';
 
 @Component({
   selector: 'app-challenges',
   templateUrl: './challenges.component.html',
-  styleUrls: ['./challenges.component.scss']
+  styleUrls: ['./challenges.component.scss'],
 })
 export class ChallengesComponent implements OnInit {
-  challenges: {};
-  iframe: any;
+  challenges$: any;
 
-  @ViewChild('iframeExemple', { static: true }) iframeExemple!: ElementRef;
-
-
-  constructor(private challengesService: ChallengeService) { }
+  constructor(private challengesService: ChallengeService) {}
 
   ngOnInit(): void {
-    this.challengesService.getChallenges().subscribe(x => this.challenges = x);
+    this.challenges$ = this.challengesService.getChallenges();
   }
-  
-  onShowChallenges() {
-    
-  }
-
 }
