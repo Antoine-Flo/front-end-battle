@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -8,29 +10,26 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class SignUpComponent implements OnInit {
 
-  signupForm = new FormGroup({
-    nom: new FormControl('', [
-      Validators.required,
-      Validators.minLength(3),
-      Validators.maxLength(20),
-      Validators.pattern(/^[a-z0-9]+$/)
-    ]),
-    prenom: new FormControl('', [
-      Validators.required,
-      Validators.minLength(3),
-      Validators.maxLength(20),
-      Validators.pattern(/^[a-z0-9]+$/)
-    ]),
+  constructor(private authService: AuthService, private router: Router) {}
 
-  })
+  ngOnInit(): void {}
 
-  constructor() { }
-
-  ngOnInit(): void {
+  connectWithGoogle() {
+    this.authService.signinGoogle().then((userData: any) => {
+      this.updateUser(userData);
+      this.router.navigate(['home'])
+    });
   }
 
-  onSubmit() {
-    
+  connectWithGitHub() {
+    this.authService.signinGitHub().then((userData: any) => {
+      this.updateUser(userData);
+      this.router.navigate(['home'])
+    });
+  }
+
+  updateUser(userData: any) {
+    console.log(userData);
   }
 
 }

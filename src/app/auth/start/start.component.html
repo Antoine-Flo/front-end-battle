@@ -1,32 +1,32 @@
-<app-nav></app-nav>
+<app-layout>
 
-<div class="start">
+  <div class="start">
 
-  <h1 class="start__title">Bienvenue sur Front-End-Battle</h1>
+    <h1 class="start__title font-white">Bienvenue sur Front-End-Battle</h1>
 
-  <div class="start__logs">
-    <button (click)="modalSignIn = true" class="main-btn start__btn">
-      Se connecter
-    </button>
+    <div class="start__logs">
+      <button (click)="modalSignIn = true" class="main-btn start__btn">
+        Se connecter
+      </button>
 
-    <!-- <button (click)="modalSignUp = true" class="scd-btn start__btn">
-      S'inscrire
-    </button> -->
+      <button (click)="modalSignUp = true" class="scd-btn start__btn">
+        S'inscrire
+      </button>
+
+    </div>
+
+
+    <app-modal *ngIf="modalSignIn" (dismiss)="modalSignIn = false">
+      <app-sign-in></app-sign-in>
+    </app-modal>
+
+
+    <app-modal *ngIf="modalSignUp" (dismiss)="modalSignUp = false">
+      <app-sign-up></app-sign-up>
+    </app-modal>
+
+
+
   </div>
 
-
-  <app-modal *ngIf="modalSignIn" (dismiss)="modalSignIn = false">
-    <app-sign-in></app-sign-in>
-  </app-modal>
-
-
-  <!-- <app-modal *ngIf="modalSignUp" (dismiss)="modalSignUp = false">
-    <h1 modalTitle class="signUp__title font-white">S'inscrire</h1>
-    <app-sign-up></app-sign-up>
-  </app-modal> -->
-
-
-
-</div>
-
-<app-footer></app-footer>
+</app-layout>

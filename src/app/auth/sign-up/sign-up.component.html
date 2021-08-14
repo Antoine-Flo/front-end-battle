@@ -1,15 +1,9 @@
-<h1 class="signup__title font-white">Se connecter</h1>
+<div class="signup">
 
-<form class="signup" (ngSubmit)="onSubmit()" [formGroup]="signupForm">
+  <h1 class="signup__title font-white">S'inscrire'</h1>
+  
+  <img class="signup__btn" (click)="connectWithGoogle()" src="\assets\signin-btn-google.jpg" alt="">
 
-  <div class="">
-    <label for="nom">Nom</label>
-    <input class="signup__input" formControlName="name" type="text" id="nom">
-  </div>
-
-  <div class="">
-    <label for="prenom">Prénom</label>
-    <input class="signup__input" formControlName="prenom" type="text" id="prenom">
-  </div>
-
-</form>
+  <img class="signup__btn" (click)="connectWithGitHub()" src="\assets\signin-btn-github.jpg" alt="">
+  
+</div>

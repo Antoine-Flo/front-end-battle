@@ -1,5 +1,6 @@
 .modal-background {
     background-color: var(--transparent);
+    backdrop-filter: blur(2px);
     position: absolute;
     top: 0;
     bottom: 0;

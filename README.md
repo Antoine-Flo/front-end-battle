@@ -7,7 +7,7 @@ Front-end Battle is a small app similar to [CSS battle](https://cssbattle.dev/).
 There is still a lot to do, for now you can singup with Google or GitHub and try the embedded text-editor, soon I will add some challenges.
 
 
-[Test the app](https://front-end-battle.vercel.app/)
+<!-- [Test the app](https://front-end-battle.vercel.app/) -->
 
 ## How it's made
 
