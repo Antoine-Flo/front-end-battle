@@ -27,6 +27,24 @@ export class AuthService {
     this.updateUser(credentials.user);
   }
 
+  async signUpWithEmailPassword(email: string, password: string) {
+
+    // [START auth_signup_password]
+    app.auth().createUserWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        console.log("Signed-in");
+        
+        var user = userCredential.user;
+        // ...
+      })
+      .catch((error) => {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // ..
+      });
+    // [END auth_signup_password]
+  }
+
   logout() {
     this.auth.signOut().then(() => {
       console.log("Signed Out");

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-// import { AngularFirestoreDocument } from '@angular/fire/firestore';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
+import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -10,26 +9,25 @@ import { AuthService } from 'src/app/auth/auth.service';
   styleUrls: ['./sign-in.component.scss'],
 })
 export class SignInComponent implements OnInit {
-
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private user: UserService
+  ) {}
 
   ngOnInit(): void {}
 
   connectWithGoogle() {
     this.authService.signinGoogle().then((userData: any) => {
-      this.updateUser(userData);
-      this.router.navigate(['home'])
+      this.user.createUser(userData);
+      this.router.navigate(['home']);
     });
   }
 
   connectWithGitHub() {
     this.authService.signinGitHub().then((userData: any) => {
-      this.updateUser(userData);
-      this.router.navigate(['home'])
+      this.user.createUser(userData);
+      this.router.navigate(['home']);
     });
-  }
-
-  updateUser(userData: any) {
-    console.log(userData);
   }
 }
