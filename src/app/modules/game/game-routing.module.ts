@@ -5,7 +5,7 @@ import { PlayComponent } from './play/play.component';
 
 
 const routes: Routes = [
-  { path: 'play', component: PlayComponent},
+  { path: 'play/:id', component: PlayComponent},
   { path: 'create', component: CreateComponent},
 ];
 

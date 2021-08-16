@@ -2,13 +2,14 @@
 
   
 
-  <div *ngFor="let challenge of challenges$ | async" [routerLink]="['/game/play']" class="challenge box">
+  <div *ngFor="let challenge of challenges$ | async" [routerLink]="['/game/play', challenge.id]" class="challenge box">
     <img class="challenge__img" src="assets/challenges/tuto/tuto.jpg" alt="image challenge">
+    <!-- <p>{{ challenge | json }}</p> -->
     <div class="challenge__content">
       <h2 class="challenge__title font-white"> {{ challenge.title }} </h2>
       <p class="challenge__txt font-white"> {{ challenge.description }} </p>
     </div>
-    <button [routerLink]="['/game/play']" class="challenge__select scd-btn">Résoudre</button>
+    <button [routerLink]="['/game/play', challenge.id]" class="challenge__select scd-btn">Résoudre</button>
   </div>
 
 

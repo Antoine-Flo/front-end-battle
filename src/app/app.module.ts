@@ -14,7 +14,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ProfilModule } from './modules/profil/profil.module';
 
 
-
 @NgModule({
   declarations: [
     AppComponent
