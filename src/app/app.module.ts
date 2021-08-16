@@ -10,8 +10,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { CoreModule } from './core/core.module';
-import { GameModule } from './modules/game/game.module';
-import { HomeModule } from './modules/home/home.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProfilModule } from './modules/profil/profil.module';
 
@@ -27,8 +25,6 @@ import { ProfilModule } from './modules/profil/profil.module';
     AngularFireAuthModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    GameModule,
-    HomeModule,
     BrowserModule,
     CoreModule,
     AuthModule,
