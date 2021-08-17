@@ -14,7 +14,7 @@ export class ChallengeService {
   constructor(private http: HttpClient) {}
 
   getChallenge(id: string): Observable<Challenge> {
-    return this.http.get<Challenge>(`${this.url}/${id}`)
+    return this.http.get<Challenge>(`${this.url}/${id}`);
   }
 
   getChallenges(): Observable<Object> {
