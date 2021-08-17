@@ -12,6 +12,7 @@ import { AuthModule } from './auth/auth.module';
 import { CoreModule } from './core/core.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProfilModule } from './modules/profil/profil.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -28,7 +29,8 @@ import { ProfilModule } from './modules/profil/profil.module';
     BrowserModule,
     CoreModule,
     AuthModule,
-    ProfilModule
+    ProfilModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
