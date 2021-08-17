@@ -9,6 +9,8 @@ import { UserService } from 'src/app/core/services/user.service';
   styleUrls: ['./sign-in.component.scss'],
 })
 export class SignInComponent implements OnInit {
+  hide = true;
+  
   constructor(
     private authService: AuthService,
     private router: Router,
