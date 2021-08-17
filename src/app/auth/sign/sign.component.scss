@@ -1,0 +1,27 @@
+.sign {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__title {
+        font-size: 1.7rem;
+        margin: 2rem;
+    }
+
+    &__btn {
+        cursor: pointer;
+        margin: 0.5rem;
+        width: 15rem;
+    }
+
+    &__mail {
+        margin-top: 2rem;
+        padding: 2rem;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: var(--deep-white);
+    }
+}
