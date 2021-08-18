@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { UserService } from 'src/app/core/services/user.service';
@@ -14,9 +14,10 @@ export class SignComponent implements OnInit {
   @Input() title: string;
 
   signUpForm = this.formBuilder.group({
-    mail: ['', Validators.required, Validators.email],
-    password: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(7)]],
   });
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -35,20 +36,21 @@ export class SignComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const { mail, password } = this.signUpForm.value;
-
+    const { email, password } = this.signUpForm.value;
+    
     if (this.type === 'signIn') {
       this.authService
-        .signInWithEmailPassword(mail, password)
+        .signInWithEmailPassword(email, password)
         .then(() => {
           this.router.navigate(['home']);
         })
         .catch((err) => {
           console.log(err)
         })
+        
     } else if (this.type === 'signUp') {
       this.authService
-        .signUpWithEmailPassword(mail, password)
+        .signUpWithEmailPassword(email, password)
         .then(() => {
           this.router.navigate(['home']);
         })
@@ -57,4 +59,18 @@ export class SignComponent implements OnInit {
         });
     }
   }
+
+
+  getErrorEmail() {
+    return this.signUpForm.get('email').hasError('required') ? 'Champ requis' :
+      this.signUpForm.get('email').hasError('pattern') ? 'Format invalide' :
+        this.signUpForm.get('email').hasError('alreadyInUse') ? 'This emailaddress is already in use' : '';
+  }
+
+  getErrorPassword() {
+    return this.signUpForm.get('password').hasError('required') ? 'Champ requis' :
+      this.signUpForm.get('password').hasError('requirements') ? 'Password needs to be at least eight characters, one uppercase letter and one number' : '';
+  }
+
+
 }

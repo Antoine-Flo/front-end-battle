@@ -10,15 +10,18 @@
 
     <mat-form-field appearance="outline">
       <mat-label>E-Mail</mat-label>
-      <input matInput type="email" formControlName="mail">
+      <input matInput type="email" formControlName="email">
+      <mat-error *ngIf="!signUpForm.controls['email'].valid && signUpForm.controls['email'].touched">{{ getErrorEmail() }}</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
-      <mat-label>Enter your password</mat-label>
+      <mat-label>Mot de passe</mat-label>
       <input matInput type="password" formControlName="password">
+      <mat-error *ngIf="!signUpForm.controls['password'].valid && signUpForm.controls['password'].touched">{{ getErrorPassword() }}</mat-error>
     </mat-form-field>
-    <button class="font-black" type="submit">Ok</button>
+    <button mat-stroked-button type="submit">Ok</button>
   </form>
+
 
 
 </div>

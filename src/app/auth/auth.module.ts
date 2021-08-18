@@ -10,6 +10,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [StartComponent, SignComponent, SignUpComponent],
@@ -21,7 +22,8 @@ import { MatIconModule } from '@angular/material/icon';
     SharedModule,
     MatFormFieldModule,
     MatInputModule,
-    MatIconModule
+    MatIconModule,
+    MatButtonModule,
   ],
   exports: [StartComponent, SignComponent, SignUpComponent],
 })

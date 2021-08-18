@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
-import { User } from './user.model';
 import app from 'firebase';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -28,22 +26,31 @@ export class AuthService {
     this.updateUser(credentials.user);
   }
 
-  async signUpWithEmailPassword(email: string, password: string) {
-    await app
+  // async signUpWithEmailPassword(email: string, password: string) {
+  //   return await app
+  //     .auth()
+  //     .createUserWithEmailAndPassword(email, password)
+  //     .then((userCredential) => {
+  //       var user = userCredential.user;
+  //     });
+  // }
+
+  signUpWithEmailPassword(email: string, password: string) {
+    return app
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then((userCredential) => {
         var user = userCredential.user;
-      })
-    }
-    
-    async signInWithEmailPassword(email: string, password: string) {
-      await app
+      });
+  }
+
+  signInWithEmailPassword(email: string, password: string) {
+    return app
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then((userCredential) => {
         var user = userCredential.user;
-      })
+      });
   }
 
   logout() {
