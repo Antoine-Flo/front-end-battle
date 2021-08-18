@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
-import { AngularFireModule } from '@angular/fire';
-import { AngularFireAuthModule } from "@angular/fire/auth";
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from "@angular/fire/auth";
+import { AngularFireStorageModule, BUCKET } from '@angular/fire/storage';
 
 import { environment } from 'src/environments/environment';
 
@@ -20,6 +22,7 @@ import { ProfilModule } from './modules/profil/profil.module';
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFireStorageModule,
     AngularFireAuthModule,
     AppRoutingModule,
     ReactiveFormsModule,
@@ -29,7 +32,9 @@ import { ProfilModule } from './modules/profil/profil.module';
     ProfilModule,
     BrowserAnimationsModule,
   ],
-  providers: [],
+  providers: [
+    { provide: BUCKET, useValue: 'challenge-img' }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

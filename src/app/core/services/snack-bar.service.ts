@@ -8,7 +8,7 @@ export class SnackBarService {
   constructor(private snackBar: MatSnackBar) {}
 
   showError(mess: string, code?: string) {
-    const bar = (mess, time = 3000) =>
+    const bar = (mess, time = 4000) =>
       this.snackBar.open(mess, 'Fermer', { duration: time });
 
     switch (code) {
@@ -27,7 +27,7 @@ export class SnackBarService {
         break;
 
       case 'auth/weak-password':
-        bar(`Mot de passe trop faible, 6 charactères minimum.`);
+        bar(`Mot de passe trop faible, il doit comporter 1 minuscule, 1 majuscule et 1 chiffre.`);
         break;
 
       case 'auth/account-exists-with-different-credential':
@@ -43,7 +43,7 @@ export class SnackBarService {
     }
   }
 
-  showSuccess(mess: string, time = 3000) {
+  showSuccess(mess: string, time = 4000) {
     this.snackBar.open(mess, 'Fermer', { duration: time });
   }
 }

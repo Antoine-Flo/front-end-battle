@@ -20,9 +20,14 @@ export class SignComponent implements OnInit {
 
   signUpForm = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(6)]],
+    password: ['', [Validators.required, Validators.minLength(6), this.checkPassword]],
   });
 
+  checkPassword(control) {
+    let enteredPassword = control.value
+    let passwordCheck = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/;
+    return (!passwordCheck.test(enteredPassword) && enteredPassword) ? { 'requirements': true } : null;
+  }
 
   constructor(
     private snackBar: SnackBarService,
@@ -79,5 +84,4 @@ export class SignComponent implements OnInit {
         });
     }
   }
-
 }

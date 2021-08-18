@@ -14,14 +14,11 @@ export class PlayComponent implements OnInit {
   @ViewChild('iframeObjective', { static: true }) iframeObjective!: ElementRef;
 
   challenge: Challenge;
-  challengeId: string;
   objectiveCode: string;
+  challengeId = this.route.snapshot.params.id;
   result: typeof document;
   objective: typeof document;
 
-  idSubscription = this.route.params.subscribe((params) => {
-    this.challengeId= params['id'];
-  });
 
 
   defaultCode = `
@@ -56,11 +53,13 @@ export class PlayComponent implements OnInit {
   ngOnInit() {
     this.result = this.iframeResult.nativeElement.contentWindow.document;
     this.objective = this.iframeObjective.nativeElement.contentWindow.document;
+    
+
     this.chalService
-      .getChallenge('610d49ec70939a00151c413f')
+      .getChallenge(this.challengeId)
       .pipe(
-        pluck('code'),
-        tap((x) => this.updateIframe(this.objective, window.atob(x)))
+        tap(x => this.challenge = x),
+        tap(x => this.updateIframe(this.objective, window.atob(x.code)))
       )
       .subscribe();
   }

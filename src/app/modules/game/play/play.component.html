@@ -14,15 +14,12 @@
 
       <div class="displays">
         <!-- <iframe class="iframe displays__objective" src="assets/challenges/tuto/tuto.html" #iframeObjective frameborder="0"></iframe>  -->
-        <iframe class="iframe displays__objective" #iframeObjective frameborder="0"></iframe> 
+        <iframe class="iframe displays__objective" #iframeObjective frameborder="0"></iframe>
         <iframe class="iframe displays__result" #iframeResult frameborder="0"></iframe>
       </div>
     </div>
-
-
   </div>
-
   <button class="main-btn game__btn">Enregistrer</button>
   <button [routerLink]="['/home']" class="scd-btn game__btn">Annuler</button>
-
+  <p class="font-white">{{ challenge.id }}</p>
 </app-layout>
