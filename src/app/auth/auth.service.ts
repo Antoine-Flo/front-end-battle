@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import app from 'firebase';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { SnackBarService } from '../core/services/snack-bar.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class AuthService {
   user$ = new BehaviorSubject('');
 
-  constructor(private auth: AngularFireAuth, private router: Router) {}
+  constructor(private auth: AngularFireAuth, private router: Router, private snackBar: SnackBarService) {}
 
   async signinGoogle() {
     const provider = new app.auth.GoogleAuthProvider();
@@ -26,14 +27,6 @@ export class AuthService {
     this.updateUser(credentials.user);
   }
 
-  // async signUpWithEmailPassword(email: string, password: string) {
-  //   return await app
-  //     .auth()
-  //     .createUserWithEmailAndPassword(email, password)
-  //     .then((userCredential) => {
-  //       var user = userCredential.user;
-  //     });
-  // }
 
   signUpWithEmailPassword(email: string, password: string) {
     return app
@@ -55,6 +48,7 @@ export class AuthService {
 
   logout() {
     this.auth.signOut().then(() => {
+      this.snackBar.showSuccess('Vous êtes déconnecté.');
       this.user$.next('');
     });
 

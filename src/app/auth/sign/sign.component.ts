@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
-import { UserService } from 'src/app/core/services/user.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { SnackBarService } from 'src/app/core/services/snack-bar.service';
+
 
 @Component({
   selector: 'app-sign',
@@ -25,7 +25,7 @@ export class SignComponent implements OnInit {
 
 
   constructor(
-    private snackBar: MatSnackBar,
+    private snackBar: SnackBarService,
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router
@@ -34,11 +34,21 @@ export class SignComponent implements OnInit {
   ngOnInit(): void {}
 
   connectWithGoogle() {
-    this.authService.signinGoogle();
+    this.authService.signinGoogle().then(() => {
+      this.snackBar.showSuccess('Connexion réussie');
+    }).catch((err) => {
+      console.log(err);
+      this.snackBar.showError(err.message, err.code);
+    });
   }
 
   connectWithGitHub() {
-    this.authService.signinGitHub();
+    this.authService.signinGitHub().then(() => {
+      this.snackBar.showSuccess('Connexion réussie');
+    }).catch((err) => {
+      console.log(err);
+      this.snackBar.showError(err.message, err.code);
+    });
   }
 
   onSubmit(): void {
@@ -48,41 +58,26 @@ export class SignComponent implements OnInit {
       this.authService
         .signInWithEmailPassword(email, password)
         .then(() => {
+          this.snackBar.showSuccess('Connexion réussie');
           this.router.navigate(['home']);
         })
         .catch((err) => {
           console.log(err);
-          this.showError(err.code);
+          this.snackBar.showError(err.message, err.code);
         })
         
     } else if (this.type === 'signUp') {
       this.authService
         .signUpWithEmailPassword(email, password)
         .then(() => {
-          this.showSuccess();
+          this.snackBar.showSuccess('Inscription réussie, mail de verification envoyé');
           this.router.navigate(['home']);
         })
         .catch((err) => {
           console.log(err);
-          
-          this.showError(err.code);
+          this.snackBar.showError(err.message, err.code);
         });
     }
-  }
-
-
-  showError(code: string) {
-
-    const bar = (mess) => this.snackBar.open(mess, 'Fermer', { duration: 3000 });
-
-    if(code === "auth/email-already-in-use") {bar('E-mail déjà utilisé')}
-    if(code === "auth/too-many-requests") {bar(`Trop de tentatives, l'accés à ce compte a temporairement été suspendu`)}
-    if(code === "auth/weak-password") {bar(`Mot de passe trop faible, 6 charactères minimum.`)}
-
-  }
-
-  showSuccess() {
-    this.snackBar.open('Inscription réussi, mail de confirmation envoyé', 'Fermer', { duration: 3000 });
   }
 
 }
