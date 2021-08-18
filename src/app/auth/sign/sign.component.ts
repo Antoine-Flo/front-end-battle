@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { UserService } from 'src/app/core/services/user.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-sign',
@@ -13,13 +14,18 @@ export class SignComponent implements OnInit {
   @Input() type: string;
   @Input() title: string;
 
+  get email() { return this.signUpForm.get('email') }
+  get password() { return this.signUpForm.get('password') }
+    
+
   signUpForm = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(7)]],
+    password: ['', [Validators.required, Validators.minLength(6)]],
   });
 
 
   constructor(
+    private snackBar: MatSnackBar,
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router
@@ -45,32 +51,38 @@ export class SignComponent implements OnInit {
           this.router.navigate(['home']);
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
+          this.showError(err.code);
         })
         
     } else if (this.type === 'signUp') {
       this.authService
         .signUpWithEmailPassword(email, password)
         .then(() => {
+          this.showSuccess();
           this.router.navigate(['home']);
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
+          
+          this.showError(err.code);
         });
     }
   }
 
 
-  getErrorEmail() {
-    return this.signUpForm.get('email').hasError('required') ? 'Champ requis' :
-      this.signUpForm.get('email').hasError('pattern') ? 'Format invalide' :
-        this.signUpForm.get('email').hasError('alreadyInUse') ? 'This emailaddress is already in use' : '';
+  showError(code: string) {
+
+    const bar = (mess) => this.snackBar.open(mess, 'Fermer', { duration: 3000 });
+
+    if(code === "auth/email-already-in-use") {bar('E-mail déjà utilisé')}
+    if(code === "auth/too-many-requests") {bar(`Trop de tentatives, l'accés à ce compte a temporairement été suspendu`)}
+    if(code === "auth/weak-password") {bar(`Mot de passe trop faible, 6 charactères minimum.`)}
+
   }
 
-  getErrorPassword() {
-    return this.signUpForm.get('password').hasError('required') ? 'Champ requis' :
-      this.signUpForm.get('password').hasError('requirements') ? 'Password needs to be at least eight characters, one uppercase letter and one number' : '';
+  showSuccess() {
+    this.snackBar.open('Inscription réussi, mail de confirmation envoyé', 'Fermer', { duration: 3000 });
   }
-
 
 }
