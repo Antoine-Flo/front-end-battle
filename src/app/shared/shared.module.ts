@@ -10,7 +10,7 @@ import { NavComponent } from './components/nav/nav.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { SafePipe } from './pipes/safe.pipe';
 import { LayoutComponent } from './components/layout/layout.component';
-import { InputComponent } from './components/input/input.component';
+import { ChallengeCardComponent } from './components/challenge-card/challenge-card.component';
 
 
 @NgModule({
@@ -21,7 +21,7 @@ import { InputComponent } from './components/input/input.component';
     ModalComponent,
     SafePipe,
     LayoutComponent,
-    InputComponent,
+    ChallengeCardComponent,
   ],
   imports: [
     CommonModule,
@@ -36,8 +36,7 @@ import { InputComponent } from './components/input/input.component';
     NavComponent,
     FooterComponent,
     ModalComponent,
-    InputComponent,
-    SafePipe,
+    ChallengeCardComponent
   ],
 })
 export class SharedModule {}

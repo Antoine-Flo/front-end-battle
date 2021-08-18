@@ -1,0 +1,32 @@
+.challenge {
+
+    &:hover {
+        opacity: 1.5;
+        cursor: pointer;
+        background-color: var(--light-grey);
+        border: 2px solid var(--black);
+    }
+
+    &__content {
+        margin: 1rem;
+        width: 100%;
+    }
+
+    &__title {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+    }
+
+    &__txt {
+        font-weight: lighter;
+    }
+
+    &__img {
+        width: 20vw;
+    }
+
+    &__select {
+        align-self: flex-end;
+    }
+
+}

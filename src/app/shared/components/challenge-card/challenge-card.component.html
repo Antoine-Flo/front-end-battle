@@ -1,0 +1,8 @@
+<div [routerLink]="['/game/play', challenge.id]" class="challenge box">
+  <img class="challenge__img" [src]="imgUrl" alt="image challenge">
+  <div class="challenge__content">
+    <h2 class="challenge__title font-white"> {{ challenge.title }} </h2>
+    <p class="challenge__txt font-white"> {{ challenge.description }} </p>
+  </div>
+  <button [routerLink]="['/game/play', challenge.id]" class="challenge__select scd-btn">Résoudre</button>
+</div>
