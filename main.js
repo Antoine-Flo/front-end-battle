@@ -12,7 +12,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SignComponent", function() { return SignComponent; });
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/forms */ "3Pt+");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "fXoL");
-/* harmony import */ var _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/snack-bar */ "dNgK");
+/* harmony import */ var src_app_core_services_snack_bar_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/core/services/snack-bar.service */ "zkEj");
 /* harmony import */ var src_app_auth_auth_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/auth/auth.service */ "qXBG");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "tyNb");
 /* harmony import */ var _angular_material_form_field__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/material/form-field */ "kmnG");
@@ -42,10 +42,20 @@ class SignComponent {
     get password() { return this.signUpForm.get('password'); }
     ngOnInit() { }
     connectWithGoogle() {
-        this.authService.signinGoogle();
+        this.authService.signinGoogle().then(() => {
+            this.snackBar.showSuccess('Connexion réussie');
+        }).catch((err) => {
+            console.log(err);
+            this.snackBar.showError(err.message, err.code);
+        });
     }
     connectWithGitHub() {
-        this.authService.signinGitHub();
+        this.authService.signinGitHub().then(() => {
+            this.snackBar.showSuccess('Connexion réussie');
+        }).catch((err) => {
+            console.log(err);
+            this.snackBar.showError(err.message, err.code);
+        });
     }
     onSubmit() {
         const { email, password } = this.signUpForm.value;
@@ -53,43 +63,29 @@ class SignComponent {
             this.authService
                 .signInWithEmailPassword(email, password)
                 .then(() => {
+                this.snackBar.showSuccess('Connexion réussie');
                 this.router.navigate(['home']);
             })
                 .catch((err) => {
                 console.log(err);
-                this.showError(err.code);
+                this.snackBar.showError(err.message, err.code);
             });
         }
         else if (this.type === 'signUp') {
             this.authService
                 .signUpWithEmailPassword(email, password)
                 .then(() => {
-                this.showSuccess();
+                this.snackBar.showSuccess('Inscription réussie, mail de verification envoyé');
                 this.router.navigate(['home']);
             })
                 .catch((err) => {
                 console.log(err);
-                this.showError(err.code);
+                this.snackBar.showError(err.message, err.code);
             });
         }
     }
-    showError(code) {
-        const bar = (mess) => this.snackBar.open(mess, 'Fermer', { duration: 3000 });
-        if (code === "auth/email-already-in-use") {
-            bar('E-mail déjà utilisé');
-        }
-        if (code === "auth/too-many-requests") {
-            bar(`Trop de tentatives, l'accés à ce compte a temporairement été suspendu`);
-        }
-        if (code === "auth/weak-password") {
-            bar(`Mot de passe trop faible, 6 charactères minimum.`);
-        }
-    }
-    showSuccess() {
-        this.snackBar.open('Inscription réussi, mail de confirmation envoyé', 'Fermer', { duration: 3000 });
-    }
 }
-SignComponent.ɵfac = function SignComponent_Factory(t) { return new (t || SignComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_2__["MatSnackBar"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_0__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](src_app_auth_auth_service__WEBPACK_IMPORTED_MODULE_3__["AuthService"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"])); };
+SignComponent.ɵfac = function SignComponent_Factory(t) { return new (t || SignComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](src_app_core_services_snack_bar_service__WEBPACK_IMPORTED_MODULE_2__["SnackBarService"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_0__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](src_app_auth_auth_service__WEBPACK_IMPORTED_MODULE_3__["AuthService"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"])); };
 SignComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineComponent"]({ type: SignComponent, selectors: [["app-sign"]], inputs: { type: "type", title: "title" }, decls: 20, vars: 2, consts: [[1, "sign"], [1, "sign__title", "font-white"], ["src", "\\assets\\signin-btn-google.jpg", "alt", "se connecter google", 1, "sign__btn", 3, "click"], ["src", "\\assets\\signin-btn-github.jpg", "alt", "se connecter github", 1, "sign__btn", 3, "click"], [1, "sign__mail", 3, "formGroup", "ngSubmit"], [1, "font-black"], ["appearance", "outline"], ["matInput", "", "type", "email", "formControlName", "email"], ["matInput", "", "minlength", "8", "type", "password", "formControlName", "password"], ["mat-stroked-button", "", "type", "submit"]], template: function SignComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "h1", 1);
@@ -118,7 +114,7 @@ SignComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineComp
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](15, "input", 8);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](16, "mat-hint");
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](17, "Min 8 chars");
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](17, "Min 6 chars");
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](18, "button", 9);
@@ -717,9 +713,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_material_input__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/material/input */ "qFsG");
 /* harmony import */ var _angular_material_icon__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/material/icon */ "NFeN");
 /* harmony import */ var _angular_material_button__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/material/button */ "bTqV");
-/* harmony import */ var _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/material/snack-bar */ "dNgK");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/core */ "fXoL");
-
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/core */ "fXoL");
 
 
 
@@ -735,8 +729,8 @@ __webpack_require__.r(__webpack_exports__);
 
 class AuthModule {
 }
-AuthModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_13__["ɵɵdefineNgModule"]({ type: AuthModule });
-AuthModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_13__["ɵɵdefineInjector"]({ factory: function AuthModule_Factory(t) { return new (t || AuthModule)(); }, imports: [[
+AuthModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵdefineNgModule"]({ type: AuthModule });
+AuthModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵdefineInjector"]({ factory: function AuthModule_Factory(t) { return new (t || AuthModule)(); }, imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_0__["CommonModule"],
             _angular_forms__WEBPACK_IMPORTED_MODULE_5__["ReactiveFormsModule"],
             _angular_fire_auth__WEBPACK_IMPORTED_MODULE_7__["AngularFireAuthModule"],
@@ -745,10 +739,9 @@ AuthModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_13__["ɵɵdefineInject
             _angular_material_form_field__WEBPACK_IMPORTED_MODULE_8__["MatFormFieldModule"],
             _angular_material_input__WEBPACK_IMPORTED_MODULE_9__["MatInputModule"],
             _angular_material_icon__WEBPACK_IMPORTED_MODULE_10__["MatIconModule"],
-            _angular_material_button__WEBPACK_IMPORTED_MODULE_11__["MatButtonModule"],
-            _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_12__["MatSnackBarModule"]
+            _angular_material_button__WEBPACK_IMPORTED_MODULE_11__["MatButtonModule"]
         ]] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_13__["ɵɵsetNgModuleScope"](AuthModule, { declarations: [_start_start_component__WEBPACK_IMPORTED_MODULE_2__["StartComponent"], _sign_sign_component__WEBPACK_IMPORTED_MODULE_3__["SignComponent"], _sign_up_sign_up_component__WEBPACK_IMPORTED_MODULE_4__["SignUpComponent"]], imports: [_angular_common__WEBPACK_IMPORTED_MODULE_0__["CommonModule"],
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵsetNgModuleScope"](AuthModule, { declarations: [_start_start_component__WEBPACK_IMPORTED_MODULE_2__["StartComponent"], _sign_sign_component__WEBPACK_IMPORTED_MODULE_3__["SignComponent"], _sign_up_sign_up_component__WEBPACK_IMPORTED_MODULE_4__["SignUpComponent"]], imports: [_angular_common__WEBPACK_IMPORTED_MODULE_0__["CommonModule"],
         _angular_forms__WEBPACK_IMPORTED_MODULE_5__["ReactiveFormsModule"],
         _angular_fire_auth__WEBPACK_IMPORTED_MODULE_7__["AngularFireAuthModule"],
         _angular_router__WEBPACK_IMPORTED_MODULE_6__["RouterModule"],
@@ -756,8 +749,7 @@ AuthModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_13__["ɵɵdefineInject
         _angular_material_form_field__WEBPACK_IMPORTED_MODULE_8__["MatFormFieldModule"],
         _angular_material_input__WEBPACK_IMPORTED_MODULE_9__["MatInputModule"],
         _angular_material_icon__WEBPACK_IMPORTED_MODULE_10__["MatIconModule"],
-        _angular_material_button__WEBPACK_IMPORTED_MODULE_11__["MatButtonModule"],
-        _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_12__["MatSnackBarModule"]], exports: [_start_start_component__WEBPACK_IMPORTED_MODULE_2__["StartComponent"], _sign_sign_component__WEBPACK_IMPORTED_MODULE_3__["SignComponent"], _sign_up_sign_up_component__WEBPACK_IMPORTED_MODULE_4__["SignUpComponent"]] }); })();
+        _angular_material_button__WEBPACK_IMPORTED_MODULE_11__["MatButtonModule"]], exports: [_start_start_component__WEBPACK_IMPORTED_MODULE_2__["StartComponent"], _sign_sign_component__WEBPACK_IMPORTED_MODULE_3__["SignComponent"], _sign_up_sign_up_component__WEBPACK_IMPORTED_MODULE_4__["SignUpComponent"]] }); })();
 
 
 /***/ }),
@@ -1092,24 +1084,28 @@ StartComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineCom
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CoreModule", function() { return CoreModule; });
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common */ "ofXK");
-/* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../shared/shared.module */ "PCNd");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "tk/3");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "tk/3");
+/* harmony import */ var _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/snack-bar */ "dNgK");
+/* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../shared/shared.module */ "PCNd");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ "fXoL");
+
 
 
 
 
 class CoreModule {
 }
-CoreModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineNgModule"]({ type: CoreModule });
-CoreModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineInjector"]({ factory: function CoreModule_Factory(t) { return new (t || CoreModule)(); }, imports: [[
+CoreModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineNgModule"]({ type: CoreModule });
+CoreModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineInjector"]({ factory: function CoreModule_Factory(t) { return new (t || CoreModule)(); }, imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_0__["CommonModule"],
-            _shared_shared_module__WEBPACK_IMPORTED_MODULE_1__["SharedModule"],
-            _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClientModule"],
+            _shared_shared_module__WEBPACK_IMPORTED_MODULE_3__["SharedModule"],
+            _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClientModule"],
+            _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_2__["MatSnackBarModule"]
         ]] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵsetNgModuleScope"](CoreModule, { imports: [_angular_common__WEBPACK_IMPORTED_MODULE_0__["CommonModule"],
-        _shared_shared_module__WEBPACK_IMPORTED_MODULE_1__["SharedModule"],
-        _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClientModule"]] }); })();
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵsetNgModuleScope"](CoreModule, { imports: [_angular_common__WEBPACK_IMPORTED_MODULE_0__["CommonModule"],
+        _shared_shared_module__WEBPACK_IMPORTED_MODULE_3__["SharedModule"],
+        _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClientModule"],
+        _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_2__["MatSnackBarModule"]] }); })();
 
 
 /***/ }),
@@ -1130,6 +1126,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "fXoL");
 /* harmony import */ var _angular_fire_auth__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/fire/auth */ "UbJi");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "tyNb");
+/* harmony import */ var _core_services_snack_bar_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../core/services/snack-bar.service */ "zkEj");
+
 
 
 
@@ -1137,9 +1135,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class AuthService {
-    constructor(auth, router) {
+    constructor(auth, router, snackBar) {
         this.auth = auth;
         this.router = router;
+        this.snackBar = snackBar;
         this.user$ = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"]('');
     }
     signinGoogle() {
@@ -1158,14 +1157,6 @@ class AuthService {
             this.updateUser(credentials.user);
         });
     }
-    // async signUpWithEmailPassword(email: string, password: string) {
-    //   return await app
-    //     .auth()
-    //     .createUserWithEmailAndPassword(email, password)
-    //     .then((userCredential) => {
-    //       var user = userCredential.user;
-    //     });
-    // }
     signUpWithEmailPassword(email, password) {
         return firebase__WEBPACK_IMPORTED_MODULE_1__["default"]
             .auth()
@@ -1184,6 +1175,7 @@ class AuthService {
     }
     logout() {
         this.auth.signOut().then(() => {
+            this.snackBar.showSuccess('Vous êtes déconnecté.');
             this.user$.next('');
         });
         return this.router.navigate(['/']);
@@ -1192,7 +1184,7 @@ class AuthService {
         this.user$.next(userData);
     }
 }
-AuthService.ɵfac = function AuthService_Factory(t) { return new (t || AuthService)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵinject"](_angular_fire_auth__WEBPACK_IMPORTED_MODULE_4__["AngularFireAuth"]), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵinject"](_angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"])); };
+AuthService.ɵfac = function AuthService_Factory(t) { return new (t || AuthService)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵinject"](_angular_fire_auth__WEBPACK_IMPORTED_MODULE_4__["AngularFireAuth"]), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵinject"](_angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵinject"](_core_services_snack_bar_service__WEBPACK_IMPORTED_MODULE_6__["SnackBarService"])); };
 AuthService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineInjectable"]({ token: AuthService, factory: AuthService.ɵfac, providedIn: 'root' });
 
 
@@ -1262,6 +1254,57 @@ if (_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].produc
 }
 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["platformBrowser"]().bootstrapModule(_app_app_module__WEBPACK_IMPORTED_MODULE_2__["AppModule"])
     .catch(err => console.error(err));
+
+
+/***/ }),
+
+/***/ "zkEj":
+/*!****************************************************!*\
+  !*** ./src/app/core/services/snack-bar.service.ts ***!
+  \****************************************************/
+/*! exports provided: SnackBarService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SnackBarService", function() { return SnackBarService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material/snack-bar */ "dNgK");
+
+
+class SnackBarService {
+    constructor(snackBar) {
+        this.snackBar = snackBar;
+    }
+    showError(mess, code) {
+        const bar = (mess, time = 3000) => this.snackBar.open(mess, 'Fermer', { duration: time });
+        switch (code) {
+            case 'auth/email-already-in-use':
+                bar('E-mail déjà utilisé.');
+                break;
+            case 'auth/invalid-email':
+                bar('E-mail invalide.');
+                break;
+            case 'auth/too-many-requests':
+                bar(`Trop de tentatives, l'accés à ce compte a temporairement été suspendu.`);
+                break;
+            case 'auth/weak-password':
+                bar(`Mot de passe trop faible, 6 charactères minimum.`);
+                break;
+            case 'auth/account-exists-with-different-credential':
+                bar(`Un compte avec cet e-mail existe déjà mais avec un autre fournisseur (GitHub, Google, ...), merci d'essayer un autre moyen.`, 10000);
+                break;
+            default:
+                bar(mess);
+                break;
+        }
+    }
+    showSuccess(mess, time = 3000) {
+        this.snackBar.open(mess, 'Fermer', { duration: time });
+    }
+}
+SnackBarService.ɵfac = function SnackBarService_Factory(t) { return new (t || SnackBarService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_1__["MatSnackBar"])); };
+SnackBarService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: SnackBarService, factory: SnackBarService.ɵfac, providedIn: 'root' });
 
 
 /***/ }),
