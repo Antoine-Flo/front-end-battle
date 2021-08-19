@@ -13,24 +13,24 @@ export class ChallengeService {
 
   constructor(private http: HttpClient) {}
 
-  getChallenge(id: string): Observable<Challenge> {
+  getOne(id: string): Observable<Challenge> {
     return this.http.get<Challenge>(`${this.url}/${id}`);
   }
 
-  getChallenges(): Observable<Object> {
+  getAll(): Observable<Object> {
     return this.http.get(this.url);
   }
 
-  createChallenge(challenge: Challenge) {
-    return this.http
-      .post<Challenge>(this.url, challenge)
+  create(challenge: Challenge) {
+    return this.http.post<Challenge>(this.url, challenge)
   }
 
-  updateChallenge() {}
+  update(id: string, challenge: Challenge) {
+    return this.http.patch(`${this.url}/${id}`, challenge)
+  }
 
-  deleteChallenge(id: string) {
-    return this.http
-    .delete(`${this.url}/${id}`)
+  delete(id: string) {
+    return this.http.delete(`${this.url}/${id}`)
   }
 
 }

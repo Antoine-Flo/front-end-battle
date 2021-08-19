@@ -1,6 +1,8 @@
 export interface Challenge {
-    id?: string;
-    code: string;
-    description: string;
-    imgUrl: string;
+  id: string;
+  title: string;
+  code: string;
+  description: string;
+  imgId: string;
+  creatorId: string;
 }

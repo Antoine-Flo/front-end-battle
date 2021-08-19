@@ -13,7 +13,7 @@ export class ChallengesComponent implements OnInit {
   constructor(private challengesService: ChallengeService) {}
 
   ngOnInit(): void {
-    this.challenges = this.challengesService.getChallenges();
+    this.challenges = this.challengesService.getAll();
   }
 
 

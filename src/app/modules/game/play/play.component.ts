@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { pluck, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { Challenge } from 'src/app/core/models/challenge.model';
 import { ChallengeService } from 'src/app/core/services/challenge.service';
 
@@ -56,7 +56,7 @@ export class PlayComponent implements OnInit {
     
 
     this.chalService
-      .getChallenge(this.challengeId)
+      .getOne(this.challengeId)
       .pipe(
         tap(x => this.challenge = x),
         tap(x => this.updateIframe(this.objective, window.atob(x.code)))
