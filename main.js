@@ -934,13 +934,31 @@ ModalComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineCom
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserService", function() { return UserService; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "tk/3");
+
 
 class UserService {
-    constructor() { }
-    createUser(credentials) {
+    constructor(http) {
+        this.http = http;
+        this.url = 'https://feb-api.com/users';
+    }
+    getOne(id) {
+        return this.http.get(`${this.url}/${id}`);
+    }
+    getAll() {
+        return this.http.get(this.url);
+    }
+    create(user) {
+        return this.http.post(this.url, user);
+    }
+    update(id, user) {
+        return this.http.patch(`${this.url}/${id}`, user);
+    }
+    delete(id) {
+        return this.http.delete(`${this.url}/${id}`);
     }
 }
-UserService.ɵfac = function UserService_Factory(t) { return new (t || UserService)(); };
+UserService.ɵfac = function UserService_Factory(t) { return new (t || UserService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"])); };
 UserService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: UserService, factory: UserService.ɵfac, providedIn: 'root' });
 
 

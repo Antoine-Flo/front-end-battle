@@ -19,20 +19,20 @@ class ChallengeService {
         this.http = http;
         this.url = 'https://feb-api.com/challenges';
     }
-    getChallenge(id) {
+    getOne(id) {
         return this.http.get(`${this.url}/${id}`);
     }
-    getChallenges() {
+    getAll() {
         return this.http.get(this.url);
     }
-    createChallenge(challenge) {
-        return this.http
-            .post(this.url, challenge);
+    create(challenge) {
+        return this.http.post(this.url, challenge);
     }
-    updateChallenge() { }
-    deleteChallenge(id) {
-        return this.http
-            .delete(`${this.url}/${id}`);
+    update(id, challenge) {
+        return this.http.patch(`${this.url}/${id}`, challenge);
+    }
+    delete(id) {
+        return this.http.delete(`${this.url}/${id}`);
     }
 }
 ChallengeService.ɵfac = function ChallengeService_Factory(t) { return new (t || ChallengeService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"])); };

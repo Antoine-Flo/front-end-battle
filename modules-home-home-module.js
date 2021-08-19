@@ -123,7 +123,7 @@ class ChallengesComponent {
         this.challengesService = challengesService;
     }
     ngOnInit() {
-        this.challenges = this.challengesService.getChallenges();
+        this.challenges = this.challengesService.getAll();
     }
 }
 ChallengesComponent.ɵfac = function ChallengesComponent_Factory(t) { return new (t || ChallengesComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_core_services_challenge_service__WEBPACK_IMPORTED_MODULE_1__["ChallengeService"])); };

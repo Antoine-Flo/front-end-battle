@@ -95,7 +95,7 @@ class PlayComponent {
         this.result = this.iframeResult.nativeElement.contentWindow.document;
         this.objective = this.iframeObjective.nativeElement.contentWindow.document;
         this.chalService
-            .getChallenge(this.challengeId)
+            .getOne(this.challengeId)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["tap"])(x => this.challenge = x), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["tap"])(x => this.updateIframe(this.objective, window.atob(x.code))))
             .subscribe();
     }
