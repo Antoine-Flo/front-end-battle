@@ -6,6 +6,7 @@ import { StartComponent } from './auth/start/start.component';
 import { canActivate, redirectLoggedInTo } from '@angular/fire/auth-guard';
 import { redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 import { ProfilComponent } from './modules/profil/profil/profil.component';
+import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
 
 const redirectUnauthorizedToStart = () => redirectUnauthorizedTo(['start']);
 const redirectLoggedInToHome = () => redirectLoggedInTo(['home']);
@@ -34,6 +35,10 @@ const routes: Routes = [
     import('./modules/game/game.module').then((m) => m.GameModule),
     ...canActivate(redirectUnauthorizedToStart),
   },
+  {
+    path: '**',
+    component: PageNotFoundComponent
+  }
 ];
 
 @NgModule({
