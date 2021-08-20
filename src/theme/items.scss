@@ -1,6 +1,4 @@
-
-
-
+@use '~@angular/material' as mat;
 
 
 ///////////////////////////////////
@@ -19,36 +17,35 @@ button {
   &:focus {
     outline: none;
   }
-
 }
 
 .main-btn {
   font-family: "Noto Sans JP";
   font-size: 1.1rem;
-  background-color: var(--main);
-  border: 2px solid var(--main);
+  background-color: var(--main-400);
+  border: 2px solid var(--main-400);
   padding: 0.5rem 2rem;
   border-radius: 3px;
 
   &:hover {
-    background-color: var(--deep-main);
-    border: 2px solid var(--light-main);
-    color: var(--deep-white);
+    background-color: var(--main-800);
+    border: 2px solid var(--main-A200);
+    color: var(--grey-100);
   }
 }
 
 .scd-btn {
   font-family: "Noto Sans JP";
   font-size: 1.1rem;
-  background-color: var(--grey);
-  border: 2px solid var(--main);
+  background-color: var(--grey-300);
+  border: 2px solid var(--main-400);
   padding: 0.5rem 2rem;
   border-radius: 3px;
 
   &:hover {
-    background-color: var(--main);
-    border: 2px solid var(--deep-white);
-    color: var(--deep-white);
+    background-color: var(--main-400);
+    border: 2px solid var(--grey-200);
+    color: var(--grey-200);
   }
 }
 
@@ -68,6 +65,6 @@ button {
   padding: 1rem;
   margin: 2rem auto;
   border-radius: 4px;
-  background-color: var(--grey);
-  border: 2px solid var(--light-grey);
+  background-color: var(--grey-300);
+  border: 2px solid var(--light-50);
 }

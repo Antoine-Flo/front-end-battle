@@ -1,55 +1,28 @@
+@use 'sass:map';
+@use '~@angular/material' as mat;
 
-// Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
 @import '~@angular/material/theming';
-// @use '~@angular/material' as mat;
-// Plus imports for other components in your app.
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap');
 
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
-@include mat-core();
+@include mat.core();
 
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
-$frontEndBattle-primary: mat-palette($mat-blue);
-$frontEndBattle-accent: mat-palette($mat-purple, A200, A100, A400);
+$feb-primary: mat.define-palette(mat.$blue-palette);
+$feb-accent: mat.define-palette(mat.$purple-palette, A200, A100, A400);
+$feb-warn: mat.define-palette(mat.$red-palette);
 
-// The warn palette is optional (defaults to red).
-$frontEndBattle-warn: mat-palette($mat-red);
 
-// Create the theme object. A theme consists of configurations for individual
-// theming systems such as "color" or "typography".
-$frontEndBattle-theme: mat-light-theme((
+$feb-theme: mat.define-light-theme((
   color: (
-    primary: $frontEndBattle-primary,
-    accent: $frontEndBattle-accent,
-    warn: $frontEndBattle-warn,
+    primary: $feb-primary,
+    accent: $feb-accent,
+    warn: $feb-warn,
   )
 ));
 
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
-@include angular-material-theme($frontEndBattle-theme);
-
-/* You can add global styles to this file, and also import other style files */
-
-@import "theme/theme-variables";
-@import "theme/theme";
-@import "theme/typogragy.scss";
-@import "theme/normalize.scss";
-@import "theme/reset.scss";
-
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap');
+@include mat.all-component-themes($feb-theme);
 
 
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-$mat-blue: (
+$blue-palette: (
   '50': 'e5f0f1',
   '100': 'bddadd',
   '200': '92c1c6',
@@ -85,7 +58,7 @@ $mat-blue: (
   )
 );
 
-$mat-purple: (
+$purple-palette: (
   '50': 'f9e8f1',
   '100': 'efc5dd',
   '200': 'e49ec7',
@@ -120,3 +93,9 @@ $mat-purple: (
     '900'
   )
 );
+
+@import "theme/items";
+@import "theme/typogragy";
+@import "theme/normalize";
+@import "theme/reset";
+@import "theme/variables";
