@@ -4,36 +4,36 @@ import { Router } from '@angular/router';
 import app from 'firebase';
 import { BehaviorSubject } from 'rxjs';
 import { SnackBarService } from '../core/services/snack-bar.service';
+import { UserService } from '../core/services/user.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  user$ = new BehaviorSubject('');
 
-  constructor(private auth: AngularFireAuth, private router: Router, private snackBar: SnackBarService) {}
+  constructor(
+    private user: UserService,
+    private auth: AngularFireAuth,
+    private router: Router,
+    private snackBar: SnackBarService
+  ) {}
 
   async signinGoogle() {
     const provider = new app.auth.GoogleAuthProvider();
-    const credentials = await this.auth.signInWithPopup(provider);
-    this.router.navigate(['home']);
-    this.updateUser(credentials.user);
+    this.signInWithProvider(provider);
   }
 
   async signinGitHub() {
     const provider = new app.auth.GithubAuthProvider();
-    const credentials = await this.auth.signInWithPopup(provider);
-    this.router.navigate(['home']);
-    this.updateUser(credentials.user);
+    this.signInWithProvider(provider);
   }
-
 
   signUpWithEmailPassword(email: string, password: string) {
     return app
       .auth()
       .createUserWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        var user = userCredential.user;
+      .then(() => {
+        this.user.userEmail = email;
       });
   }
 
@@ -41,21 +41,28 @@ export class AuthService {
     return app
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        var user = userCredential.user;
+      .then(() => {
+        this.user.userEmail = email;
       });
   }
 
   logout() {
     this.auth.signOut().then(() => {
       this.snackBar.showSuccess('Vous êtes déconnecté.');
-      this.user$.next('');
     });
 
     return this.router.navigate(['/']);
   }
 
-  private updateUser(userData: any) {
-    this.user$.next(userData);
+  private async signInWithProvider(provider) {
+    const credentials = await this.auth.signInWithPopup(provider);
+    const { email, name } = <{ email: string; name: string }>(
+      credentials.additionalUserInfo.profile
+    );
+    this.router.navigate(['home']);
+
+    if (credentials.additionalUserInfo.isNewUser) {
+      this.user.create(email, name).subscribe();
+    }
   }
 }

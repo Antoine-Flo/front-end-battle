@@ -10,7 +10,7 @@ import { ChallengeService } from 'src/app/core/services/challenge.service';
 export class CreateComponent implements OnInit {
 
   @ViewChild('iframeResult', { static: true }) iframeResult!: ElementRef;
-  modalSaveNew = true;
+  modalSaveNew = false;
   result: any;
   code: string;
   

@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { User } from '../models/user.model';
+import { UuidService } from './uuid.service';
 
 
 @Injectable({
@@ -11,7 +13,15 @@ export class UserService {
 
   url = 'https://feb-api.com/users'
 
-  constructor(private http: HttpClient) {}
+  set userEmail(email: string) {
+    this.userEmail = email;
+  }
+
+  get userEmail():string{
+    return this.userEmail;
+  }
+
+  constructor(private http: HttpClient, private uuid: UuidService) {}
 
   getOne(id: string): Observable<User> {
     return this.http.get<User>(`${this.url}/${id}`);
@@ -21,8 +31,15 @@ export class UserService {
     return this.http.get(this.url);
   }
 
-  create(user: User) {
-    return this.http .post<User>(this.url, user)
+  create(email: string, name: string) {
+    const uuid = this.uuid.getId();
+    const user = {
+      id: uuid,
+      email: email,
+      username: name,
+      challenges: [],
+    }
+    return this.http.post<User>(this.url, JSON.stringify(user)).pipe(take(1))
   }
 
   update(id: string, user: User) {
