@@ -247,11 +247,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! tslib */ 3786);
 /* harmony import */ var firebase__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! firebase */ 713);
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ 6491);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 2316);
+/* harmony import */ var _core_services_user_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../core/services/user.service */ 8386);
 /* harmony import */ var _angular_fire_auth__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/fire/auth */ 6363);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ 1258);
-/* harmony import */ var _core_services_snack_bar_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../core/services/snack-bar.service */ 8492);
+/* harmony import */ var _core_services_snack_bar_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../core/services/snack-bar.service */ 8492);
 
 
 
@@ -260,54 +260,56 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class AuthService {
-    constructor(auth, router, snackBar) {
+    constructor(user, auth, router, snackBar) {
+        this.user = user;
         this.auth = auth;
         this.router = router;
         this.snackBar = snackBar;
-        this.user$ = new rxjs__WEBPACK_IMPORTED_MODULE_2__.BehaviorSubject('');
     }
     signinGoogle() {
         return (0,tslib__WEBPACK_IMPORTED_MODULE_3__.__awaiter)(this, void 0, void 0, function* () {
             const provider = new firebase__WEBPACK_IMPORTED_MODULE_0__.default.auth.GoogleAuthProvider();
-            const credentials = yield this.auth.signInWithPopup(provider);
-            this.router.navigate(['home']);
-            this.updateUser(credentials.user);
+            this.signInWithProvider(provider);
         });
     }
     signinGitHub() {
         return (0,tslib__WEBPACK_IMPORTED_MODULE_3__.__awaiter)(this, void 0, void 0, function* () {
             const provider = new firebase__WEBPACK_IMPORTED_MODULE_0__.default.auth.GithubAuthProvider();
-            const credentials = yield this.auth.signInWithPopup(provider);
-            this.router.navigate(['home']);
-            this.updateUser(credentials.user);
+            this.signInWithProvider(provider);
         });
     }
     signUpWithEmailPassword(email, password) {
         return firebase__WEBPACK_IMPORTED_MODULE_0__.default.auth()
             .createUserWithEmailAndPassword(email, password)
-            .then((userCredential) => {
-            var user = userCredential.user;
+            .then(() => {
+            this.user.userEmail = email;
         });
     }
     signInWithEmailPassword(email, password) {
         return firebase__WEBPACK_IMPORTED_MODULE_0__.default.auth()
             .signInWithEmailAndPassword(email, password)
-            .then((userCredential) => {
-            var user = userCredential.user;
+            .then(() => {
+            this.user.userEmail = email;
         });
     }
     logout() {
         this.auth.signOut().then(() => {
             this.snackBar.showSuccess('Vous êtes déconnecté.');
-            this.user$.next('');
         });
         return this.router.navigate(['/']);
     }
-    updateUser(userData) {
-        this.user$.next(userData);
+    signInWithProvider(provider) {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_3__.__awaiter)(this, void 0, void 0, function* () {
+            const credentials = yield this.auth.signInWithPopup(provider);
+            const { email, name } = (credentials.additionalUserInfo.profile);
+            this.router.navigate(['home']);
+            if (credentials.additionalUserInfo.isNewUser) {
+                this.user.create(email, name).subscribe();
+            }
+        });
     }
 }
-AuthService.ɵfac = function AuthService_Factory(t) { return new (t || AuthService)(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵinject"](_angular_fire_auth__WEBPACK_IMPORTED_MODULE_5__.AngularFireAuth), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵinject"](_angular_router__WEBPACK_IMPORTED_MODULE_6__.Router), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵinject"](_core_services_snack_bar_service__WEBPACK_IMPORTED_MODULE_1__.SnackBarService)); };
+AuthService.ɵfac = function AuthService_Factory(t) { return new (t || AuthService)(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵinject"](_core_services_user_service__WEBPACK_IMPORTED_MODULE_1__.UserService), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵinject"](_angular_fire_auth__WEBPACK_IMPORTED_MODULE_5__.AngularFireAuth), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵinject"](_angular_router__WEBPACK_IMPORTED_MODULE_6__.Router), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵinject"](_core_services_snack_bar_service__WEBPACK_IMPORTED_MODULE_2__.SnackBarService)); };
 AuthService.ɵprov = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineInjectable"]({ token: AuthService, factory: AuthService.ɵfac, providedIn: 'root' });
 
 
@@ -743,14 +745,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "UserService": () => (/* binding */ UserService)
 /* harmony export */ });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ 2316);
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ 3882);
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/operators */ 3466);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 2316);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ 3882);
+/* harmony import */ var _uuid_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./uuid.service */ 8225);
+
+
 
 
 class UserService {
-    constructor(http) {
+    constructor(http, uuid) {
         this.http = http;
+        this.uuid = uuid;
         this.url = 'https://feb-api.com/users';
+    }
+    set userEmail(email) {
+        this.userEmail = email;
+    }
+    get userEmail() {
+        return this.userEmail;
     }
     getOne(id) {
         return this.http.get(`${this.url}/${id}`);
@@ -758,8 +771,15 @@ class UserService {
     getAll() {
         return this.http.get(this.url);
     }
-    create(user) {
-        return this.http.post(this.url, user);
+    create(email, name) {
+        const uuid = this.uuid.getId();
+        const user = {
+            id: uuid,
+            email: email,
+            username: name,
+            challenges: [],
+        };
+        return this.http.post(this.url, JSON.stringify(user)).pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_1__.take)(1));
     }
     update(id, user) {
         return this.http.patch(`${this.url}/${id}`, user);
@@ -768,8 +788,37 @@ class UserService {
         return this.http.delete(`${this.url}/${id}`);
     }
 }
-UserService.ɵfac = function UserService_Factory(t) { return new (t || UserService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_1__.HttpClient)); };
-UserService.ɵprov = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: UserService, factory: UserService.ɵfac, providedIn: 'root' });
+UserService.ɵfac = function UserService_Factory(t) { return new (t || UserService)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_3__.HttpClient), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](_uuid_service__WEBPACK_IMPORTED_MODULE_0__.UuidService)); };
+UserService.ɵprov = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineInjectable"]({ token: UserService, factory: UserService.ɵfac, providedIn: 'root' });
+
+
+/***/ }),
+
+/***/ 8225:
+/*!***********************************************!*\
+  !*** ./src/app/core/services/uuid.service.ts ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "UuidService": () => (/* binding */ UuidService)
+/* harmony export */ });
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! uuid */ 2230);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ 2316);
+
+
+class UuidService {
+    constructor() {
+        this.myId = uuid__WEBPACK_IMPORTED_MODULE_0__.default();
+    }
+    getId() {
+        return uuid__WEBPACK_IMPORTED_MODULE_0__.default();
+    }
+}
+UuidService.ɵfac = function UuidService_Factory(t) { return new (t || UuidService)(); };
+UuidService.ɵprov = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjectable"]({ token: UuidService, factory: UuidService.ɵfac, providedIn: 'root' });
 
 
 /***/ }),
