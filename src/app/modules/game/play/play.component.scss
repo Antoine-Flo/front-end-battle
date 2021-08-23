@@ -16,23 +16,6 @@
 .challenge {
   width: 100%;
 
-  &__options {
-    padding: 2px;
-    background-color: var(--grey-100);
-    display: flex;
-    align-items: center;
-  }
-
-  &__options-label {
-    margin-left: 5px;
-    font-size: 1.7rem;
-    color: var(--black);
-  }
-
-  &__options-item {
-    margin-left: 1rem;
-    color: var(--white);
-  }
 }
 
 .displays {

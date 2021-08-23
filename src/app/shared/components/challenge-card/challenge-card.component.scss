@@ -1,12 +1,11 @@
 .challenge {
 
-    background-color: var(--grey-700);
+    background-color: var(--grey-500);
 
     &:hover {
         opacity: 1.5;
         cursor: pointer;
-        background-color: var(--grey-600);
-        border: 2px solid var(--black);
+        background-color: var(--grey-400);
     }
 
     &__content {

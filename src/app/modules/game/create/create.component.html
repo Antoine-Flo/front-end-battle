@@ -12,14 +12,24 @@
   <button class="scd-btn create__btn" [routerLink]="['/home']" >Annuler</button>
 
   <app-modal *ngIf="modalSaveNew" (dismiss)="modalSaveNew = false">
-    <form>
-      <label for="title">Title</label>
-      <input type="text" name="title">
 
-      <label for="Description">Description</label>
-      <input type="text" name="Description">
+    <form class="create__form" [formGroup]="formChallenge" (ngSubmit)="onSubmit">
 
-      <button class="main-btn">Save</button>
+      <mat-form-field color="accent" appearance="fill">
+        <mat-label >Titre</mat-label>
+        <input matInput formControlName="title">
+      </mat-form-field>
+
+      <mat-form-field color="accent" appearance="fill">
+        <mat-label for="title">Descritpion</mat-label>
+        <textarea matInput formControlName="description"></textarea>
+      </mat-form-field>
+
+
+      <button (click)="onSubmit(); $event.preventDefault()" type="submit" class="scd-btn">Save</button>
     </form>
   </app-modal>
+
+
+
 </app-layout>

@@ -16,5 +16,4 @@ export class ChallengesComponent implements OnInit {
     this.challenges = this.challengesService.getAll();
   }
 
-
 }
