@@ -13,12 +13,12 @@ export class UserService {
 
   url = 'https://feb-api.com/users'
 
-  set userEmail(email: string) {
-    this.userEmail = email;
+  set user(user: User) {
+    this.user = user;
   }
 
-  get userEmail():string{
-    return this.userEmail;
+  get user():User {
+    return this.user;
   }
 
   constructor(private http: HttpClient, private uuid: UuidService) {}
@@ -37,8 +37,9 @@ export class UserService {
       id: uuid,
       email: email,
       username: name,
-      challenges: [],
+      challenges: [""],
     }
+    this.user = user;
     return this.http.post<User>(this.url, JSON.stringify(user)).pipe(take(1))
   }
 

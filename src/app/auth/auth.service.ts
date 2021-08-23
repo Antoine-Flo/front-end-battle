@@ -10,13 +10,18 @@ import { UserService } from '../core/services/user.service';
   providedIn: 'root',
 })
 export class AuthService {
-
   constructor(
-    private user: UserService,
+    private userService: UserService,
     private auth: AngularFireAuth,
     private router: Router,
     private snackBar: SnackBarService
   ) {}
+
+  getAuthCredential() {
+    const user = app.auth().currentUser;
+
+    if (user) { console.log(user) }
+  }
 
   async signinGoogle() {
     const provider = new app.auth.GoogleAuthProvider();
@@ -32,18 +37,14 @@ export class AuthService {
     return app
       .auth()
       .createUserWithEmailAndPassword(email, password)
-      .then(() => {
-        this.user.userEmail = email;
-      });
+      .then(() => {});
   }
 
   signInWithEmailPassword(email: string, password: string) {
     return app
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then(() => {
-        this.user.userEmail = email;
-      });
+      .then(() => {});
   }
 
   logout() {
@@ -62,7 +63,7 @@ export class AuthService {
     this.router.navigate(['home']);
 
     if (credentials.additionalUserInfo.isNewUser) {
-      this.user.create(email, name).subscribe();
+      this.userService.create(email, name).subscribe();
     }
   }
 }

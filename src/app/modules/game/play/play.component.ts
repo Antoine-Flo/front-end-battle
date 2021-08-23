@@ -15,7 +15,7 @@ export class PlayComponent implements OnInit {
 
   challenge: Challenge;
   objectiveCode: string;
-  challengeId = this.route.snapshot.params.id;
+  challengeId: string;
   result: typeof document;
   objective: typeof document;
 
@@ -51,10 +51,15 @@ export class PlayComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+
+    // Initialize the 2 iframes
     this.result = this.iframeResult.nativeElement.contentWindow.document;
     this.objective = this.iframeObjective.nativeElement.contentWindow.document;
-    
 
+    // Get the id from the Url
+    this.route.params.subscribe(params => { this.challengeId = params['id'] })
+
+    // Get the challenge code and update the iframe
     this.chalService
       .getOne(this.challengeId)
       .pipe(
