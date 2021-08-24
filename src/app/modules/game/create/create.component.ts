@@ -39,16 +39,18 @@ export class CreateComponent implements OnInit {
     this.result.close();
   }
 
-  onSubmit() {
+   onSubmit() {
     const challengeInfos = {
       title: this.formChallenge.get('title').value,
       description: this.formChallenge.get('description').value,
       code: this.code,
+      imgData: this.previewImgUrl
     };
+    console.log(challengeInfos);
+    
     this.challenge.create(challengeInfos).subscribe();
   }
 
-  // Create a canvas from the iframe and convert it to a blob.
   onClick() {
     this.iframeToImgService.convertToImg(this.result.body).then((imgDataURL) => {
       this.previewImgUrl = imgDataURL;
@@ -67,15 +69,7 @@ export class CreateComponent implements OnInit {
   
     
   body {
-    height: 525px;
-    width: 700px;
-    overflow: hidden;
     background-color: #00adb5;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
   }
   
   .title {

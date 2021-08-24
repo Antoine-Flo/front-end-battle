@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { Challenge } from '../models/challenge.model'
+import { StorageService } from './storage.service';
 import { UuidService } from './uuid.service';
 
 
@@ -13,7 +14,7 @@ export class ChallengeService {
 
   url = 'https://feb-api.com/challenges'
 
-  constructor(private http: HttpClient, private uuid: UuidService) {}
+  constructor(private storageService: StorageService ,private http: HttpClient, private uuid: UuidService) {}
 
   getOne(id: string): Observable<Challenge> {
     return this.http.get<Challenge>(`${this.url}/${id}`);
@@ -23,19 +24,21 @@ export class ChallengeService {
     return this.http.get(this.url);
   }
 
-  create(challengeInfos: { title: string, description: string, code: string}):Observable<any>  {
+  create(challengeInfos: { title: string, description: string, code: string, imgData: string}) {
     const uuid = this.uuid.getId();
+    const imgId = this.storageService.uploadImg(challengeInfos.imgData);
 
     const challenge = {
       id: uuid,
       title: challengeInfos.title,
       description: challengeInfos.description,
       code: challengeInfos.code,
-      imgId: "notYet",
+      imgId,
       creatorId: "almost"
     }
-    console.log(challenge);
-    return this.http.post(this.url, JSON.stringify(challenge)).pipe(take(1))
+
+
+    return this.http.post(this.url, challenge, {responseType: 'text'})
   }
 
   update(id: string, challenge: Challenge) {

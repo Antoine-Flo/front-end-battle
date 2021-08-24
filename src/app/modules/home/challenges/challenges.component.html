@@ -1,5 +1,5 @@
 <div class="challenges">
   
-  <app-challenge-card [challenge]="challenge" *ngFor="let challenge of challenges | async"></app-challenge-card>
+  <app-challenge-card (challengeDeleted)="onChallengeDeleted()" [challenge]="challenge" *ngFor="let challenge of challenges | async"></app-challenge-card>
 
 </div>

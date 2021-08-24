@@ -5,24 +5,22 @@
     <app-code-editor [defaultCode]="defaultCode" mode="html" (codeChange)="onCodeChange($event)"></app-code-editor>
 
     <iframe class="create__iframe" #iframeResult frameborder="0"></iframe>
-    
-    
+
+
   </div>
-  
+
   <button class="main-btn create__btn" (click)=" onClick(); modalSaveNew = true">Enregistrer</button>
   <button class="scd-btn create__btn" [routerLink]="['/home']">Annuler</button>
 
-  
+
   <app-modal *ngIf="modalSaveNew" (dismiss)="modalSaveNew = false">
 
-    <div class="imgPreview">
-      <img id="imgPreview" alt="image preview" [src]="previewImgUrl">
-    </div>
+    <img class="imgPreview" alt="image preview" [src]="previewImgUrl">
 
     <form class="create__form" [formGroup]="formChallenge" (ngSubmit)="onSubmit">
 
       <mat-form-field color="accent" appearance="fill">
-        <mat-label >Titre</mat-label>
+        <mat-label>Titre</mat-label>
         <input matInput formControlName="title">
       </mat-form-field>
 

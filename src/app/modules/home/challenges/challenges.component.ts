@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ChallengeService } from 'src/app/core/services/challenge.service';
-import { StorageService } from 'src/app/core/services/storage.service';
 
 @Component({
   selector: 'app-challenges',
@@ -10,10 +10,13 @@ import { StorageService } from 'src/app/core/services/storage.service';
 export class ChallengesComponent implements OnInit {
   challenges: any;
 
-  constructor(private challengesService: ChallengeService) {}
+  constructor(private challengesService: ChallengeService, private router: Router) {}
 
   ngOnInit(): void {
     this.challenges = this.challengesService.getAll();
   }
 
+  onChallengeDeleted() {
+    this.ngOnInit()
+  }
 }

@@ -22,6 +22,29 @@ $feb-theme: mat.define-light-theme((
 @include mat.all-component-themes($feb-theme);
 
 
+// Ace editor custom
+body .ace_scrollbar {
+  -webkit-transition: opacity .3s ease-in-out;
+     -moz-transition: opacity .3s ease-in-out;
+      -ms-transition: opacity .3s ease-in-out;
+       -o-transition: opacity .3s ease-in-out;
+          transition: opacity .3s ease-in-out;
+  opacity: 0;
+  z-index: 0;
+}
+body .ace_editor:hover .ace_scrollbar {
+  opacity: 1;
+  
+}
+
+body .ace_layer {
+  z-index: 0;
+}
+body .ace_gutter {
+  z-index: 0;
+}
+
+
 $blue-palette: (
   '50': 'e5f0f1',
   '100': 'bddadd',

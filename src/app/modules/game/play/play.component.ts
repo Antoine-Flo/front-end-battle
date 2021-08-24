@@ -64,7 +64,7 @@ export class PlayComponent implements OnInit {
       .getOne(this.challengeId)
       .pipe(
         tap(x => this.challenge = x),
-        tap(x => this.updateIframe(this.objective, window.atob(x.code)))
+        tap(x => this.updateIframe(this.objective, x.code))
       )
       .subscribe();
   }
