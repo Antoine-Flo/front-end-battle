@@ -1,6 +1,16 @@
 // See the Ace editor custom CSS in the styles.sccs file
 
+:host {
+  position: relative;
+  width: 50%;
+}
+
 .ace-editor {
-  width: 50vw;
-  height: 600px;
+  width: 100%;
+  height: 85vh;
+  position: absolute; /* Added */
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }

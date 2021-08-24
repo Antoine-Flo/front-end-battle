@@ -21,6 +21,9 @@ $feb-theme: mat.define-light-theme((
 
 @include mat.all-component-themes($feb-theme);
 
+body {
+  background-color: var(--black);
+}
 
 // Ace editor custom
 body .ace_scrollbar {

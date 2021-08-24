@@ -1,52 +1,55 @@
-.game {
-  display: flex;
-  margin-top: 1rem;
+.play {
+    position: relative;
 
-  & > * {
-    margin: 5px;
+  &__game {
+    display: flex;
+    justify-content: center;
+
+    & > * {
+      margin: 10px;
+    }
+  }
+
+  &__iframes {
+    position: relative;
+    width: 700px;
+    height: 525px;
+  }
+  &__iframe {
+    width: 600px;
+    height: 450px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: all 0.2s;
+  }
+
+  &__btns {
+    position: absolute;
+    right: 7%;
+    bottom: 0px;
   }
 
   &__btn {
-    float: right;
-    margin-top: 1rem;
-    margin-right: 1rem;
+    margin: 1rem;
   }
 }
 
-.challenge {
-  width: 100%;
-  
-}
-
-.displays {
-  position: relative;
-  
-}
-
-.iframe {
-  height: 525px;
-  width: 700px;
-
-  position: absolute;
-  top: 0;
-  right: 0;
-  transition: all 0.2s;
-}
-
 /* Hide the second piece of text by default */
-.displays .displays__objective {
+.displays .objective {
   visibility: hidden;
   opacity: 0;
 }
 
 /* Hide the first piece of text on hover */
-.displays:hover .displays__result {
+.displays:hover .result {
   visibility: hidden;
   opacity: 0;
 }
 
 /* Re-show the second piece of text on hover */
-.displays:hover .displays__objective {
+.displays:hover .objective {
   visibility: visible;
   opacity: 1;
 }

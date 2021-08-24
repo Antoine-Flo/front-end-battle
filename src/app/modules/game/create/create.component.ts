@@ -46,8 +46,6 @@ export class CreateComponent implements OnInit {
       code: this.code,
       imgData: this.previewImgUrl
     };
-    console.log(challengeInfos);
-    
     this.challenge.create(challengeInfos).subscribe();
   }
 
@@ -59,15 +57,15 @@ export class CreateComponent implements OnInit {
 
   defaultCode = `
 
-  <!-- Bienvenue dans la section création -->
-  <!-- Il sera enregistré en tant que brouillon sur votre profil -->
-  <!-- Avant de pouvoir le partager à la communauté -->
+<!-- Bienvenue dans la section création -->
+<!-- Il sera enregistré en tant que brouillon sur votre profil -->
+<!-- Avant de pouvoir le partager à la communauté -->
   
-  <h1 class="title">Laissez libre cours à votre imagination 🎨<h1>
+<h1 class="title">Laissez libre cours à votre imagination 🎨<h1>
+
+
+<style>
   
-  <style>
-  
-    
   body {
     background-color: #00adb5;
   }
@@ -79,7 +77,7 @@ export class CreateComponent implements OnInit {
     text-align: center;
   }
   
-  </style>
+</style>
   
     `;
 

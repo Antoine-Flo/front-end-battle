@@ -34,7 +34,7 @@ export class ChallengeService {
       description: challengeInfos.description,
       code: challengeInfos.code,
       imgId,
-      creatorId: "almost"
+      creatorId: "Antoine"
     }
 
 

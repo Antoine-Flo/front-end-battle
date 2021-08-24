@@ -3,7 +3,7 @@
   <div class="challenge__content">
     <h2 class="challenge__title font-white"> {{ challenge.title }} </h2>
     <p class="challenge__txt font-white"> {{ challenge.description }} </p>
-    <p class="challenge__auth font-white"> Auteur : {{ creatorName }} </p>
+    <p class="challenge__auth font-white"> Auteur : {{ challenge.creatorId  }} </p>
   </div>
   <div class="challenge__select">
     <button class="challenge__btn scd-btn" (click)="onDelete()">Supprimer</button>

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { pluck } from 'rxjs/operators';
+import { pluck, tap } from 'rxjs/operators';
 import { ChallengeService } from 'src/app/core/services/challenge.service';
 import { StorageService } from 'src/app/core/services/storage.service';
 import { UserService } from 'src/app/core/services/user.service';
@@ -22,16 +22,29 @@ export class ChallengeCardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.storage.downloadViaUrl(this.challenge.imgId).subscribe((x) => (this.imgUrl = x));
+    // Get the image Url
+    this.storage
+      .downloadViaUrl(this.challenge.imgId)
+      .subscribe((x) => (this.imgUrl = x));
+    console.log(this.challenge.creatorId);
+    
+    // Get the creato name
     this.userService
       .getOne(this.challenge.creatorId)
-      .pipe(pluck('username'))
-      .subscribe((x) => (this.creatorName = x));
+      .pipe(
+        // tap((x) => {console.log(x)}),
+        pluck('username'),
+      )
+      .subscribe((x) => {
+        // console.log(x);
+
+        this.creatorName = x;
+      });
   }
 
   onDelete() {
     this.challengeService.delete(this.challenge.id).subscribe(() => {
-      this.challengeDeleted.emit("Challenge supprimé");
+      this.challengeDeleted.emit('Challenge supprimé');
     });
   }
 }

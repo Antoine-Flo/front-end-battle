@@ -1,18 +1,19 @@
 <app-layout>
+  <div class="play">
 
-  <div class="game">
+    <div class="play__game">
+      <app-code-editor [defaultCode]="defaultCode" mode="html" (codeChange)="onCodeChange($event)"></app-code-editor>
 
-    <app-code-editor [defaultCode]="defaultCode" mode="html" (codeChange)="onCodeChange($event)"></app-code-editor>
-
-    <div class="challenge">
-
-      <div class="displays">
-        <!-- <iframe class="iframe displays__objective" src="assets/challenges/tuto/tuto.html" #iframeObjective frameborder="0"></iframe>  -->
-        <iframe class="iframe displays__objective" #iframeObjective frameborder="0"></iframe>
-        <iframe class="iframe displays__result" #iframeResult frameborder="0"></iframe>
+      <div class="play__iframes displays">
+        <iframe class="play__iframe objective" #iframeObjective frameborder="0"></iframe>
+        <iframe class="play__iframe result" #iframeResult frameborder="0"></iframe>
       </div>
     </div>
+
+    <div class="play__btns">
+      <button class="main-btn play__btn">Enregistrer</button>
+      <button [routerLink]="['/home']" class="scd-btn game__btn">Annuler</button>
+    </div>
   </div>
-  <button class="main-btn game__btn">Enregistrer</button>
-  <button [routerLink]="['/home']" class="scd-btn game__btn">Annuler</button>
+
 </app-layout>
