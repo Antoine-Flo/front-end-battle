@@ -2240,6 +2240,20 @@ th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
 .mat-simple-snackbar-action {
   color: #e040fb;
 }
+body .ace_scrollbar {
+  transition: opacity 0.3s ease-in-out;
+  opacity: 0;
+  z-index: 0;
+}
+body .ace_editor:hover .ace_scrollbar {
+  opacity: 1;
+}
+body .ace_layer {
+  z-index: 0;
+}
+body .ace_gutter {
+  z-index: 0;
+}
 button {
   color: var(--white);
   transition: all 0.2s;
