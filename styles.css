@@ -2240,6 +2240,9 @@ th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
 .mat-simple-snackbar-action {
   color: #e040fb;
 }
+body {
+  background-color: var(--black);
+}
 body .ace_scrollbar {
   transition: opacity 0.3s ease-in-out;
   opacity: 0;
@@ -2267,10 +2270,10 @@ button:focus {
 }
 .main-btn {
   font-family: "Noto Sans JP";
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   background-color: var(--main-400);
   border: 2px solid var(--main-400);
-  padding: 0.5rem 2rem;
+  padding: 0.5rem 1.2rem;
   border-radius: 3px;
 }
 .main-btn:hover {
@@ -2280,10 +2283,10 @@ button:focus {
 }
 .scd-btn {
   font-family: "Noto Sans JP";
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   background-color: var(--grey-300);
   border: 2px solid var(--main-400);
-  padding: 0.5rem 2rem;
+  padding: 0.5rem 1.2rem;
   border-radius: 3px;
 }
 .scd-btn:hover {
