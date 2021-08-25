@@ -2,22 +2,31 @@
 
   <div><a class="nav__logo" [routerLink]="['/home']">FEB</a></div>
 
+  <div class="items">
 
-  <button mat-button [matMenuTriggerFor]="beforeMenu">
-    <mat-icon>more_vert</mat-icon>
-  </button>
-  <mat-menu #beforeMenu="matMenu" xPosition="before">
-    <button [routerLink]="['/home']" mat-menu-item>Accueil</button>
-    <button [routerLink]="['/profil']" mat-menu-item>Profil</button>
-    <mat-divider></mat-divider>
-    <button mat-menu-item>Mes challenges</button>
-    <mat-divider></mat-divider>
-
-    <button (click)="onLogOut()" mat-menu-item>
-      <mat-icon>close</mat-icon>
-      <span>Se déconnecter</span>
+    <button mat-button *ngIf="theme === 'light'" (click)="changeToDark();">
+      <mat-icon>light_mode</mat-icon>
+    </button>
+    <button mat-button *ngIf="theme === 'dark'" (click)="changeToLight();">
+      <mat-icon>bedtime</mat-icon>
+    </button>
+    
+    <button *ngIf="user" mat-button [matMenuTriggerFor]="beforeMenu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #beforeMenu="matMenu" xPosition="before">
+      <button [routerLink]="['/home']" mat-menu-item>Accueil</button>
+      <button [routerLink]="['/profil']" mat-menu-item>Profil</button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item>Mes challenges</button>
+      <mat-divider></mat-divider>
+      
+      <button (click)="onLogOut()" mat-menu-item>
+        <mat-icon>power_settings_new</mat-icon>
+        <span>Se déconnecter</span>
       </button>
-  </mat-menu>
-
+    </mat-menu>
+  </div>
+    
 
 </mat-toolbar>

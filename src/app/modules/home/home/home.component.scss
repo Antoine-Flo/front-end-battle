@@ -1,19 +1,11 @@
-@use 'sass:map';
-@use '~@angular/material' as mat;
+
 
 .home {
-    margin: 2rem auto;
-
-    &__title {
-        font-size: 2rem;
-    }
-
+    margin-top: 2rem;
+    
     &__section {
-        padding: 1rem;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
     }
 
-    &__challenges {
-        padding: 2rem 0;
-        // background-color: var(--grey);
-    }
 }

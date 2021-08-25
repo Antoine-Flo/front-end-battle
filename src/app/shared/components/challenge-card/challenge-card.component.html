@@ -1,19 +1,26 @@
-<mat-card>
+<mat-card class="challenge">
 
-  <div  class="challenge box">
-    <img class="challenge__img" [src]="imgUrl" alt="image challenge">
-    <div class="challenge__content">
+
+  <img mat-card-image class="challenge__img" [src]="imgUrl" alt="image challenge">
+
+
+  <div class="challenge__content">
+    
+    <div class="challenge__credentials">
       <h2 class="challenge__title font-white"> {{ challenge.title }} </h2>
-      <p class="challenge__txt font-white"> {{ challenge.description }} </p>
-      <p class="challenge__auth font-white"> Auteur : {{ challenge.creatorId  }} </p>
+      <p class="challenge__bio font-white"> {{ challenge.description }} </p>
     </div>
-    <div class="challenge__select">
 
-      <mat-card-actions>
+    <div class="challenge__footer">
+      <p class="challenge__auth font-white"> {{ challenge.creatorId  }} </p>
+      <mat-card-actions class="challenge__actions">
         <button mat-flat-button color="warn" (click)="onDelete()">Supprimer</button>
-        <button mat-raised-button  color="primary" [routerLink]="['/game/play', challenge.id]" class="challenge__btn">Résoudre</button>
+        <button mat-raised-button color="primary" [routerLink]="['/game/play', challenge.id]"
+        class="challenge__btn">Résoudre</button>
       </mat-card-actions>
     </div>
+    
   </div>
+
 
 </mat-card>

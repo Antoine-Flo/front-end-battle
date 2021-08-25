@@ -10,10 +10,17 @@
       </div>
     </div>
 
-    <div class="play__btns">
+    <!-- <div class="play__btns">
       <button class="main-btn play__btn">Enregistrer</button>
       <button [routerLink]="['/home']" class="scd-btn game__btn">Annuler</button>
     </div>
+     -->
+
+    <div class="play__btns">
+      <button mat-raised-button color="warn" [routerLink]="['/home']" class="play__btn">Annuler</button>
+      <button mat-flat-button color="primary" class="play__btn">Enregister</button>
+    </div>
+
   </div>
 
 </app-layout>

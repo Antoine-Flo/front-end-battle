@@ -1,36 +1,36 @@
 .challenge {
 
-    // background-color: var(--grey-500);
+    overflow: hidden;
 
-    &:hover {
-        opacity: 1.5;
-        // background-color: var(--grey-400);
-    }
-
+    
     &__content {
-        margin: 1rem;
-        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+        flex:1;
     }
+
 
     &__title {
-        font-size: 1.8rem;
         margin-bottom: 1rem;
     }
 
-    &__txt {
-        font-weight: lighter;
-    }
-
-    &__img {
-        width: 100%;
-    }
-
-    &__select {
-        align-self: flex-end;
+    &__footer {
+        margin-top: 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
     }
 
     &__btn {
-        margin: 5px;
+        margin-left: 5px;
+    }
+
+    &__actions {
+        margin-bottom: 0;
+        align-self: flex-end;
+        justify-self: flex-end;
     }
 
 }

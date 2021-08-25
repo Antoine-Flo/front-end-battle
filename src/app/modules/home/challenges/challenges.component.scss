@@ -1,7 +1,8 @@
 .challenges {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1rem;
+    // grid-auto-rows: 1fr;
+    gap: 2rem;
 
     &__show {
         width: 50%;
