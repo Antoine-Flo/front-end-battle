@@ -24,7 +24,8 @@ export class UserService {
   constructor(private http: HttpClient, private uuid: UuidService) {}
 
   getOne(id: string): Observable<User> {
-    return this.http.get<User>(`${this.url}/${id}`);
+    const encodedId = encodeURI(id) 
+    return this.http.get<User>(`${this.url}/${encodedId}`);
   }
 
   getAll(): Observable<Object> {

@@ -26,7 +26,6 @@ export class ChallengeCardComponent implements OnInit {
     this.storage
       .downloadViaUrl(this.challenge.imgId)
       .subscribe((x) => (this.imgUrl = x));
-    console.log(this.challenge.creatorId);
     
     // Get the creato name
     this.userService

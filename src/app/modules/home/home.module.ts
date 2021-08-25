@@ -8,19 +8,18 @@ import { MatDividerModule } from '@angular/material/divider';
 import { HomeRoutingModule } from './home-routing.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { HomeComponent } from './home/home.component';
-import { ChallengesComponent } from './challenges/challenges.component';
 import { ProgressionComponent } from './progression/progression.component';
 
 @NgModule({
-  declarations: [HomeComponent, ChallengesComponent, ProgressionComponent],
+  declarations: [HomeComponent,  ProgressionComponent],
   imports: [
     SharedModule,
     FormsModule,
     CommonModule,
     HomeRoutingModule,
     MatButtonModule,
-    MatDividerModule
+    MatDividerModule,
   ],
-  exports: [HomeComponent, ChallengesComponent],
+  exports: [HomeComponent],
 })
 export class HomeModule {}

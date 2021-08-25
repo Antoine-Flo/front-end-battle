@@ -1,8 +1,7 @@
 <app-layout>
 
-
-
   <div class="home">
+
 
     <div class="home__section container">
       <h2>Créer un challenge</h2>
@@ -12,12 +11,15 @@
     </div>
     <mat-divider></mat-divider>
 
+
     <div class="home__section container">
-      <h2>Résoudre un challenge</h2>
+      <h2>Mes challenges publiés</h2>
 
       <div class="challenges">
 
-        <app-challenge-card (challengeDeleted)="onChallengeDeleted()" [challenge]="challenge" *ngFor="let challenge of challenges | async"></app-challenge-card>
+        <app-challenge-card (challengeDeleted)="onChallengeDeleted()" [challenge]="challenge"
+          *ngFor="let challenge of userChallenges | async">
+        </app-challenge-card>
       </div>
 
     </div>

@@ -9,7 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
-import {MatDividerModule} from '@angular/material/divider'; 
+import { MatDividerModule } from '@angular/material/divider';
 
 import { CodeEditorComponent } from './components/code-editor/code-editor.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -19,6 +19,7 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { ChallengeCardComponent } from './components/challenge-card/challenge-card.component';
 
 import { SafePipe } from './pipes/safe.pipe';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { SafePipe } from './pipes/safe.pipe';
     SafePipe,
     LayoutComponent,
     ChallengeCardComponent,
+    PageNotFoundComponent
   ],
   imports: [
     CommonModule,
@@ -40,7 +42,7 @@ import { SafePipe } from './pipes/safe.pipe';
     MatIconModule,
     MatToolbarModule,
     MatCardModule,
-    MatDividerModule
+    MatDividerModule,
   ],
   exports: [
     ReactiveFormsModule,

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import app from 'firebase';
-import { BehaviorSubject } from 'rxjs';
 import { SnackBarService } from '../core/services/snack-bar.service';
 import { UserService } from '../core/services/user.service';
 
@@ -17,10 +16,9 @@ export class AuthService {
     private snackBar: SnackBarService
   ) {}
 
-  getAuthCredential() {
-    const user = app.auth().currentUser;
-
-    if (user) { console.log(user) }
+  getUserEmail() {
+ 
+    return app.auth().currentUser.email;
   }
 
   async signinGoogle() {

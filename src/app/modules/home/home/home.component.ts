@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/auth/auth.service';
 
+import { UserService } from 'src/app/core/services/user.service';
+import { ChallengeService } from 'src/app/core/services/challenge.service';
 
 @Component({
   selector: 'app-home',
@@ -8,9 +11,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  challenges: any;
+  userEmail: any;
+  constructor(private challengesService: ChallengeService, private authService: AuthService, private userService: UserService) { }
 
   ngOnInit(): void {
+    this.challenges = this.challengesService.getAll();
+    this.userEmail = this.authService.getUserEmail();
+    this.userService.getOne(this.userEmail).subscribe(x => console.log(x));
+  }
+
+    onChallengeDeleted() {
+    this.ngOnInit()
   }
 
 

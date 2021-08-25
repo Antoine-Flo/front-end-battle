@@ -1,11 +1,19 @@
+.challenges {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
 
+    &__show {
+        width: 50%;
+    }
+}
 
 .home {
     margin-top: 2rem;
     
     &__section {
         margin-top: 2rem;
-        margin-bottom: 2rem;
+        padding-bottom: 9rem;
     }
 
 }

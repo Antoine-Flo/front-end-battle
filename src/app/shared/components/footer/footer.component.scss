@@ -1,14 +1,15 @@
 .footer {
 
     width: 100%;
-    position: fixed;
+    position: absolute;
     bottom: 0;
 
-    background-color: var(--grey-500);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.5rem;
+    &__content {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
 
     &__items {
         display: flex;
@@ -19,7 +20,5 @@
         margin: 0 20px;
     }
 
-    &__logo {
-        font-size: 1rem;
-    }
 }
+

@@ -18,7 +18,7 @@
       <button [routerLink]="['/home']" mat-menu-item>Accueil</button>
       <button [routerLink]="['/profil']" mat-menu-item>Profil</button>
       <mat-divider></mat-divider>
-      <button mat-menu-item>Mes challenges</button>
+      <button [routerLink]="['/profil/challenges']"  mat-menu-item>Mes challenges</button>
       <mat-divider></mat-divider>
       
       <button (click)="onLogOut()" mat-menu-item>

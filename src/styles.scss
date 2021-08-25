@@ -27,17 +27,10 @@ $dark-theme: mat.define-dark-theme(
   )
 );
 
-// Apply the dark theme by default
 @include mat.all-component-themes($dark-theme);
-@include mat.button-theme($dark-theme);
-@include mat.core-theme($dark-theme);
 
-// Apply the light theme only when the `.my-light-theme` CSS class is applied
-// to an ancestor element of the components (such as `body`).
 .light-theme {
-  @include mat.all-component-themes($light-theme);
-  @include mat.core-color($light-theme);
-  @include mat.button-color($light-theme);
+  @include mat.all-component-colors($light-theme);
 }
 
 $blue-palette: (

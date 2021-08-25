@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { from, Observable } from 'rxjs';
+import { concatMap, take } from 'rxjs/operators';
 import { Challenge } from '../models/challenge.model'
 import { StorageService } from './storage.service';
 import { UuidService } from './uuid.service';

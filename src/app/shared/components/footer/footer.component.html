@@ -1,13 +1,20 @@
-<footer class="footer">
-    <div class="footer__logo"> <a class="font-white" href="#">© 2021 Front-End Battle</a></div>
+<mat-toolbar class="footer">
+
+
+  <footer class="footer__content">
+
+    <div class="footer__logo"> ©2021 Front-End Battle</div>
 
     <ul class="footer__items">
-        <li class="footer__item font-white"> 
-            <a [routerLink]="['/home']">Accueil</a> 
-        </li>
-
-        <li class="footer__item font-white">
-            <a target="blank" href="https://github.com/Antoine-Flo/front-end-battle">GitHub</a>
-        </li>
+      <li class="footer__item">
+        <a [routerLink]="['/home']">Accueil</a>
+      </li>
+      <li class="footer__item">
+        <a target="blank" href="https://github.com/Antoine-Flo/front-end-battle">GitHub</a>
+      </li>
     </ul>
-</footer>
+
+  </footer>
+
+
+</mat-toolbar>

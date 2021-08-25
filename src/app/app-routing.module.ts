@@ -5,7 +5,6 @@ import { StartComponent } from './auth/start/start.component';
 
 import { canActivate, redirectLoggedInTo } from '@angular/fire/auth-guard';
 import { redirectUnauthorizedTo } from '@angular/fire/auth-guard';
-import { ProfilComponent } from './modules/profil/profil/profil.component';
 import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
 
 const redirectUnauthorizedToStart = () => redirectUnauthorizedTo(['start']);
@@ -20,7 +19,8 @@ const routes: Routes = [
   },
   {
     path: 'profil',
-    component: ProfilComponent,
+    loadChildren: () =>
+    import('./modules/profil/profil.module').then((m) => m.ProfilModule),
     ...canActivate(redirectUnauthorizedToStart),
   },
   {
