@@ -51,7 +51,7 @@ ChallengesComponent.ɵcmp = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](1);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("ngForOf", _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵpipeBind1"](2, 1, ctx.challenges));
-    } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_4__.NgForOf, _shared_components_challenge_card_challenge_card_component__WEBPACK_IMPORTED_MODULE_1__.ChallengeCardComponent], pipes: [_angular_common__WEBPACK_IMPORTED_MODULE_4__.AsyncPipe], styles: [".challenges[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));\n  grid-gap: 1rem;\n  gap: 1rem;\n}\n.challenges__show[_ngcontent-%COMP%] {\n  width: 50%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImNoYWxsZW5nZXMuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxhQUFBO0VBQ0EsMkRBQUE7RUFDQSxjQUFBO0VBQUEsU0FBQTtBQUNKO0FBQ0k7RUFDSSxVQUFBO0FBQ1IiLCJmaWxlIjoiY2hhbGxlbmdlcy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5jaGFsbGVuZ2VzIHtcbiAgICBkaXNwbGF5OiBncmlkO1xuICAgIGdyaWQtdGVtcGxhdGUtY29sdW1uczogcmVwZWF0KGF1dG8tZml0LCBtaW5tYXgoMzAwcHgsIDFmcikpO1xuICAgIGdhcDogMXJlbTtcblxuICAgICZfX3Nob3cge1xuICAgICAgICB3aWR0aDogNTAlO1xuICAgIH1cbn0iXX0= */"] });
+    } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_4__.NgForOf, _shared_components_challenge_card_challenge_card_component__WEBPACK_IMPORTED_MODULE_1__.ChallengeCardComponent], pipes: [_angular_common__WEBPACK_IMPORTED_MODULE_4__.AsyncPipe], styles: [".challenges[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));\n  grid-gap: 2rem;\n  gap: 2rem;\n}\n.challenges__show[_ngcontent-%COMP%] {\n  width: 50%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImNoYWxsZW5nZXMuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxhQUFBO0VBQ0EsMkRBQUE7RUFFQSxjQUFBO0VBQUEsU0FBQTtBQUFKO0FBRUk7RUFDSSxVQUFBO0FBQVIiLCJmaWxlIjoiY2hhbGxlbmdlcy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5jaGFsbGVuZ2VzIHtcbiAgICBkaXNwbGF5OiBncmlkO1xuICAgIGdyaWQtdGVtcGxhdGUtY29sdW1uczogcmVwZWF0KGF1dG8tZml0LCBtaW5tYXgoMzAwcHgsIDFmcikpO1xuICAgIC8vIGdyaWQtYXV0by1yb3dzOiAxZnI7XG4gICAgZ2FwOiAycmVtO1xuXG4gICAgJl9fc2hvdyB7XG4gICAgICAgIHdpZHRoOiA1MCU7XG4gICAgfVxufSJdfQ== */"] });
 
 
 /***/ }),
@@ -98,12 +98,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/common */ 4364);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/forms */ 1707);
+/* harmony import */ var _angular_material_button__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/material/button */ 781);
+/* harmony import */ var _angular_material_divider__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/material/divider */ 1124);
 /* harmony import */ var _home_routing_module__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./home-routing.module */ 4601);
 /* harmony import */ var src_app_shared_shared_module__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/shared/shared.module */ 4466);
 /* harmony import */ var _home_home_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./home/home.component */ 1745);
 /* harmony import */ var _challenges_challenges_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./challenges/challenges.component */ 7042);
 /* harmony import */ var _progression_progression_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./progression/progression.component */ 4788);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ 2316);
+
+
 
 
 
@@ -120,13 +124,16 @@ HomeModule.ɵinj = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵ�
             src_app_shared_shared_module__WEBPACK_IMPORTED_MODULE_1__.SharedModule,
             _angular_forms__WEBPACK_IMPORTED_MODULE_6__.FormsModule,
             _angular_common__WEBPACK_IMPORTED_MODULE_7__.CommonModule,
-            _home_routing_module__WEBPACK_IMPORTED_MODULE_0__.HomeRoutingModule
+            _home_routing_module__WEBPACK_IMPORTED_MODULE_0__.HomeRoutingModule,
+            _angular_material_button__WEBPACK_IMPORTED_MODULE_8__.MatButtonModule,
+            _angular_material_divider__WEBPACK_IMPORTED_MODULE_9__.MatDividerModule
         ]] });
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵsetNgModuleScope"](HomeModule, { declarations: [_home_home_component__WEBPACK_IMPORTED_MODULE_2__.HomeComponent, _challenges_challenges_component__WEBPACK_IMPORTED_MODULE_3__.ChallengesComponent, _progression_progression_component__WEBPACK_IMPORTED_MODULE_4__.ProgressionComponent], imports: [src_app_shared_shared_module__WEBPACK_IMPORTED_MODULE_1__.SharedModule,
         _angular_forms__WEBPACK_IMPORTED_MODULE_6__.FormsModule,
         _angular_common__WEBPACK_IMPORTED_MODULE_7__.CommonModule,
-        _home_routing_module__WEBPACK_IMPORTED_MODULE_0__.HomeRoutingModule], exports: [_home_home_component__WEBPACK_IMPORTED_MODULE_2__.HomeComponent,
-        _challenges_challenges_component__WEBPACK_IMPORTED_MODULE_3__.ChallengesComponent] }); })();
+        _home_routing_module__WEBPACK_IMPORTED_MODULE_0__.HomeRoutingModule,
+        _angular_material_button__WEBPACK_IMPORTED_MODULE_8__.MatButtonModule,
+        _angular_material_divider__WEBPACK_IMPORTED_MODULE_9__.MatDividerModule], exports: [_home_home_component__WEBPACK_IMPORTED_MODULE_2__.HomeComponent, _challenges_challenges_component__WEBPACK_IMPORTED_MODULE_3__.ChallengesComponent] }); })();
 
 
 /***/ }),
@@ -143,8 +150,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 2316);
 /* harmony import */ var _shared_components_layout_layout_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../shared/components/layout/layout.component */ 4325);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ 1258);
+/* harmony import */ var _angular_material_button__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material/button */ 781);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ 1258);
+/* harmony import */ var _angular_material_divider__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/material/divider */ 1124);
 /* harmony import */ var _challenges_challenges_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../challenges/challenges.component */ 7042);
+
+
 
 
 
@@ -156,33 +167,32 @@ class HomeComponent {
     }
 }
 HomeComponent.ɵfac = function HomeComponent_Factory(t) { return new (t || HomeComponent)(); };
-HomeComponent.ɵcmp = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineComponent"]({ type: HomeComponent, selectors: [["app-home"]], decls: 13, vars: 2, consts: [[1, "home"], [1, "home__challenges"], [1, "container"], [1, "home__title", "font-white"], [1, "box"], [1, "font-white", "main-btn", "home__btn", 3, "routerLink"], [1, "home__section", "container"]], template: function HomeComponent_Template(rf, ctx) { if (rf & 1) {
+HomeComponent.ɵcmp = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineComponent"]({ type: HomeComponent, selectors: [["app-home"]], decls: 13, vars: 2, consts: [[1, "home"], [1, "home__section", "container"], [1, "box"], ["mat-raised-button", "", "color", "primary", 3, "routerLink"]], template: function HomeComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](0, "app-layout");
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](1, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](2, "div", 1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](3, "div", 2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](4, "h2", 3);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](5, "Cr\u00E9er un challenge");
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](3, "h2");
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](4, "Cr\u00E9er un challenge");
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](6, "div", 4);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](7, "button", 5);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](8, "C'est partis");
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](5, "div", 2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](6, "button", 3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](7, "C'est partis");
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](9, "div", 6);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](10, "h2", 3);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](11, "Challenges");
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelement"](8, "mat-divider");
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](9, "div", 1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](10, "h2");
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](11, "R\u00E9soudre un challenge");
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelement"](12, "app-challenges");
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
     } if (rf & 2) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](7);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](6);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("routerLink", _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵpureFunction0"](1, _c0));
-    } }, directives: [_shared_components_layout_layout_component__WEBPACK_IMPORTED_MODULE_0__.LayoutComponent, _angular_router__WEBPACK_IMPORTED_MODULE_3__.RouterLink, _challenges_challenges_component__WEBPACK_IMPORTED_MODULE_1__.ChallengesComponent], styles: [".home[_ngcontent-%COMP%] {\n  margin: 2rem auto;\n}\n.home__title[_ngcontent-%COMP%] {\n  font-size: 2rem;\n}\n.home__section[_ngcontent-%COMP%] {\n  padding: 1rem;\n}\n.home__challenges[_ngcontent-%COMP%] {\n  padding: 2rem 0;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImhvbWUuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBR0E7RUFDSSxpQkFBQTtBQUZKO0FBSUk7RUFDSSxlQUFBO0FBRlI7QUFLSTtFQUNJLGFBQUE7QUFIUjtBQU1JO0VBQ0ksZUFBQTtBQUpSIiwiZmlsZSI6ImhvbWUuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJAdXNlICdzYXNzOm1hcCc7XG5AdXNlICd+QGFuZ3VsYXIvbWF0ZXJpYWwnIGFzIG1hdDtcblxuLmhvbWUge1xuICAgIG1hcmdpbjogMnJlbSBhdXRvO1xuXG4gICAgJl9fdGl0bGUge1xuICAgICAgICBmb250LXNpemU6IDJyZW07XG4gICAgfVxuXG4gICAgJl9fc2VjdGlvbiB7XG4gICAgICAgIHBhZGRpbmc6IDFyZW07XG4gICAgfVxuXG4gICAgJl9fY2hhbGxlbmdlcyB7XG4gICAgICAgIHBhZGRpbmc6IDJyZW0gMDtcbiAgICAgICAgLy8gYmFja2dyb3VuZC1jb2xvcjogdmFyKC0tZ3JleSk7XG4gICAgfVxufVxuIl19 */"] });
+    } }, directives: [_shared_components_layout_layout_component__WEBPACK_IMPORTED_MODULE_0__.LayoutComponent, _angular_material_button__WEBPACK_IMPORTED_MODULE_3__.MatButton, _angular_router__WEBPACK_IMPORTED_MODULE_4__.RouterLink, _angular_material_divider__WEBPACK_IMPORTED_MODULE_5__.MatDivider, _challenges_challenges_component__WEBPACK_IMPORTED_MODULE_1__.ChallengesComponent], styles: [".home[_ngcontent-%COMP%] {\n  margin-top: 2rem;\n}\n.home__section[_ngcontent-%COMP%] {\n  margin-top: 2rem;\n  margin-bottom: 2rem;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImhvbWUuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBRUE7RUFDSSxnQkFBQTtBQURKO0FBR0k7RUFDSSxnQkFBQTtFQUNBLG1CQUFBO0FBRFIiLCJmaWxlIjoiaG9tZS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIlxuXG4uaG9tZSB7XG4gICAgbWFyZ2luLXRvcDogMnJlbTtcbiAgICBcbiAgICAmX19zZWN0aW9uIHtcbiAgICAgICAgbWFyZ2luLXRvcDogMnJlbTtcbiAgICAgICAgbWFyZ2luLWJvdHRvbTogMnJlbTtcbiAgICB9XG5cbn1cbiJdfQ== */"] });
 
 
 /***/ }),
