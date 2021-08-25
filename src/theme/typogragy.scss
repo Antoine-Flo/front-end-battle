@@ -1,17 +1,17 @@
-%font-base {
-    letter-spacing: 1px;
-    font-family: 'Noto Sans JP';
-}
+// %font-base {
+//     letter-spacing: 1px;
+//     font-family: 'Noto Sans JP';
+// }
 
-.font-white {
-    color: var(--white);
-}
+// .font-white {
+//     // color: var(--white);
+// }
 
-.font-black {
-    color: var(--black);
-}
+// .font-black {
+//     // color: var(--black);
+// }
 
-a, li, p, h1, h2, button {
-    @extend %font-base
+// a, li, p, h1, h2, button {
+//     @extend %font-base
     
-}
+// }

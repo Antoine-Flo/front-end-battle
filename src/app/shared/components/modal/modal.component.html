@@ -2,7 +2,8 @@
 
     <div (click)="$event.stopPropagation()" class="modal">
 
-        <p class="modal__close font-white" (click)="onDismissClick()">Fermer</p>
+        <mat-icon class="modal__close font-white" (click)="onDismissClick()">close</mat-icon>
+        <!-- <p class="modal__close font-white" (click)="onDismissClick()">Fermer</p> -->
 
         <div class="modal__header">
             <ng-content select="[modalTitle]"></ng-content>

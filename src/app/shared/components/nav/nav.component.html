@@ -1,17 +1,23 @@
-<nav class="nav">
-  <div class="nav__logo"> <a [routerLink]="['/home']">FEB</a></div>
+<mat-toolbar color="primary" class="nav">
+
+  <div><a class="nav__logo" [routerLink]="['/home']">FEB</a></div>
 
 
-  <button class="font-white" mat-button [matMenuTriggerFor]="beforeMenu">
+  <button mat-button [matMenuTriggerFor]="beforeMenu">
     <mat-icon>more_vert</mat-icon>
   </button>
   <mat-menu #beforeMenu="matMenu" xPosition="before">
+    <button [routerLink]="['/home']" mat-menu-item>Accueil</button>
     <button [routerLink]="['/profil']" mat-menu-item>Profil</button>
+    <mat-divider></mat-divider>
     <button mat-menu-item>Mes challenges</button>
-    <button (click)="onLogOut()" mat-menu-item>Se déconnecter</button>
+    <mat-divider></mat-divider>
+
+    <button (click)="onLogOut()" mat-menu-item>
+      <mat-icon>close</mat-icon>
+      <span>Se déconnecter</span>
+      </button>
   </mat-menu>
 
 
-
-
-</nav>
+</mat-toolbar>

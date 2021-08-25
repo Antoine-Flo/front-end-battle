@@ -1,116 +1,115 @@
-@use 'sass:map';
 @use '~@angular/material' as mat;
-
-@import '~@angular/material/theming';
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap');
 
 @include mat.core();
 
-$feb-primary: mat.define-palette(mat.$blue-palette);
-$feb-accent: mat.define-palette(mat.$purple-palette, A200, A100, A400);
-$feb-warn: mat.define-palette(mat.$red-palette);
+// Define a light theme
 
-
-$feb-light-theme: mat.define-light-theme((
-  color: (
-    primary: $feb-primary,
-    accent: $feb-accent,
-    warn: $feb-warn,
-  )
-));
-
-@include mat.all-component-themes($feb-light-theme);
-
-$feb-dark-theme: mat.define-dark-theme(
+$light-primary: mat.define-palette(mat.$indigo-palette, 500);
+$light-accent: mat.define-palette(mat.$purple-palette, A200, A100, A400);
+$light-theme: mat.define-light-theme(
   (
     color: (
-      primary: $feb-primary,
-      accent: $feb-accent,
-      warn: $feb-warn,
+      primary: $light-primary,
+      accent: $light-accent,
     ),
   )
 );
 
-@include mat.core-theme($feb-dark-theme);
-@include mat.button-theme($feb-dark-theme);
-
-.my-light-theme {
-  @include mat.core-color($feb-light-theme);
-  @include mat.button-color($feb-light-theme);
- }
-
-
-
-$blue-palette: (
-  '50': 'e5f0f1',
-  '100': 'bddadd',
-  '200': '92c1c6',
-  '300': '66a8af',
-  '400': '45959d',
-  '500': '24828c',
-  '600': '207a84',
-  '700': '1b6f79',
-  '800': '16656f',
-  '900': '0d525c',
-  'A100': '91f0ff',
-  'A200': '5ee8ff',
-  'A400': '2be1ff',
-  'A700': '12deff',
-  'contrastDefaultColor': 'light',
-  'contrastDarkColors': (
-    '50',
-    '100',
-    '200',
-    '300',
-    'A100',
-    'A200',
-    'A400',
-    'A700'
-  ),
-  'contrastLightColors': (
-    '400',
-    '500',
-    '600',
-    '700',
-    '800',
-    '900'
+// Define a dark theme
+$dark-primary: mat.define-palette(mat.$indigo-palette);
+$dark-accent: mat.define-palette(mat.$purple-palette);
+$dark-theme: mat.define-dark-theme(
+  (
+    color: (
+      primary: $dark-primary,
+      accent: $dark-accent,
+    ),
   )
 );
 
-$purple-palette: (
-  '50': 'f9e8f1',
-  '100': 'efc5dd',
-  '200': 'e49ec7',
-  '300': 'd977b0',
-  '400': 'd1599f',
-  '500': 'c93c8e',
-  '600': 'c33686',
-  '700': 'bc2e7b',
-  '800': 'b52771',
-  '900': 'a91a5f',
-  'A100': 'ffdfed',
-  'A200': 'ffacd1',
-  'A400': 'ff79b5',
-  'A700': 'ff5fa7',
-  'contrastDefaultColor': 'light',
-  'contrastDarkColors': (
-    '50',
-    '100',
-    '200',
-    '300',
-    '400',
-    'A100',
-    'A200',
-    'A400',
-    'A700'
+// Apply the dark theme by default
+@include mat.all-component-themes($dark-theme);
+@include mat.button-theme($dark-theme);
+@include mat.core-theme($dark-theme);
+
+// Apply the light theme only when the `.my-light-theme` CSS class is applied
+// to an ancestor element of the components (such as `body`).
+.my-light-theme {
+  @include mat.all-component-themes($dark-theme);
+  @include mat.core-color($light-theme);
+  @include mat.button-color($light-theme);
+}
+
+$blue-palette: (
+  "50": "e5f0f1",
+  "100": "bddadd",
+  "200": "92c1c6",
+  "300": "66a8af",
+  "400": "45959d",
+  "500": "24828c",
+  "600": "207a84",
+  "700": "1b6f79",
+  "800": "16656f",
+  "900": "0d525c",
+  "A100": "91f0ff",
+  "A200": "5ee8ff",
+  "A400": "2be1ff",
+  "A700": "12deff",
+  "contrastDefaultColor": "light",
+  "contrastDarkColors": (
+    "50",
+    "100",
+    "200",
+    "300",
+    "A100",
+    "A200",
+    "A400",
+    "A700",
   ),
-  'contrastLightColors': (
-    '500',
-    '600',
-    '700',
-    '800',
-    '900'
-  )
+  "contrastLightColors": (
+    "400",
+    "500",
+    "600",
+    "700",
+    "800",
+    "900",
+  ),
+);
+
+$purple-palette: (
+  "50": "f9e8f1",
+  "100": "efc5dd",
+  "200": "e49ec7",
+  "300": "d977b0",
+  "400": "d1599f",
+  "500": "c93c8e",
+  "600": "c33686",
+  "700": "bc2e7b",
+  "800": "b52771",
+  "900": "a91a5f",
+  "A100": "ffdfed",
+  "A200": "ffacd1",
+  "A400": "ff79b5",
+  "A700": "ff5fa7",
+  "contrastDefaultColor": "light",
+  "contrastDarkColors": (
+    "50",
+    "100",
+    "200",
+    "300",
+    "400",
+    "A100",
+    "A200",
+    "A400",
+    "A700",
+  ),
+  "contrastLightColors": (
+    "500",
+    "600",
+    "700",
+    "800",
+    "900",
+  ),
 );
 
 @import "theme/items";

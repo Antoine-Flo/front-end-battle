@@ -7,6 +7,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatCardModule } from '@angular/material/card';
+import {MatDividerModule} from '@angular/material/divider'; 
 
 import { CodeEditorComponent } from './components/code-editor/code-editor.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -34,7 +37,10 @@ import { SafePipe } from './pipes/safe.pipe';
     ReactiveFormsModule,
     MatMenuModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatToolbarModule,
+    MatCardModule,
+    MatDividerModule
   ],
   exports: [
     ReactiveFormsModule,
