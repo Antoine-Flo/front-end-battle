@@ -1,9 +1,17 @@
 <nav class="nav">
   <div class="nav__logo"> <a [routerLink]="['/home']">FEB</a></div>
 
-  <ul *ngIf="user" class="nav__items font-white">
-      <li> <a [routerLink]="['/profil']"  class="nav__item">Profile</a></li>
-      <li> <a (click)="onLogOut()" class="nav__item">Log Out</a></li>
-  </ul>
+
+  <button class="font-white" mat-button [matMenuTriggerFor]="beforeMenu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #beforeMenu="matMenu" xPosition="before">
+    <button [routerLink]="['/profil']" mat-menu-item>Profil</button>
+    <button mat-menu-item>Mes challenges</button>
+    <button (click)="onLogOut()" mat-menu-item>Se déconnecter</button>
+  </mat-menu>
+
+
+
 
 </nav>

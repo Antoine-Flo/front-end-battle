@@ -1,53 +1,81 @@
-/****** Elad Shechter's RESET *******/
-/*** box sizing border-box for all elements ***/
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+body {
+  background-color: var(--black);
 }
-a {
-  text-decoration: none;
-  color: inherit;
-  cursor: pointer;
+
+// Ace editor custom
+body .ace_scrollbar {
+  -webkit-transition: opacity .3s ease-in-out;
+     -moz-transition: opacity .3s ease-in-out;
+      -ms-transition: opacity .3s ease-in-out;
+       -o-transition: opacity .3s ease-in-out;
+          transition: opacity .3s ease-in-out;
+  opacity: 0;
+  z-index: 0;
 }
-button {
-  border-width: 0;
-  padding: 0;
-  cursor: pointer;
+body .ace_editor:hover .ace_scrollbar {
+  opacity: 1;
+  
 }
-figure {
-  margin: 0;
+
+body .ace_layer {
+  z-index: 0;
 }
-input::-moz-focus-inner {
-  border: 0;
-  padding: 0;
-  margin: 0;
+body .ace_gutter {
+  z-index: 0;
 }
-ul,
-ol,
-dd {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin: 0;
-  font-size: inherit;
-  font-weight: inherit;
-}
-p {
-  margin: 0;
-}
-cite {
-  font-style: normal;
-}
-fieldset {
-  border-width: 0;
-  padding: 0;
-  margin: 0;
-}
+
+
+
+// /****** Elad Shechter's RESET *******/
+// /*** box sizing border-box for all elements ***/
+// *,
+// *::before,
+// *::after {
+//   box-sizing: border-box;
+// }
+// a {
+//   text-decoration: none;
+//   color: inherit;
+//   cursor: pointer;
+// }
+// button {
+//   border-width: 0;
+//   padding: 0;
+//   cursor: pointer;
+// }
+// figure {
+//   margin: 0;
+// }
+// input::-moz-focus-inner {
+//   border: 0;
+//   padding: 0;
+//   margin: 0;
+// }
+// ul,
+// ol,
+// dd {
+//   margin: 0;
+//   padding: 0;
+//   list-style: none;
+// }
+// h1,
+// h2,
+// h3,
+// h4,
+// h5,
+// h6 {
+//   margin: 0;
+//   font-size: inherit;
+//   font-weight: inherit;
+// }
+// p {
+//   margin: 0;
+// }
+// cite {
+//   font-style: normal;
+// }
+// fieldset {
+//   border-width: 0;
+//   padding: 0;
+//   margin: 0;
+// }

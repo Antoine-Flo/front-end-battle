@@ -3,15 +3,19 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { CodeEditorComponent } from './components/code-editor/code-editor.component';
 
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+
+import { CodeEditorComponent } from './components/code-editor/code-editor.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { NavComponent } from './components/nav/nav.component';
 import { ModalComponent } from './components/modal/modal.component';
-import { SafePipe } from './pipes/safe.pipe';
 import { LayoutComponent } from './components/layout/layout.component';
 import { ChallengeCardComponent } from './components/challenge-card/challenge-card.component';
 
+import { SafePipe } from './pipes/safe.pipe';
 
 @NgModule({
   declarations: [
@@ -28,6 +32,9 @@ import { ChallengeCardComponent } from './components/challenge-card/challenge-ca
     RouterModule,
     HttpClientModule,
     ReactiveFormsModule,
+    MatMenuModule,
+    MatButtonModule,
+    MatIconModule
   ],
   exports: [
     ReactiveFormsModule,
@@ -36,7 +43,7 @@ import { ChallengeCardComponent } from './components/challenge-card/challenge-ca
     NavComponent,
     FooterComponent,
     ModalComponent,
-    ChallengeCardComponent
+    ChallengeCardComponent,
   ],
 })
 export class SharedModule {}

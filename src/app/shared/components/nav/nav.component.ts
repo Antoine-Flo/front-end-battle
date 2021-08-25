@@ -9,7 +9,8 @@ import firebase from 'firebase/app'
   styleUrls: ['./nav.component.scss'],
 })
 export class NavComponent implements OnInit {
-  user: any
+  user: any;
+  // isIconButton: true
 
   constructor(private auth: AuthService, private router: Router) {}
   ngOnInit(): void {
