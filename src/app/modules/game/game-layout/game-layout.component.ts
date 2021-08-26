@@ -5,13 +5,14 @@ import { Challenge } from 'src/app/core/models/challenge.model';
 import { ChallengeService } from 'src/app/core/services/challenge.service';
 
 @Component({
-  selector: 'app-play',
-  templateUrl: './play.component.html',
-  styleUrls: ['./play.component.scss'],
+  selector: 'app-game-layout',
+  templateUrl: './game-layout.component.html',
+  styleUrls: ['./game-layout.component.scss']
 })
-export class PlayComponent implements OnInit {
-  // @ViewChild('iframeResult', { static: true }) iframeResult!: ElementRef;
-  // @ViewChild('iframeObjective', { static: true }) iframeObjective!: ElementRef;
+export class GameLayoutComponent implements OnInit {
+
+  @ViewChild('iframeResult', { static: true }) iframeResult!: ElementRef;
+  @ViewChild('iframeObjective', { static: true }) iframeObjective!: ElementRef;
 
   challenge: Challenge;
   objectiveCode: string;
@@ -53,8 +54,8 @@ export class PlayComponent implements OnInit {
   ngOnInit() {
 
     // Initialize the 2 iframes
-    // this.result = this.iframeResult.nativeElement.contentWindow.document;
-    // this.objective = this.iframeObjective.nativeElement.contentWindow.document;
+    this.result = this.iframeResult.nativeElement.contentWindow.document;
+    this.objective = this.iframeObjective.nativeElement.contentWindow.document;
 
     // Get the id from the Url
     this.route.params.subscribe(params => { this.challengeId = params['id'] })
@@ -69,13 +70,14 @@ export class PlayComponent implements OnInit {
       .subscribe();
   }
 
-  // onCodeChange(code: string) {
-  //   this.updateIframe(this.result, code);
-  // }
+  onCodeChange(code: string) {
+    this.updateIframe(this.result, code);
+  }
 
   private updateIframe(frameRef: any, code: string) {
     frameRef.open('text/htmlreplace');
     frameRef.write(code);
     frameRef.close();
   }
+
 }
