@@ -1,1 +1,12 @@
-<p>edit works!</p>
+<app-layout>
+
+
+    <app-game-layout 
+      [starterCode]="defaultCode" 
+      (saveEvent)="saveEvent()"
+      (cancelEvent)="cancelEvent()">
+    </app-game-layout>
+  
+   
+
+</app-layout>

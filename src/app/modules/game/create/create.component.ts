@@ -11,7 +11,6 @@ import { IframeToImgService } from 'src/app/core/services/iframe-to-img.service'
   styleUrls: ['./create.component.scss'],
 })
 export class CreateComponent implements OnInit {
-  // @ViewChild('iframeResult', { static: true }) iframeResult!: ElementRef;
 
   modalSaveNew = false;
   result: any;
@@ -30,16 +29,8 @@ export class CreateComponent implements OnInit {
     private challenge: ChallengeService
   ) {}
 
-  ngOnInit() {
-    // this.result = this.iframeResult.nativeElement.contentWindow.document;
-  }
+  ngOnInit() { }
 
-  // onCodeChange(code: string) {
-  //   this.code = code;
-  //   this.result.open('text/htmlreplace');
-  //   this.result.write(`${this.normalize} ${code}`);
-  //   this.result.close();
-  // }
 
    onSubmit() {
     const challengeInfos = {
@@ -51,19 +42,16 @@ export class CreateComponent implements OnInit {
     this.challenge.create(challengeInfos).subscribe();
   }
 
-  onClick() {
+
+  saveEvent() {
     this.iframeToImgService.convertToImg(this.result.body).then((imgDataURL) => {
       this.previewImgUrl = imgDataURL;
     });
-  }
-
-  saveEvent() {
-    console.log("save")
+    this.modalSaveNew = true;
   }
   
   cancelEvent() {
     this.router.navigateByUrl('/home');
-    console.log("cancel")
   }
 
   defaultCode = `

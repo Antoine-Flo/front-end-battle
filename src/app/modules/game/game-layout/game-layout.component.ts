@@ -10,9 +10,9 @@ import { Challenge } from 'src/app/core/models/challenge.model';
 export class GameLayoutComponent implements OnInit {
 
   @ViewChild('iframeResult', { static: true }) iframeResult!: ElementRef;
-  @ViewChild('iframeObjective', { static: true }) iframeObjective!: ElementRef;
+  // @ViewChild('iframeObjective', { static: true }) iframeObjective!: ElementRef;
 
-  @Input() challenge: Challenge;
+  // @Input() challenge: Challenge;
   @Input() starterCode: string;
   @Input() mode: string;
 
@@ -30,8 +30,8 @@ export class GameLayoutComponent implements OnInit {
 
     // Initialize the 2 iframes
     this.resultIframe = this.iframeResult.nativeElement.contentWindow.document;
-    this.objectiveIframe = this.iframeObjective.nativeElement.contentWindow.document;    
-    this.updateIframe(this.objectiveIframe, this.challenge.code)
+    // this.objectiveIframe = this.iframeObjective.nativeElement.contentWindow.document;    
+    // this.updateIframe(this.objectiveIframe, this.challenge.code)
 
   }
 

@@ -1,12 +1,17 @@
 <app-layout>
 
+
   <app-game-layout 
-    *ngIf="challenge" 
-    [mode]="'play'"
-    [challenge]="challenge" 
     [starterCode]="defaultCode" 
     (saveEvent)="saveEvent()"
     (cancelEvent)="cancelEvent()">
+
+    <div image-preview  class="">
+      <h2>Aperçu</h2>
+      <img class="play__img" *ngIf="imgUrl" [src]="imgUrl" alt="">
+    </div>
+
   </app-game-layout>
+
 
 </app-layout>

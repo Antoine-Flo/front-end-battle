@@ -1,8 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { tap } from 'rxjs/operators';
+import { mergeMap, tap } from 'rxjs/operators';
 import { Challenge } from 'src/app/core/models/challenge.model';
 import { ChallengeService } from 'src/app/core/services/challenge.service';
+import { StorageService } from 'src/app/core/services/storage.service';
 
 @Component({
   selector: 'app-play',
@@ -13,7 +14,7 @@ export class PlayComponent implements OnInit {
 
   challenge: Challenge;
   challengeId: string;
-  mode="play";
+  imgUrl: string;
 
   defaultCode = `
 <!--Essayez de reproduire le modèle-->
@@ -42,23 +43,24 @@ export class PlayComponent implements OnInit {
   constructor(
     private router: Router,
     private chalService: ChallengeService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private storageService: StorageService
   ) {}
 
   ngOnInit() {
 
-    
-    
     // Get the id from the Url
     this.route.params.subscribe(params => { this.challengeId = params['id'] })
 
-    // Get the challenge
+    // Get the challenge then the imgUrl
     this.chalService
       .getOne(this.challengeId)
       .pipe(
-        tap(x => this.challenge = x),
+        tap(challenge => this.challenge = challenge),
+        mergeMap(challenge => this.storageService.downloadViaUrl(challenge.imgId))
       )
-      .subscribe();
+      .subscribe(url => this.imgUrl = url);
+
   }
 
   saveEvent() {

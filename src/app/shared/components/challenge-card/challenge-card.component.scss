@@ -2,6 +2,14 @@
 
     overflow: hidden;
 
+    &__placholder {
+        height: 5000px;
+        color: red;
+    }
+    &__spinner {
+
+        margin: 3rem auto;
+    }
     
     &__content {
         display: flex;

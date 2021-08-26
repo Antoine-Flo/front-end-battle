@@ -1,7 +1,11 @@
 <mat-card class="challenge">
 
 
-  <img mat-card-image class="challenge__img" [src]="imgUrl" alt="image challenge">
+  <img *ngIf="imgUrl" mat-card-image class="challenge__img" [src]="imgUrl" alt="image challenge">
+
+  <div *ngIf="!imgUrl" class="challenge__credentials">
+    <mat-spinner class="challenge__spinner"></mat-spinner>
+  </div>
 
 
   <div class="challenge__content">

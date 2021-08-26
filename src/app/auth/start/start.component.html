@@ -2,17 +2,32 @@
 
   <div class="start">
 
-    <h1 class="start__title font-white">Bienvenue sur Front-End-Battle</h1>
+    <div class="start__content">
 
-    <div class="start__logs">
-      <button (click)="modalSignIn = true" class="main-btn start__btn">
-        Se connecter
-      </button>
+      <img class="start__img" src="/assets/Bigfoot-bro.png" alt="illustration">
 
-      <button (click)="modalSignUp = true" class="scd-btn start__btn">
-        S'inscrire
-      </button>
+      <div class="start__message">
+
+        
+        <h1 class="start__title font-white">Bienvenue sur Front-End-Battle</h1>
+        <p class="start__bio">Tester vos connaissances en intégration web et apprenez des meilleures.</p>
+        <div class="start__logs">
+          
+          <button (click)="modalSignIn = true" mat-raised-button color="accent" class="start__btn">
+            Se connecter
+          </button>
+          <button (click)="modalSignUp = true" mat-flat-button color="primary" class="start__btn">
+            S'inscrire
+          </button>
+          
+        </div>
+      </div>
+      
+
     </div>
+
+
+
 
     <app-modal *ngIf="modalSignIn" (dismiss)="modalSignIn = false">
       <app-sign type="signIn" title="Se connecter"></app-sign>

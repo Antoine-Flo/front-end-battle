@@ -1,21 +1,8 @@
 <app-layout>
 
-  <!-- <div class="create">
 
-    <app-code-editor [defaultCode]="defaultCode" mode="html" (codeChange)="onCodeChange($event)"></app-code-editor>
-
-    <iframe class="create__iframe" #iframeResult frameborder="0"></iframe>
-
-
-  </div>
-
-  <button class="main-btn create__btn" (click)=" onClick(); modalSaveNew = true">Enregistrer</button>
-  <button class="scd-btn create__btn" [routerLink]="['/home']">Annuler</button> -->
-
-  <!-- *ngIf="challenge" -->
-  <!-- [challenge]="challenge"  -->
+  <!-- mode="create" -->
   <app-game-layout 
-    mode="create"
     [starterCode]="defaultCode" 
     (saveEvent)="saveEvent()"
     (cancelEvent)="cancelEvent()">

@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { CodeEditorComponent } from './components/code-editor/code-editor.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -30,7 +31,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     SafePipe,
     LayoutComponent,
     ChallengeCardComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
   ],
   imports: [
     CommonModule,
@@ -43,6 +44,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     MatToolbarModule,
     MatCardModule,
     MatDividerModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     ReactiveFormsModule,

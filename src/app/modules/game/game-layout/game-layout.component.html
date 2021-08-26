@@ -4,16 +4,17 @@
     <app-code-editor [defaultCode]="starterCode" mode="html" (codeChange)="onCodeChange($event)"></app-code-editor>
 
     <div class="play__iframes">
-      <iframe class="play__iframe" #iframeObjective frameborder="0"></iframe>
       <iframe class="play__iframe" #iframeResult frameborder="0"></iframe>
       <div class="play__btns">
         <button mat-raised-button color="warn" class="play__btn" (click)="onCancel()">Annuler</button>
         <button mat-flat-button color="primary" class="play__btn" (click)="onSave()">Enregister</button>
       </div>
+      <ng-content class="play__preview" select="[image-preview]"></ng-content>
     </div>
 
+    
 
-  </div>
+</div>
 
 
 

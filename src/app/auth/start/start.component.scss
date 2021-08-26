@@ -1,23 +1,35 @@
-.start-container {
-    margin: 0 auto;
-    padding: 2rem;
-    width: clamp(400px, 80%, 1400px);
-}
+
 
 .start {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    &__title {
-        margin: 3rem 0;
-        // text-align: center;
-        font-size: 4rem;
-    }
     
 
+    &__content {
+        display: flex;
+        align-items: center;
+    }
+
+    &__message {
+
+        display: flex;
+        flex-direction: column;
+        padding: 2rem;
+    }
+
+    &__img {
+        width: 600px;
+    }
+
+    &__title {
+        margin: 2rem 0;
+        font-size: 3rem;
+    }
+    
+    &__logs {
+        margin-top: 2rem;
+    }
+
     &__btn {
-        margin: 2rem;
+        margin-right: 2rem;
     }
 
 
