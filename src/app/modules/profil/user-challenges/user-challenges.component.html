@@ -18,7 +18,7 @@
       <div class="challenges">
 
         <app-challenge-card (challengeDeleted)="onChallengeDeleted()" [challenge]="challenge"
-          *ngFor="let challenge of userChallenges | async">
+          *ngFor="let challenge of userChallenges">
         </app-challenge-card>
       </div>
 
