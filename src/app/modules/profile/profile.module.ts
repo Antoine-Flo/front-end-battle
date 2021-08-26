@@ -5,25 +5,25 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 
-import { ProfilRoutingModule } from './profil-routing.module'
-import { ProfilComponent } from './profil/profil.component';
+import { ProfileRoutingModule } from './profile-routing.module'
+import { ProfileComponent } from './profile/profile.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { UserChallengesComponent } from './user-challenges/user-challenges.component';
 
 
 @NgModule({
-  declarations: [ProfilComponent, UserChallengesComponent],
+  declarations: [ProfileComponent, UserChallengesComponent],
   imports: [
     SharedModule,
     FormsModule,
     CommonModule,
-    ProfilRoutingModule,
+    ProfileRoutingModule,
     ReactiveFormsModule,
     MatDividerModule,
     MatButtonModule
   ],
   exports: [
-    ProfilComponent
+    ProfileComponent
   ]
 })
-export class ProfilModule { }
+export class ProfileModule { }

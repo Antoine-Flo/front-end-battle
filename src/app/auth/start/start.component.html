@@ -9,14 +9,14 @@
       <div class="start__message">
 
         
-        <h1 class="start__title font-white">Bienvenue sur Front-End-Battle</h1>
+        <h1 class="start__title">Bienvenue sur Front-End-Battle</h1>
         <p class="start__bio">Tester vos connaissances en intégration web et apprenez des meilleures.</p>
         <div class="start__logs">
           
-          <button (click)="modalSignIn = true" mat-raised-button color="accent" class="start__btn">
+          <button (click)="modalSignIn = true; onSignIn()" mat-raised-button color="accent" class="start__btn">
             Se connecter
           </button>
-          <button (click)="modalSignUp = true" mat-flat-button color="primary" class="start__btn">
+          <button (click)="modalSignUp = true; onSignUp()" mat-flat-button color="primary" class="start__btn">
             S'inscrire
           </button>
           

@@ -1,7 +1,7 @@
 <div class="play">
 
   <div class="play__game">
-    <app-code-editor [defaultCode]="starterCode" mode="html" (codeChange)="onCodeChange($event)"></app-code-editor>
+    <app-code-editor [starterCode]="starterCode" mode="html" (codeChange)="onCodeChange($event)"></app-code-editor>
 
     <div class="play__iframes">
       <iframe class="play__iframe" #iframeResult frameborder="0"></iframe>
@@ -12,12 +12,6 @@
       <ng-content class="play__preview" select="[image-preview]"></ng-content>
     </div>
 
-    
 
-</div>
-
-
-
-
-
+  </div>
 </div>

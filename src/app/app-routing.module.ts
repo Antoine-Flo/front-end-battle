@@ -18,9 +18,9 @@ const routes: Routes = [
     ...canActivate(redirectLoggedInToHome),
   },
   {
-    path: 'profil',
+    path: 'profile',
     loadChildren: () =>
-    import('./modules/profil/profil.module').then((m) => m.ProfilModule),
+    import('./modules/profile/profile.module').then((m) => m.ProfileModule),
     ...canActivate(redirectUnauthorizedToStart),
   },
   {

@@ -1,18 +1,15 @@
 <app-layout>
 
 
-  <!-- mode="create" -->
   <app-game-layout 
     [starterCode]="defaultCode" 
-    (saveEvent)="saveEvent()"
+    (saveEvent)="saveEvent($event)"
     (cancelEvent)="cancelEvent()">
   </app-game-layout>
 
 
   <app-modal *ngIf="modalSaveNew" (dismiss)="modalSaveNew = false">
-
     <img class="imgPreview" alt="image preview" [src]="previewImgUrl">
-
     <form class="create__form" [formGroup]="formChallenge" (ngSubmit)="onSubmit">
 
       <mat-form-field color="accent" appearance="fill">
@@ -25,7 +22,7 @@
         <textarea matInput formControlName="description"></textarea>
       </mat-form-field>
 
-      <button (click)="onSubmit(); $event.preventDefault()" type="submit" class="scd-btn">Save</button>
+      <button mat-flat-button color="primary" (click)="onSubmit(); $event.preventDefault()" type="submit">Save</button>
     </form>
   </app-modal>
 

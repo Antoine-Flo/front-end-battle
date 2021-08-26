@@ -2,10 +2,77 @@
 
 @include mat.core();
 
+$main-palette: (
+  50 : #e0f1ec,
+  100 : #b3dbcf,
+  200 : #80c3af,
+  300 : #4dab8f,
+  400 : #269977,
+  500 : #00875f,
+  600 : #007f57,
+  700 : #00744d,
+  800 : #006a43,
+  900 : #005732,
+  A100 : #89ffc3,
+  A200 : #56ffa9,
+  A400 : #23ff8f,
+  A700 : #09ff82,
+  contrast: (
+      50 : #000000,
+      100 : #000000,
+      200 : #000000,
+      300 : #000000,
+      400 : #ffffff,
+      500 : #ffffff,
+      600 : #ffffff,
+      700 : #ffffff,
+      800 : #ffffff,
+      900 : #ffffff,
+      A100 : #000000,
+      A200 : #000000,
+      A400 : #000000,
+      A700 : #000000,
+  )
+);
+
+$second-palette: (
+  50 : #fce2e9,
+  100 : #f8b6c8,
+  200 : #f486a3,
+  300 : #ef567e,
+  400 : #eb3162,
+  500 : #e80d46,
+  600 : #e50b3f,
+  700 : #e20937,
+  800 : #de072f,
+  900 : #d80320,
+  A100 : #ffffff,
+  A200 : #ffcdd1,
+  A400 : #ff9aa3,
+  A700 : #ff808c,
+  contrast: (
+      50 : #000000,
+      100 : #000000,
+      200 : #000000,
+      300 : #000000,
+      400 : #ffffff,
+      500 : #ffffff,
+      600 : #ffffff,
+      700 : #ffffff,
+      800 : #ffffff,
+      900 : #ffffff,
+      A100 : #000000,
+      A200 : #000000,
+      A400 : #000000,
+      A700 : #000000,
+  )
+);
+
 // Define a light theme
 
 $light-primary: mat.define-palette(mat.$indigo-palette, 500);
 $light-accent: mat.define-palette(mat.$purple-palette, A200, A100, A400);
+
 $light-theme: mat.define-light-theme(
   (
     color: (
@@ -16,8 +83,8 @@ $light-theme: mat.define-light-theme(
 );
 
 // Define a dark theme
-$dark-primary: mat.define-palette(mat.$indigo-palette);
-$dark-accent: mat.define-palette(mat.$purple-palette);
+$dark-primary: mat.define-palette($main-palette);
+$dark-accent: mat.define-palette($second-palette);
 $dark-theme: mat.define-dark-theme(
   (
     color: (
@@ -29,84 +96,91 @@ $dark-theme: mat.define-dark-theme(
 
 @include mat.all-component-themes($dark-theme);
 
+
 .light-theme {
   @include mat.all-component-colors($light-theme);
 }
 
-$blue-palette: (
-  "50": "e5f0f1",
-  "100": "bddadd",
-  "200": "92c1c6",
-  "300": "66a8af",
-  "400": "45959d",
-  "500": "24828c",
-  "600": "207a84",
-  "700": "1b6f79",
-  "800": "16656f",
-  "900": "0d525c",
-  "A100": "91f0ff",
-  "A200": "5ee8ff",
-  "A400": "2be1ff",
-  "A700": "12deff",
-  "contrastDefaultColor": "light",
-  "contrastDarkColors": (
-    "50",
-    "100",
-    "200",
-    "300",
-    "A100",
-    "A200",
-    "A400",
-    "A700",
-  ),
-  "contrastLightColors": (
-    "400",
-    "500",
-    "600",
-    "700",
-    "800",
-    "900",
-  ),
-);
+.color-snackbar {
+  background-color:#424242;
+  color: white;
+}
 
-$purple-palette: (
-  "50": "f9e8f1",
-  "100": "efc5dd",
-  "200": "e49ec7",
-  "300": "d977b0",
-  "400": "d1599f",
-  "500": "c93c8e",
-  "600": "c33686",
-  "700": "bc2e7b",
-  "800": "b52771",
-  "900": "a91a5f",
-  "A100": "ffdfed",
-  "A200": "ffacd1",
-  "A400": "ff79b5",
-  "A700": "ff5fa7",
-  "contrastDefaultColor": "light",
-  "contrastDarkColors": (
-    "50",
-    "100",
-    "200",
-    "300",
-    "400",
-    "A100",
-    "A200",
-    "A400",
-    "A700",
-  ),
-  "contrastLightColors": (
-    "500",
-    "600",
-    "700",
-    "800",
-    "900",
-  ),
-);
+// $blue-palette: (
+//   "50": "e5f0f1",
+//   "100": "bddadd",
+//   "200": "92c1c6",
+//   "300": "66a8af",
+//   "400": "45959d",
+//   "500": "24828c",
+//   "600": "207a84",
+//   "700": "1b6f79",
+//   "800": "16656f",
+//   "900": "0d525c",
+//   "A100": "91f0ff",
+//   "A200": "5ee8ff",
+//   "A400": "2be1ff",
+//   "A700": "12deff",
+//   "contrastDefaultColor": "light",
+//   "contrastDarkColors": (
+//     "50",
+//     "100",
+//     "200",
+//     "300",
+//     "A100",
+//     "A200",
+//     "A400",
+//     "A700",
+//   ),
+//   "contrastLightColors": (
+//     "400",
+//     "500",
+//     "600",
+//     "700",
+//     "800",
+//     "900",
+//   ),
+// );
+
+// $purple-palette: (
+//   "50": "f9e8f1",
+//   "100": "efc5dd",
+//   "200": "e49ec7",
+//   "300": "d977b0",
+//   "400": "d1599f",
+//   "500": "c93c8e",
+//   "600": "c33686",
+//   "700": "bc2e7b",
+//   "800": "b52771",
+//   "900": "a91a5f",
+//   "A100": "ffdfed",
+//   "A200": "ffacd1",
+//   "A400": "ff79b5",
+//   "A700": "ff5fa7",
+//   "contrastDefaultColor": "light",
+//   "contrastDarkColors": (
+//     "50",
+//     "100",
+//     "200",
+//     "300",
+//     "400",
+//     "A100",
+//     "A200",
+//     "A400",
+//     "A700",
+//   ),
+//   "contrastLightColors": (
+//     "500",
+//     "600",
+//     "700",
+//     "800",
+//     "900",
+//   ),
+// );
 
 @import "theme/items";
 @import "theme/typogragy";
 @import "theme/normalize";
 @import "theme/reset";
 @import "theme/variables";
+

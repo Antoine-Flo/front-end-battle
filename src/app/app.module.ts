@@ -13,7 +13,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { CoreModule } from './core/core.module';
-import { ProfilModule } from './modules/profil/profil.module';
+import { ProfileModule } from './modules/profile/profile.module';
 
 
 @NgModule({
@@ -29,7 +29,7 @@ import { ProfilModule } from './modules/profil/profil.module';
     BrowserModule,
     CoreModule,
     AuthModule,
-    ProfilModule,
+    ProfileModule,
     BrowserAnimationsModule,
   ],
   providers: [

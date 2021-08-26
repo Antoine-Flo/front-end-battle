@@ -52,4 +52,8 @@ export class UserService {
     return this.http.delete(`${this.url}/${id}`)
   }
 
+  addChallenge(userId: string , challengeId: string) {
+    // return this.http.patch(`${this.url}/${userId}`, user)
+  }
+
 }

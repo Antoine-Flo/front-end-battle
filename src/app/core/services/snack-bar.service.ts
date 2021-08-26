@@ -7,9 +7,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class SnackBarService {
   constructor(private snackBar: MatSnackBar) {}
 
-  showError(mess: string, code?: string) {
-    const bar = (mess, time = 4000) =>
-      this.snackBar.open(mess, 'Fermer', { duration: time });
+  showError(message: string, code?: string) {
+    const bar = (message, time = 4000) =>
+      this.snackBar.open(message, 'Fermer', { duration: time });
 
     switch (code) {
       case 'auth/email-already-in-use':
@@ -38,12 +38,12 @@ export class SnackBarService {
         break;
 
       default:
-        bar(mess);
+        bar(message);
         break;
     }
   }
 
-  showSuccess(mess: string, time = 4000) {
-    this.snackBar.open(mess, 'Fermer', { duration: time });
+  showSuccess(message: string, time = 4000) {
+    this.snackBar.open(message, 'Fermer', { duration: time, panelClass: ['color-snackbar'] });
   }
 }

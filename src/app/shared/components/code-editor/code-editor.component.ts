@@ -11,7 +11,7 @@ export class CodeEditorComponent implements AfterViewInit {
 
   @ViewChild("editor") private editor!: ElementRef<HTMLElement>;
   @Input() mode = "";
-  @Input() defaultCode: string;
+  @Input() starterCode: string;
   @Output() codeChange = new EventEmitter<string>();
 
 
@@ -32,7 +32,7 @@ export class CodeEditorComponent implements AfterViewInit {
     editor.on("change", () => {
       this.codeChange.emit(editor.getValue())
     });
-    editor.setValue(this.defaultCode, 1);
+    editor.setValue(this.starterCode, 1);
 
     session.setUseWorker(false);
   }

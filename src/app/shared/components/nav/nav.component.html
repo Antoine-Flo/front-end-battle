@@ -24,9 +24,9 @@
     </button>
     <mat-menu #beforeMenu="matMenu" xPosition="before">
       <button [routerLink]="['/home']" mat-menu-item>Accueil</button>
-      <button [routerLink]="['/profil']" mat-menu-item>Profil</button>
+      <button [routerLink]="['/profile']" mat-menu-item>Profile</button>
       <mat-divider></mat-divider>
-      <button [routerLink]="['/profil/challenges']"  mat-menu-item>Mes challenges</button>
+      <button [routerLink]="['/profile/challenges']"  mat-menu-item>Mes challenges</button>
       <mat-divider></mat-divider>
       
       <button (click)="onLogOut()" mat-menu-item>

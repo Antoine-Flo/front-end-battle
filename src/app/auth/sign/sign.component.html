@@ -5,6 +5,8 @@
   <img class="sign__btn" (click)="connectWithGoogle()" src="\assets\signin-btn-google.jpg" alt="se connecter google">
   <img class="sign__btn" (click)="connectWithGitHub()" src="\assets\signin-btn-github.jpg" alt="se connecter github">
 
+  <mat-divider class="sign__divider"></mat-divider>
+
   <form class="sign__mail" [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
     <h2 class="font-black">Par mail</h2>
 
@@ -12,13 +14,12 @@
       <mat-label>E-Mail</mat-label>
       <input matInput type="email" formControlName="email">
     </mat-form-field>
-
     <mat-form-field appearance="outline">
       <mat-label>Mot de passe</mat-label>
       <input matInput minlength="8" type="password" formControlName="password">
       <mat-hint>1 majsucule, 1 minuscule, 1 chiffre</mat-hint>
     </mat-form-field>
-    <button mat-stroked-button type="submit" [disabled]="!signUpForm.valid">Ok</button>
+    <button class="sign__ok" mat-raised-button color="primary" type="submit" [disabled]="!signUpForm.valid">Ok</button>
   </form>
 
 

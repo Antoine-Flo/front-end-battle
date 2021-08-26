@@ -9,6 +9,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDividerModule } from '@angular/material/divider';
 
 import { SharedModule } from '../shared/shared.module';
 import { StartComponent } from './start/start.component';
@@ -27,7 +29,9 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     MatInputModule,
     MatIconModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSnackBarModule,
+    MatDividerModule
   ],
   exports: [StartComponent, SignComponent, SignUpComponent],
 })
