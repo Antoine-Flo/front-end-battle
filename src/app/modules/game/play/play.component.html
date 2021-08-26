@@ -1,22 +1,12 @@
 <app-layout>
-  <!-- <div class="play">
 
-    <div class="play__game">
-      <app-code-editor [defaultCode]="defaultCode" mode="html" (codeChange)="onCodeChange($event)"></app-code-editor>
-
-      <div class="play__iframes displays">
-        <iframe class="play__iframe objective" #iframeObjective frameborder="0"></iframe>
-        <iframe class="play__iframe result" #iframeResult frameborder="0"></iframe>
-      </div>
-    </div>
-
-
-    <div class="play__btns">
-      <button mat-raised-button color="warn" [routerLink]="['/home']" class="play__btn">Annuler</button>
-      <button mat-flat-button color="primary" class="play__btn">Enregister</button>
-    </div>
-
-  </div> -->
-  <app-game-layout></app-game-layout>
+  <app-game-layout 
+    *ngIf="challenge" 
+    [mode]="'play'"
+    [challenge]="challenge" 
+    [starterCode]="defaultCode" 
+    (saveEvent)="saveEvent()"
+    (cancelEvent)="cancelEvent()">
+  </app-game-layout>
 
 </app-layout>

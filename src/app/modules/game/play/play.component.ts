@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
 import { Challenge } from 'src/app/core/models/challenge.model';
 import { ChallengeService } from 'src/app/core/services/challenge.service';
@@ -10,16 +10,10 @@ import { ChallengeService } from 'src/app/core/services/challenge.service';
   styleUrls: ['./play.component.scss'],
 })
 export class PlayComponent implements OnInit {
-  // @ViewChild('iframeResult', { static: true }) iframeResult!: ElementRef;
-  // @ViewChild('iframeObjective', { static: true }) iframeObjective!: ElementRef;
 
   challenge: Challenge;
-  objectiveCode: string;
   challengeId: string;
-  result: typeof document;
-  objective: typeof document;
-
-
+  mode="play";
 
   defaultCode = `
 <!--Essayez de reproduire le modèle-->
@@ -46,36 +40,33 @@ export class PlayComponent implements OnInit {
 `;
 
   constructor(
+    private router: Router,
     private chalService: ChallengeService,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
 
-    // Initialize the 2 iframes
-    // this.result = this.iframeResult.nativeElement.contentWindow.document;
-    // this.objective = this.iframeObjective.nativeElement.contentWindow.document;
-
+    
+    
     // Get the id from the Url
     this.route.params.subscribe(params => { this.challengeId = params['id'] })
 
-    // Get the challenge code and update the iframe
+    // Get the challenge
     this.chalService
       .getOne(this.challengeId)
       .pipe(
         tap(x => this.challenge = x),
-        tap(x => this.updateIframe(this.objective, x.code))
       )
       .subscribe();
   }
 
-  // onCodeChange(code: string) {
-  //   this.updateIframe(this.result, code);
-  // }
-
-  private updateIframe(frameRef: any, code: string) {
-    frameRef.open('text/htmlreplace');
-    frameRef.write(code);
-    frameRef.close();
+  saveEvent() {
+    console.log("save")
+  }
+  
+  cancelEvent() {
+    this.router.navigateByUrl('/home');
+    console.log("cancel")
   }
 }

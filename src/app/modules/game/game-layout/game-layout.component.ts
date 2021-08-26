@@ -1,8 +1,6 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { tap } from 'rxjs/operators';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Challenge } from 'src/app/core/models/challenge.model';
-import { ChallengeService } from 'src/app/core/services/challenge.service';
+
 
 @Component({
   selector: 'app-game-layout',
@@ -14,70 +12,46 @@ export class GameLayoutComponent implements OnInit {
   @ViewChild('iframeResult', { static: true }) iframeResult!: ElementRef;
   @ViewChild('iframeObjective', { static: true }) iframeObjective!: ElementRef;
 
-  challenge: Challenge;
+  @Input() challenge: Challenge;
+  @Input() starterCode: string;
+  @Input() mode: string;
+
+  @Output() saveEvent = new EventEmitter<any>();
+  @Output() cancelEvent = new EventEmitter<any>();
+
   objectiveCode: string;
-  challengeId: string;
-  result: typeof document;
-  objective: typeof document;
+  resultIframe: typeof document;
+  objectiveIframe: typeof document;
+  code: string;
 
-
-
-  defaultCode = `
-<!--Essayez de reproduire le modèle-->
-<!--Ecrivez votre code dans cet éditeur-->
-<!--Passez la souris sur la fenêtre à droite pour voir l'objectif-->
-
-<h1 class="title">Bonne Chance 😀<h1>
-
-<style>
-  
-    body {
-        background-color: #00adb5;
-    }
-      
-    .title {
-        font-size: 4rem;
-        font-family: sans-serif;
-        color: #ddeeee;
-        margin-top: 5rem;
-        text-align: center;
-    }
-  
-</style>
-`;
-
-  constructor(
-    private chalService: ChallengeService,
-    private route: ActivatedRoute
-  ) {}
+  constructor() {}
 
   ngOnInit() {
 
     // Initialize the 2 iframes
-    this.result = this.iframeResult.nativeElement.contentWindow.document;
-    this.objective = this.iframeObjective.nativeElement.contentWindow.document;
+    this.resultIframe = this.iframeResult.nativeElement.contentWindow.document;
+    this.objectiveIframe = this.iframeObjective.nativeElement.contentWindow.document;    
+    this.updateIframe(this.objectiveIframe, this.challenge.code)
 
-    // Get the id from the Url
-    this.route.params.subscribe(params => { this.challengeId = params['id'] })
-
-    // Get the challenge code and update the iframe
-    this.chalService
-      .getOne(this.challengeId)
-      .pipe(
-        tap(x => this.challenge = x),
-        tap(x => this.updateIframe(this.objective, x.code))
-      )
-      .subscribe();
   }
 
   onCodeChange(code: string) {
-    this.updateIframe(this.result, code);
+    this.code = code;
+    this.updateIframe(this.resultIframe, code);
   }
 
   private updateIframe(frameRef: any, code: string) {
     frameRef.open('text/htmlreplace');
     frameRef.write(code);
     frameRef.close();
+  }
+
+  onSave() {
+    this.saveEvent.emit()
+  }
+
+  onCancel() {
+    this.cancelEvent.emit()
   }
 
 }

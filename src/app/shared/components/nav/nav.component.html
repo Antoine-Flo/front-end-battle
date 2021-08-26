@@ -4,6 +4,14 @@
 
   <div class="items">
 
+    <button mat-button *ngIf="screen === 'little'" (click)="openFullscreen();">
+      <mat-icon>fullscreen</mat-icon>
+    </button>
+    <button mat-button *ngIf="screen === 'full'" (click)="closeFullscreen();">
+      <mat-icon>fullscreen_exit</mat-icon>
+    </button>
+
+
     <button mat-button *ngIf="theme === 'light'" (click)="changeToDark();">
       <mat-icon>light_mode</mat-icon>
     </button>
