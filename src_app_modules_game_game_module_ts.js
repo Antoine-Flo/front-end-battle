@@ -8043,7 +8043,7 @@ class CreateComponent {
         };
         this.challenge.create(challengeInfos).subscribe();
         this.snackBarService.showSuccess('Challenge créé avec succès 👍');
-        this.router.navigateByUrl('/profile/challenges');
+        // this.router.navigateByUrl('/profile/challenges')
     }
 }
 CreateComponent.ɵfac = function CreateComponent_Factory(t) { return new (t || CreateComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_8__.Router), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](src_app_core_services_snack_bar_service__WEBPACK_IMPORTED_MODULE_0__.SnackBarService), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](src_app_core_services_iframe_to_img_service__WEBPACK_IMPORTED_MODULE_1__.IframeToImgService), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](src_app_core_services_challenge_service__WEBPACK_IMPORTED_MODULE_2__.ChallengeService)); };

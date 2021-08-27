@@ -692,19 +692,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "ChallengeService": () => (/* binding */ ChallengeService)
 /* harmony export */ });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 2316);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 2316);
 /* harmony import */ var _storage_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./storage.service */ 2323);
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ 3882);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common/http */ 3882);
 /* harmony import */ var _uuid_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./uuid.service */ 8225);
+/* harmony import */ var _user_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./user.service */ 8386);
+/* harmony import */ var src_app_auth_auth_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/auth/auth.service */ 384);
+
+
 
 
 
 
 class ChallengeService {
-    constructor(storageService, http, uuid) {
+    constructor(storageService, http, uuid, userService, authService) {
         this.storageService = storageService;
         this.http = http;
         this.uuid = uuid;
+        this.userService = userService;
+        this.authService = authService;
+        // For documentation on the api : https://feb-api.com/api
         this.url = 'https://feb-api.com/challenges';
     }
     getOne(id) {
@@ -716,14 +723,20 @@ class ChallengeService {
     create(challengeInfos) {
         const uuid = this.uuid.getId();
         const imgId = this.storageService.uploadImg(challengeInfos.imgData);
+        const userEmail = this.authService.getUserEmail();
         const challenge = {
             id: uuid,
             title: challengeInfos.title,
             description: challengeInfos.description,
             code: challengeInfos.code,
             imgId,
-            creatorId: "Antoine"
+            creatorId: 'Antoine',
         };
+        const userChallenge = {
+            id: uuid,
+            title: challengeInfos.title,
+        };
+        this.userService.addChallenge(userEmail, userChallenge).subscribe();
         return this.http.post(this.url, challenge, { responseType: 'text' });
     }
     update(id, challenge) {
@@ -733,8 +746,8 @@ class ChallengeService {
         return this.http.delete(`${this.url}/${id}`);
     }
 }
-ChallengeService.ɵfac = function ChallengeService_Factory(t) { return new (t || ChallengeService)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](_storage_service__WEBPACK_IMPORTED_MODULE_0__.StorageService), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_3__.HttpClient), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](_uuid_service__WEBPACK_IMPORTED_MODULE_1__.UuidService)); };
-ChallengeService.ɵprov = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineInjectable"]({ token: ChallengeService, factory: ChallengeService.ɵfac, providedIn: 'root' });
+ChallengeService.ɵfac = function ChallengeService_Factory(t) { return new (t || ChallengeService)(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵinject"](_storage_service__WEBPACK_IMPORTED_MODULE_0__.StorageService), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_5__.HttpClient), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵinject"](_uuid_service__WEBPACK_IMPORTED_MODULE_1__.UuidService), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵinject"](_user_service__WEBPACK_IMPORTED_MODULE_2__.UserService), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵinject"](src_app_auth_auth_service__WEBPACK_IMPORTED_MODULE_3__.AuthService)); };
+ChallengeService.ɵprov = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineInjectable"]({ token: ChallengeService, factory: ChallengeService.ɵfac, providedIn: 'root' });
 
 
 /***/ }),
@@ -841,11 +854,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "UserService": () => (/* binding */ UserService)
 /* harmony export */ });
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/operators */ 3466);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 2316);
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ 3882);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ 2316);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ 3882);
 /* harmony import */ var _uuid_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./uuid.service */ 8225);
-
 
 
 
@@ -853,6 +864,7 @@ class UserService {
     constructor(http, uuid) {
         this.http = http;
         this.uuid = uuid;
+        // For documentation on the api : https://feb-api.com/api
         this.url = 'https://feb-api.com/users';
     }
     set user(user) {
@@ -861,9 +873,8 @@ class UserService {
     get user() {
         return this.user;
     }
-    getOne(id) {
-        const encodedId = encodeURI(id);
-        return this.http.get(`${this.url}/${encodedId}`);
+    getOne(email) {
+        return this.http.get(`${this.url}/${email}`);
     }
     getAll() {
         return this.http.get(this.url);
@@ -874,10 +885,10 @@ class UserService {
             id: uuid,
             email: email,
             username: name,
-            challenges: [""],
+            challenges: [],
         };
         this.user = user;
-        return this.http.post(this.url, JSON.stringify(user)).pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_1__.take)(1));
+        return this.http.post(this.url, user, { responseType: 'text' });
     }
     update(id, user) {
         return this.http.patch(`${this.url}/${id}`, user);
@@ -885,12 +896,13 @@ class UserService {
     delete(id) {
         return this.http.delete(`${this.url}/${id}`);
     }
-    addChallenge(userId, challengeId) {
-        // return this.http.patch(`${this.url}/${userId}`, user)
+    addChallenge(userMail, userChallenge) {
+        console.log(userChallenge);
+        return this.http.post(`${this.url}/${userMail}/challenge`, userChallenge);
     }
 }
-UserService.ɵfac = function UserService_Factory(t) { return new (t || UserService)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_3__.HttpClient), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](_uuid_service__WEBPACK_IMPORTED_MODULE_0__.UuidService)); };
-UserService.ɵprov = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineInjectable"]({ token: UserService, factory: UserService.ɵfac, providedIn: 'root' });
+UserService.ɵfac = function UserService_Factory(t) { return new (t || UserService)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_2__.HttpClient), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵinject"](_uuid_service__WEBPACK_IMPORTED_MODULE_0__.UuidService)); };
+UserService.ɵprov = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjectable"]({ token: UserService, factory: UserService.ɵfac, providedIn: 'root' });
 
 
 /***/ }),
@@ -1124,7 +1136,7 @@ class UserChallengesComponent {
         this.userEmail = this.authService.getUserEmail();
         this.userService
             .getOne(this.userEmail)
-            .pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_6__.pluck)('challenges'), (0,rxjs_operators__WEBPACK_IMPORTED_MODULE_7__.mergeMap)((arr) => (0,rxjs__WEBPACK_IMPORTED_MODULE_8__.forkJoin)(arr.map((id) => this.challengesService.getOne(id)))))
+            .pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_6__.pluck)('challenges'), (0,rxjs_operators__WEBPACK_IMPORTED_MODULE_7__.mergeMap)((arr) => (0,rxjs__WEBPACK_IMPORTED_MODULE_8__.forkJoin)(arr.map((chal) => this.challengesService.getOne(chal.id)))))
             .subscribe((result) => {
             this.userChallenges = result;
         });
