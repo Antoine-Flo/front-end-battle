@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { take } from 'rxjs/operators';
 import { User } from '../models/user.model';
 import { UuidService } from './uuid.service';
 
@@ -10,6 +9,8 @@ import { UuidService } from './uuid.service';
   providedIn: 'root'
 })
 export class UserService {
+
+  // For documentation on the api : https://feb-api.com/api
 
   url = 'https://feb-api.com/users'
 
@@ -23,9 +24,8 @@ export class UserService {
 
   constructor(private http: HttpClient, private uuid: UuidService) {}
 
-  getOne(id: string): Observable<User> {
-    const encodedId = encodeURI(id) 
-    return this.http.get<User>(`${this.url}/${encodedId}`);
+  getOne(email: string): Observable<User> {
+    return this.http.get<User>(`${this.url}/${email}`);
   }
 
   getAll(): Observable<Object> {
@@ -38,10 +38,10 @@ export class UserService {
       id: uuid,
       email: email,
       username: name,
-      challenges: [""],
+      challenges: [],
     }
     this.user = user;
-    return this.http.post<User>(this.url, JSON.stringify(user)).pipe(take(1))
+    return this.http.post(this.url, user, {responseType: 'text'})
   }
 
   update(id: string, user: User) {
@@ -52,8 +52,10 @@ export class UserService {
     return this.http.delete(`${this.url}/${id}`)
   }
 
-  addChallenge(userId: string , challengeId: string) {
-    // return this.http.patch(`${this.url}/${userId}`, user)
+  addChallenge(userMail: string , userChallenge: {}) {
+    console.log(userChallenge);
+    
+    return this.http.post(`${this.url}/${userMail}/challenge`, userChallenge)
   }
 
 }

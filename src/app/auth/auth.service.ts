@@ -17,7 +17,6 @@ export class AuthService {
   ) {}
 
   getUserEmail() {
- 
     return app.auth().currentUser.email;
   }
 

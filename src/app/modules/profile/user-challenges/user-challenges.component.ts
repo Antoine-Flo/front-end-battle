@@ -29,7 +29,7 @@ export class UserChallengesComponent implements OnInit {
       .pipe(
         pluck('challenges'),
         mergeMap((arr) =>
-          forkJoin(arr.map((id) => this.challengesService.getOne(id)))
+          forkJoin(arr.map((chal) => this.challengesService.getOne(chal.id)))
         )
       )
       .subscribe((result) => {

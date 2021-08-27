@@ -53,7 +53,7 @@ export class CreateComponent implements OnInit {
     };
     this.challenge.create(challengeInfos).subscribe();
     this.snackBarService.showSuccess('Challenge créé avec succès 👍');
-    this.router.navigateByUrl('/profile/challenges')
+    // this.router.navigateByUrl('/profile/challenges')
   }
 
   defaultCode = `
