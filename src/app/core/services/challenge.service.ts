@@ -24,6 +24,11 @@ export class ChallengeService {
     private authService: AuthService
   ) {}
 
+
+  //////////////////
+  //     GET      //
+  //////////////////
+
   getOne(id: string): Observable<Challenge> {
     return this.http.get<Challenge>(`${this.url}/${id}`);
   }
@@ -31,6 +36,10 @@ export class ChallengeService {
   getAll(): Observable<Object> {
     return this.http.get(this.url);
   }
+
+  ////////////////////
+  //      POST      //
+  ////////////////////
 
   create(challengeInfos: {
     title: string;
@@ -40,7 +49,8 @@ export class ChallengeService {
   }) {
     const uuid = this.uuid.getId();
     const imgId = this.storageService.uploadImg(challengeInfos.imgData);
-    const userEmail = this.authService.getUserEmail()
+    const userEmail = this.authService.getUserEmail();
+    this.userService.getOne(userEmail);
     const challenge = {
       id: uuid,
       title: challengeInfos.title,
@@ -58,11 +68,21 @@ export class ChallengeService {
     return this.http.post(this.url, challenge, { responseType: 'text' });
   }
 
+  /////////////////////
+  //      PATCH      //
+  /////////////////////
+
   update(id: string, challenge: Challenge) {
     return this.http.patch(`${this.url}/${id}`, challenge);
   }
 
+  /////////////////////
+  //      DELETE     //
+  /////////////////////
+
   delete(id: string) {
+    const userEmail = this.authService.getUserEmail()
+    this.userService.deleteChallenge(userEmail, { id }).subscribe()
     return this.http.delete(`${this.url}/${id}`);
   }
 }

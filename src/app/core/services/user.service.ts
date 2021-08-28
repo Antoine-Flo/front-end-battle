@@ -14,23 +14,27 @@ export class UserService {
 
   url = 'https://feb-api.com/users'
 
-  set user(user: User) {
-    this.user = user;
-  }
-
-  get user():User {
-    return this.user;
-  }
-
   constructor(private http: HttpClient, private uuid: UuidService) {}
 
-  getOne(email: string): Observable<User> {
-    return this.http.get<User>(`${this.url}/${email}`);
-  }
+  //////////////////
+  //     GET      //
+  //////////////////
 
   getAll(): Observable<Object> {
     return this.http.get(this.url);
   }
+
+  getOne(id: string): Observable<User> {
+    return this.http.get<User>(`${this.url}/${id}`);
+  }
+
+  getUserId(email: string): Observable<User> {
+    return this.http.get<User>(`${this.url}/${email}/id`);
+  }
+
+  ////////////////////
+  //      POST      //
+  ////////////////////
 
   create(email: string, name: string) {
     const uuid = this.uuid.getId();
@@ -40,22 +44,31 @@ export class UserService {
       username: name,
       challenges: [],
     }
-    this.user = user;
     return this.http.post(this.url, user, {responseType: 'text'})
   }
+
+  /////////////////////
+  //      PATCH      //
+  /////////////////////
 
   update(id: string, user: User) {
     return this.http.patch(`${this.url}/${id}`, user)
   }
 
-  delete(id: string) {
-    return this.http.delete(`${this.url}/${id}`)
+  addChallenge(userMail: string , userChallenge: {}) {
+    return this.http.patch(`${this.url}/${userMail}/challenge`, userChallenge)
   }
 
-  addChallenge(userMail: string , userChallenge: {}) {
-    console.log(userChallenge);
-    
-    return this.http.post(`${this.url}/${userMail}/challenge`, userChallenge)
+  deleteChallenge(userMail: string , challenge: {}) {
+    return this.http.patch(`${this.url}/${userMail}/challenge`, challenge)
+  }
+
+  /////////////////////
+  //      DELETE     //
+  /////////////////////
+
+  delete(id: string) {
+    return this.http.delete(`${this.url}/${id}`)
   }
 
 }

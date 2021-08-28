@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { pluck, tap } from 'rxjs/operators';
+import { AuthService } from 'src/app/auth/auth.service';
 import { ChallengeService } from 'src/app/core/services/challenge.service';
 import { StorageService } from 'src/app/core/services/storage.service';
 import { UserService } from 'src/app/core/services/user.service';
@@ -12,31 +13,33 @@ import { UserService } from 'src/app/core/services/user.service';
 export class ChallengeCardComponent implements OnInit {
   imgUrl: string;
   creatorName: string;
+  creatorEmail: string;
+  userEmail: string;
   @Input() challenge: any;
   @Output() challengeDeleted = new EventEmitter<string>();
 
   constructor(
     private storage: StorageService,
     private userService: UserService,
-    private challengeService: ChallengeService
+    private challengeService: ChallengeService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
+    this.userEmail = this.authService.getUserEmail()
     // Get the image Url
     this.storage
       .downloadViaUrl(this.challenge.imgId)
       .subscribe((x) => (this.imgUrl = x));
     
-    // Get the creato name
+    // Get the creator name and email
     this.userService
       .getOne(this.challenge.creatorId)
       .pipe(
-        // tap((x) => {console.log(x)}),
+        tap(challenge => console.log(challenge)),
         pluck('username'),
       )
       .subscribe((x) => {
-        // console.log(x);
-
         this.creatorName = x;
       });
   }

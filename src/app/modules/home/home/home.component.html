@@ -1,7 +1,4 @@
 <app-layout>
-
-
-
   <div class="home">
 
     <div class="home__section container">
@@ -16,13 +13,9 @@
       <h2>Résoudre un challenge</h2>
 
       <div class="challenges">
-
         <app-challenge-card (challengeDeleted)="onChallengeDeleted()" [challenge]="challenge" *ngFor="let challenge of challenges | async"></app-challenge-card>
       </div>
-
     </div>
 
-
   </div>
-
 </app-layout>

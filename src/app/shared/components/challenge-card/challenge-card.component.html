@@ -12,10 +12,13 @@
     
     <div class="challenge__credentials">
       <h2 class="challenge__title font-white"> {{ challenge.title }} </h2>
+      <p>{{ creatorEmail }}</p>
+      <p>{{ userEmail }}</p>
       <p class="challenge__bio font-white"> {{ challenge.description }} </p>
     </div>
 
     <div class="challenge__footer">
+      <!-- <p>{{ challenge | json }}</p> -->
       <p class="challenge__auth font-white"> {{ challenge.creatorId  }} </p>
       <mat-card-actions class="challenge__actions">
         <button mat-flat-button color="warn" (click)="onDelete()">Supprimer</button>

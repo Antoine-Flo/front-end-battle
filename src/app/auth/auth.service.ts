@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
+import { EMPTY, Observable, of, throwError } from 'rxjs';
+
 import app from 'firebase';
+
 import { SnackBarService } from '../core/services/snack-bar.service';
 import { UserService } from '../core/services/user.service';
+import { catchError, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +19,27 @@ export class AuthService {
     private router: Router,
     private snackBar: SnackBarService
   ) {}
+
+  getFirebaseCurrentUser(): Observable<any> {
+    const user = app.auth().currentUser;
+
+    if (user) {
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/firebase.User
+      return of(user);
+    } else {
+      throwError('No user is signed in');
+    }
+
+    return EMPTY
+  }
+
+  getIdToken() {
+    return this.getFirebaseCurrentUser().pipe(
+      tap(user => of(user.getIdToken())),
+      catchError(err => of(err))
+    );
+  }
 
   getUserEmail() {
     return app.auth().currentUser.email;
