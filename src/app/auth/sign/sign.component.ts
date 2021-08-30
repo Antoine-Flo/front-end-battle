@@ -40,7 +40,7 @@ export class SignComponent implements OnInit {
 
   connectWithGoogle() {
     this.authService.signinGoogle().then(() => {
-      this.snackBar.showSuccess('Connexion réussie');
+      
     }).catch((err) => {
       console.log(err);
       this.snackBar.showError(err.message, err.code);
@@ -49,7 +49,7 @@ export class SignComponent implements OnInit {
 
   connectWithGitHub() {
     this.authService.signinGitHub().then(() => {
-      this.snackBar.showSuccess('Connexion réussie');
+
     }).catch((err) => {
       console.log(err);
       this.snackBar.showError(err.message, err.code);

@@ -33,15 +33,15 @@ export class ChallengeCardComponent implements OnInit {
       .subscribe((x) => (this.imgUrl = x));
     
     // Get the creator name and email
-    this.userService
-      .getOne(this.challenge.creatorId)
-      .pipe(
-        tap(challenge => console.log(challenge)),
-        pluck('username'),
-      )
-      .subscribe((x) => {
-        this.creatorName = x;
-      });
+    // this.userService
+    //   .getOne(this.challenge.creatorId)
+    //   .pipe(
+    //     tap(challenge => console.log(challenge)),
+    //     pluck('username'),
+    //   )
+    //   .subscribe((x) => {
+    //     this.creatorName = x;
+    //   });
   }
 
   onDelete() {

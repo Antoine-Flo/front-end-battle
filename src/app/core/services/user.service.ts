@@ -10,6 +10,18 @@ import { UuidService } from './uuid.service';
 })
 export class UserService {
 
+  _userId: string;
+  
+  public get userId() : string {
+    return this._userId;
+  }
+  
+  
+  public set userId(id : string) {
+    this._userId = id;
+  }
+  
+
   // For documentation on the api : https://feb-api.com/api
 
   url = 'https://feb-api.com/users'
@@ -29,7 +41,7 @@ export class UserService {
   }
 
   getUserId(email: string): Observable<User> {
-    return this.http.get<User>(`${this.url}/${email}/id`);
+    return this.http.get<User>(`${this.url}/${btoa(email)}/id`);
   }
 
   ////////////////////

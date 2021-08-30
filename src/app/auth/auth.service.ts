@@ -31,13 +31,13 @@ export class AuthService {
       throwError('No user is signed in');
     }
 
-    return EMPTY
+    return EMPTY;
   }
 
   getIdToken() {
     return this.getFirebaseCurrentUser().pipe(
-      tap(user => of(user.getIdToken())),
-      catchError(err => of(err))
+      tap((user) => of(user.getIdToken())),
+      catchError((err) => of(err))
     );
   }
 
@@ -73,19 +73,19 @@ export class AuthService {
     this.auth.signOut().then(() => {
       this.snackBar.showSuccess('Vous êtes déconnecté.');
     });
-
     return this.router.navigate(['/']);
   }
 
   private async signInWithProvider(provider) {
-    const credentials = await this.auth.signInWithPopup(provider);
-    const { email, name } = <{ email: string; name: string }>(
-      credentials.additionalUserInfo.profile
-    );
-    this.router.navigate(['home']);
 
-    if (credentials.additionalUserInfo.isNewUser) {
-      this.userService.create(email, name).subscribe();
-    }
+    return this.auth.signInWithPopup(provider).then((cred) => {
+      this.snackBar.showSuccess('Connexion réussie');
+      this.router.navigate(['home']);
+      const { email, name } = <{ email: string; name: string }>( cred.additionalUserInfo.profile );
+
+      if (cred.additionalUserInfo.isNewUser) { this.userService.create(email, name).subscribe()}
+      
+      this.userService.getUserId(email).subscribe(x => console.log(x))
+    });
   }
 }
