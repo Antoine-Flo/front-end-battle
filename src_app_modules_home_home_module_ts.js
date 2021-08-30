@@ -130,7 +130,6 @@ class HomeComponent {
     ngOnInit() {
         this.challenges = this.challengesService.getAll();
         this.userEmail = this.authService.getUserEmail();
-        // this.userService.getOne(this.userEmail).subscribe();
     }
     onChallengeDeleted() {
         this.ngOnInit();
