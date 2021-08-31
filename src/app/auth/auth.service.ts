@@ -7,7 +7,7 @@ import app from 'firebase';
 
 import { SnackBarService } from '../core/services/snack-bar.service';
 import { UserService } from '../core/services/user.service';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, map, mergeMap, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -36,7 +36,8 @@ export class AuthService {
 
   getIdToken() {
     return this.getFirebaseCurrentUser().pipe(
-      tap((user) => of(user.getIdToken())),
+      mergeMap((user) => user.getIdToken()),
+      // tap(x => console.log(x)),
       catchError((err) => of(err))
     );
   }

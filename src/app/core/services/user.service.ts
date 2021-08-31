@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { User } from '../models/user.model';
 import { UuidService } from './uuid.service';
 
@@ -24,7 +25,9 @@ export class UserService {
 
   // For documentation on the api : https://feb-api.com/api
 
-  url = 'https://feb-api.com/users'
+
+  url = environment.api.users
+  // url = 'https://feb-api.com/users'
 
   constructor(private http: HttpClient, private uuid: UuidService) {}
 

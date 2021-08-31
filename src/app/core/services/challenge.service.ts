@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { from, Observable } from 'rxjs';
 import { concatMap, take } from 'rxjs/operators';
 import { AuthService } from 'src/app/auth/auth.service';
+import { environment } from 'src/environments/environment';
 import { Challenge } from '../models/challenge.model';
 import { StorageService } from './storage.service';
 import { UserService } from './user.service';
@@ -14,7 +15,8 @@ import { UuidService } from './uuid.service';
 export class ChallengeService {
   // For documentation on the api : https://feb-api.com/api
 
-  url = 'https://feb-api.com/challenges';
+  url = environment.api.challenges;
+  // url = 'https://feb-api.com/challenges';
 
   constructor(
     private storageService: StorageService,

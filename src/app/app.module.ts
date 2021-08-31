@@ -36,11 +36,11 @@ import { AddIdTokenInterceptor } from './core/interceptors/add-id-token.intercep
   ],
   providers: [
     { provide: BUCKET, useValue: 'challenge-img' },
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: AddIdTokenInterceptor,
-    //   multi: true,
-    // }
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AddIdTokenInterceptor,
+      multi: true,
+    }
   ],
   bootstrap: [AppComponent]
 })
