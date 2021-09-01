@@ -15,10 +15,9 @@ import { MatDividerModule } from '@angular/material/divider';
 import { SharedModule } from '../shared/shared.module';
 import { StartComponent } from './start/start.component';
 import { SignComponent } from './sign/sign.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
 
 @NgModule({
-  declarations: [StartComponent, SignComponent, SignUpComponent],
+  declarations: [StartComponent, SignComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -33,6 +32,6 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     MatSnackBarModule,
     MatDividerModule
   ],
-  exports: [StartComponent, SignComponent, SignUpComponent],
+  exports: [StartComponent, SignComponent],
 })
 export class AuthModule {}

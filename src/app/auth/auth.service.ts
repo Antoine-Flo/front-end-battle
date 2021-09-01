@@ -30,14 +30,12 @@ export class AuthService {
     } else {
       throwError('No user is signed in');
     }
-
     return EMPTY;
   }
 
   getIdToken() {
     return this.getFirebaseCurrentUser().pipe(
       mergeMap((user) => user.getIdToken()),
-      // tap(x => console.log(x)),
       catchError((err) => of(err))
     );
   }
@@ -56,18 +54,22 @@ export class AuthService {
     this.signInWithProvider(provider);
   }
 
-  signUpWithEmailPassword(email: string, password: string) {
+  logInWithEmailPassword(email: string, password: string) {
+    return app.auth().signInWithEmailAndPassword(email, password);
+  }
+
+  createAccountWithEmailPassword(userName: string, email: string, password: string) {
     return app
       .auth()
       .createUserWithEmailAndPassword(email, password)
-      .then(() => {});
-  }
+      .then((userCredentials) => {
+        if(userCredentials.additionalUserInfo.isNewUser) {
 
-  signInWithEmailPassword(email: string, password: string) {
-    return app
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-      .then(() => {});
+          this.userService.create(email, userName).subscribe();
+
+        } 
+        console.log(userCredentials)
+      });
   }
 
   logout() {
@@ -78,15 +80,20 @@ export class AuthService {
   }
 
   private async signInWithProvider(provider) {
-
-    return this.auth.signInWithPopup(provider).then((cred) => {
-      this.snackBar.showSuccess('Connexion réussie');
-      this.router.navigate(['home']);
-      const { email, name } = <{ email: string; name: string }>( cred.additionalUserInfo.profile );
-
-      if (cred.additionalUserInfo.isNewUser) { this.userService.create(email, name).subscribe()}
-      
-      this.userService.getUserId(email).subscribe(x => console.log(x))
-    });
+    return this.auth
+      .signInWithPopup(provider)
+      .then((cred) => {
+        this.snackBar.showSuccess('Connexion réussie');
+        this.router.navigate(['home']);
+        const { email, name } = <{ email: string; name: string }>(
+          cred.additionalUserInfo.profile
+        );
+        if (cred.additionalUserInfo.isNewUser) {
+          this.userService.create(email, name).subscribe();
+        }
+      })
+      .catch((err) => {
+        this.snackBar.showError(err.message, err.code);
+      });
   }
 }

@@ -28,14 +28,5 @@ export class AddIdTokenInterceptor implements HttpInterceptor {
         return next.handle(clonedRequest);
       })
     )
-
-    // Code and explanation found here : https://stackoverflow.com/questions/34464108/angular-set-headers-for-every-request
-
-    // const clonedRequest = request.clone({
-    //   headers: request.headers.append('Authorization', this.userTokenId),
-    // });
-
-    // return next.handle(clonedRequest);
-    
   }
 }

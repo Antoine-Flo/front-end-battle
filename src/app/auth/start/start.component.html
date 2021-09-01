@@ -1,33 +1,26 @@
 <app-layout>
 
   <div class="start">
-
     <div class="start__content">
 
       <img class="start__img" src="/assets/Bigfoot-bro.png" alt="illustration">
 
       <div class="start__message">
 
-        
         <h1 class="start__title">Bienvenue sur Front-End-Battle</h1>
         <p class="start__bio">Tester vos connaissances en intégration web et apprenez des meilleures.</p>
-        <div class="start__logs">
-          
+
+        <div class="start__logs">  
           <button (click)="modalSignIn = true; onSignIn()" mat-raised-button color="accent" class="start__btn">
             Se connecter
           </button>
           <button (click)="modalSignUp = true; onSignUp()" mat-flat-button color="primary" class="start__btn">
             S'inscrire
           </button>
-          
         </div>
+
       </div>
-      
-
     </div>
-
-
-
 
     <app-modal *ngIf="modalSignIn" (dismiss)="modalSignIn = false">
       <app-sign type="signIn" title="Se connecter"></app-sign>

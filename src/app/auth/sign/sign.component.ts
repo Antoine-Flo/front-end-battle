@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 
-
 @Component({
   selector: 'app-sign',
   templateUrl: './sign.component.html',
@@ -14,19 +13,31 @@ export class SignComponent implements OnInit {
   @Input() type: string;
   @Input() title: string;
 
-  get email() { return this.signUpForm.get('email') }
-  get password() { return this.signUpForm.get('password') }
-    
-
-  signUpForm = this.formBuilder.group({
+  logInForm = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(6), this.checkPassword]],
+    password: [
+      '',
+      [Validators.required, Validators.minLength(6), this.checkPassword],
+    ],
   });
 
+  newAccountForm = this.formBuilder.group({
+    userName: ['', [Validators.required]],
+    email: ['', [Validators.required, Validators.email]],
+    password: [
+      '',
+      [Validators.required, Validators.minLength(6), this.checkPassword],
+    ],
+  });
+
+  // Custom validator for password
+
   checkPassword(control) {
-    let enteredPassword = control.value
+    let enteredPassword = control.value;
     let passwordCheck = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/;
-    return (!passwordCheck.test(enteredPassword) && enteredPassword) ? { 'requirements': true } : null;
+    return !passwordCheck.test(enteredPassword) && enteredPassword
+      ? { requirements: true }
+      : null;
   }
 
   constructor(
@@ -38,50 +49,37 @@ export class SignComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  connectWithGoogle() {
-    this.authService.signinGoogle().then(() => {
-      
-    }).catch((err) => {
-      console.log(err);
-      this.snackBar.showError(err.message, err.code);
-    });
+  connectWithGoogle() { this.authService.signinGoogle(); }
+
+  connectWithGitHub() { this.authService.signinGitHub(); }
+
+  onLogin(): void {
+    const { email, password } = this.logInForm.value;
+
+    this.authService
+      .logInWithEmailPassword(email, password)
+      .then(() => {
+        this.snackBar.showSuccess('Connexion réussie');
+        this.router.navigate(['home']);
+      })
+      .catch((err) => {
+        this.snackBar.showError(err.message, err.code);
+      });
   }
 
-  connectWithGitHub() {
-    this.authService.signinGitHub().then(() => {
+  onNewAccount(): void {
+    const { userName, email, password } = this.newAccountForm.value;
 
-    }).catch((err) => {
-      console.log(err);
-      this.snackBar.showError(err.message, err.code);
-    });
-  }
-
-  onSubmit(): void {
-    const { email, password } = this.signUpForm.value;
-    
-    if (this.type === 'signIn') {
-      this.authService
-        .signInWithEmailPassword(email, password)
-        .then(() => {
-          this.snackBar.showSuccess('Connexion réussie');
-          this.router.navigate(['home']);
-        })
-        .catch((err) => {
-          console.log(err);
-          this.snackBar.showError(err.message, err.code);
-        })
-        
-    } else if (this.type === 'signUp') {
-      this.authService
-        .signUpWithEmailPassword(email, password)
-        .then(() => {
-          this.snackBar.showSuccess('Inscription réussie, mail de verification envoyé');
-          this.router.navigate(['home']);
-        })
-        .catch((err) => {
-          console.log(err);
-          this.snackBar.showError(err.message, err.code);
-        });
-    }
+    this.authService
+      .createAccountWithEmailPassword(userName, email, password)
+      .then(() => {
+        this.snackBar.showSuccess(
+          'Inscription réussie, mail de verification envoyé'
+        );
+        this.router.navigate(['home']);
+      })
+      .catch((err) => {
+        this.snackBar.showError(err.message, err.code);
+      });
   }
 }
