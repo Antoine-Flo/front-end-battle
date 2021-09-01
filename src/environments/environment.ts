@@ -14,8 +14,8 @@ export const environment = {
     measurementId: 'G-CVW1DLM3XN',
   },
   api: {
-    challenges: 'http://localhost:3000/challenges',
-    users: 'http://localhost:3000/users'
+    challenges: 'https://feb-api.com/challenges',
+    users: 'https://feb-api.com/users'
   }
 };
 
