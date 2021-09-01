@@ -264,13 +264,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "AuthService": () => (/* binding */ AuthService)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! tslib */ 3786);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! tslib */ 3786);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ 1134);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ 5871);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ 8117);
 /* harmony import */ var firebase__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! firebase */ 713);
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs/operators */ 5816);
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! rxjs/operators */ 8293);
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! rxjs/operators */ 5816);
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! rxjs/operators */ 8293);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/core */ 2316);
 /* harmony import */ var _core_services_user_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../core/services/user.service */ 8386);
 /* harmony import */ var _angular_fire_auth__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/fire/auth */ 6363);
@@ -300,55 +300,75 @@ class AuthService {
             return (0,rxjs__WEBPACK_IMPORTED_MODULE_3__.of)(user);
         }
         else {
+            this.logout();
             (0,rxjs__WEBPACK_IMPORTED_MODULE_4__.throwError)('No user is signed in');
         }
         return rxjs__WEBPACK_IMPORTED_MODULE_5__.EMPTY;
     }
-    getIdToken() {
-        return this.getFirebaseCurrentUser().pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_6__.mergeMap)((user) => user.getIdToken()), (0,rxjs_operators__WEBPACK_IMPORTED_MODULE_7__.catchError)((err) => (0,rxjs__WEBPACK_IMPORTED_MODULE_3__.of)(err)));
-    }
-    getUserEmail() {
-        return firebase__WEBPACK_IMPORTED_MODULE_0__.default.auth().currentUser.email;
-    }
     signinGoogle() {
-        return (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__awaiter)(this, void 0, void 0, function* () {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(this, void 0, void 0, function* () {
             const provider = new firebase__WEBPACK_IMPORTED_MODULE_0__.default.auth.GoogleAuthProvider();
             this.signInWithProvider(provider);
         });
     }
     signinGitHub() {
-        return (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__awaiter)(this, void 0, void 0, function* () {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(this, void 0, void 0, function* () {
             const provider = new firebase__WEBPACK_IMPORTED_MODULE_0__.default.auth.GithubAuthProvider();
             this.signInWithProvider(provider);
         });
     }
     logInWithEmailPassword(email, password) {
-        return firebase__WEBPACK_IMPORTED_MODULE_0__.default.auth().signInWithEmailAndPassword(email, password);
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(this, void 0, void 0, function* () {
+            return firebase__WEBPACK_IMPORTED_MODULE_0__.default.auth().signInWithEmailAndPassword(email, password).then(() => {
+                this.setUserId(email);
+                this.snackBar.showSuccess('Connexion réussie');
+                this.router.navigate(['home']);
+            })
+                .catch((err) => {
+                this.snackBar.showError(err.message, err.code);
+            });
+            ;
+        });
     }
     createAccountWithEmailPassword(userName, email, password) {
-        return firebase__WEBPACK_IMPORTED_MODULE_0__.default.auth()
-            .createUserWithEmailAndPassword(email, password)
-            .then((userCredentials) => {
-            if (userCredentials.additionalUserInfo.isNewUser) {
-                this.userService.create(email, userName).subscribe();
-            }
-            console.log(userCredentials);
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(this, void 0, void 0, function* () {
+            return firebase__WEBPACK_IMPORTED_MODULE_0__.default.auth()
+                .createUserWithEmailAndPassword(email, password)
+                .then((userCredentials) => {
+                this.setUserId(email);
+                if (userCredentials.additionalUserInfo.isNewUser) {
+                    this.userService.create(email, userName).subscribe();
+                }
+            });
         });
     }
     logout() {
         this.auth.signOut().then(() => {
             this.snackBar.showSuccess('Vous êtes déconnecté.');
         });
+        localStorage.setItem('userId', '');
         return this.router.navigate(['/']);
     }
+    getIdToken() {
+        return this.getFirebaseCurrentUser().pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_7__.mergeMap)((user) => user.getIdToken()), (0,rxjs_operators__WEBPACK_IMPORTED_MODULE_8__.catchError)((err) => (0,rxjs__WEBPACK_IMPORTED_MODULE_3__.of)(err)));
+    }
+    setUserId(email) {
+        this.userService.getUserId(email).subscribe(id => {
+            this.userService.userId = id;
+        });
+    }
+    // private getUserEmail() {
+    //   return app.auth().currentUser.email;
+    // }
     signInWithProvider(provider) {
-        return (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__awaiter)(this, void 0, void 0, function* () {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(this, void 0, void 0, function* () {
             return this.auth
                 .signInWithPopup(provider)
                 .then((cred) => {
+                const { email, name } = (cred.additionalUserInfo.profile);
                 this.snackBar.showSuccess('Connexion réussie');
                 this.router.navigate(['home']);
-                const { email, name } = (cred.additionalUserInfo.profile);
+                this.setUserId(email);
                 if (cred.additionalUserInfo.isNewUser) {
                     this.userService.create(email, name).subscribe();
                 }
@@ -498,19 +518,15 @@ class SignComponent {
             : null;
     }
     ngOnInit() { }
-    connectWithGoogle() { this.authService.signinGoogle(); }
-    connectWithGitHub() { this.authService.signinGitHub(); }
+    connectWithGoogle() {
+        this.authService.signinGoogle();
+    }
+    connectWithGitHub() {
+        this.authService.signinGitHub();
+    }
     onLogin() {
         const { email, password } = this.logInForm.value;
-        this.authService
-            .logInWithEmailPassword(email, password)
-            .then(() => {
-            this.snackBar.showSuccess('Connexion réussie');
-            this.router.navigate(['home']);
-        })
-            .catch((err) => {
-            this.snackBar.showError(err.message, err.code);
-        });
+        this.authService.logInWithEmailPassword(email, password);
     }
     onNewAccount() {
         const { userName, email, password } = this.newAccountForm.value;
@@ -766,8 +782,8 @@ class ChallengeService {
     create(challengeInfos) {
         const uuid = this.uuid.getId();
         const imgId = this.storageService.uploadImg(challengeInfos.imgData);
-        const userEmail = this.authService.getUserEmail();
-        this.userService.getOne(userEmail);
+        const userId = this.userService.userId;
+        this.userService.getOne(userId);
         const challenge = {
             id: uuid,
             title: challengeInfos.title,
@@ -780,7 +796,7 @@ class ChallengeService {
             id: uuid,
             title: challengeInfos.title,
         };
-        this.userService.addChallenge(userEmail, userChallenge).subscribe();
+        this.userService.addChallenge(userId, userChallenge).subscribe();
         return this.http.post(this.url, challenge, { responseType: 'text' });
     }
     /////////////////////
@@ -793,8 +809,8 @@ class ChallengeService {
     //      DELETE     //
     /////////////////////
     delete(id) {
-        const userEmail = this.authService.getUserEmail();
-        this.userService.deleteChallenge(userEmail, { id }).subscribe();
+        const userId = this.userService.userId;
+        this.userService.deleteChallenge(userId, { id }).subscribe();
         return this.http.delete(`${this.url}/${id}`);
     }
 }
@@ -906,27 +922,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "UserService": () => (/* binding */ UserService)
 /* harmony export */ });
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ 3927);
 /* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/environments/environment */ 2340);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 2316);
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ 3882);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 2316);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ 3882);
 /* harmony import */ var _uuid_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./uuid.service */ 8225);
 
 
 
 
+
 class UserService {
-    // url = 'https://feb-api.com/users'
+    // For documentation on the api : https://feb-api.com/api
     constructor(http, uuid) {
         this.http = http;
         this.uuid = uuid;
-        // For documentation on the api : https://feb-api.com/api
         this.url = src_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.api.users;
     }
     get userId() {
-        return this._userId;
+        return localStorage.getItem('userId');
     }
     set userId(id) {
-        this._userId = id;
+        // console.log(id)
+        localStorage.setItem('userId', id);
     }
     //////////////////
     //     GET      //
@@ -938,7 +956,7 @@ class UserService {
         return this.http.get(`${this.url}/${id}`);
     }
     getUserId(email) {
-        return this.http.get(`${this.url}/${btoa(email)}/id`);
+        return this.http.get(`${this.url}/${email}/id`).pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_2__.map)(res => res.id));
     }
     ////////////////////
     //      POST      //
@@ -951,6 +969,7 @@ class UserService {
             username: name,
             challenges: [],
         };
+        this.userId = uuid;
         return this.http.post(this.url, user, { responseType: 'text' });
     }
     /////////////////////
@@ -959,11 +978,11 @@ class UserService {
     update(id, user) {
         return this.http.patch(`${this.url}/${id}`, user);
     }
-    addChallenge(userMail, userChallenge) {
-        return this.http.patch(`${this.url}/${userMail}/challenge`, userChallenge);
+    addChallenge(userId, userChallenge) {
+        return this.http.patch(`${this.url}/${userId}/challenge`, userChallenge);
     }
-    deleteChallenge(userMail, challenge) {
-        return this.http.patch(`${this.url}/${userMail}/challenge`, challenge);
+    deleteChallenge(userId, challenge) {
+        return this.http.patch(`${this.url}/${userId}/challenge`, challenge);
     }
     /////////////////////
     //      DELETE     //
@@ -972,8 +991,8 @@ class UserService {
         return this.http.delete(`${this.url}/${id}`);
     }
 }
-UserService.ɵfac = function UserService_Factory(t) { return new (t || UserService)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_3__.HttpClient), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](_uuid_service__WEBPACK_IMPORTED_MODULE_1__.UuidService)); };
-UserService.ɵprov = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineInjectable"]({ token: UserService, factory: UserService.ɵfac, providedIn: 'root' });
+UserService.ɵfac = function UserService_Factory(t) { return new (t || UserService)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_4__.HttpClient), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵinject"](_uuid_service__WEBPACK_IMPORTED_MODULE_1__.UuidService)); };
+UserService.ɵprov = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineInjectable"]({ token: UserService, factory: UserService.ɵfac, providedIn: 'root' });
 
 
 /***/ }),
@@ -1162,21 +1181,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "UserChallengesComponent": () => (/* binding */ UserChallengesComponent)
 /* harmony export */ });
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! rxjs */ 2720);
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs/operators */ 4236);
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! rxjs/operators */ 5816);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ 2316);
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/operators */ 8636);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 2316);
 /* harmony import */ var src_app_core_services_challenge_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/core/services/challenge.service */ 1773);
-/* harmony import */ var src_app_auth_auth_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/auth/auth.service */ 384);
-/* harmony import */ var src_app_core_services_user_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/core/services/user.service */ 8386);
-/* harmony import */ var _shared_components_layout_layout_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../shared/components/layout/layout.component */ 4325);
-/* harmony import */ var _angular_material_button__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/material/button */ 781);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/router */ 1258);
-/* harmony import */ var _angular_material_divider__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/material/divider */ 1124);
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/common */ 4364);
-/* harmony import */ var _shared_components_challenge_card_challenge_card_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../shared/components/challenge-card/challenge-card.component */ 9334);
-
-
+/* harmony import */ var src_app_core_services_user_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/core/services/user.service */ 8386);
+/* harmony import */ var _shared_components_layout_layout_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../shared/components/layout/layout.component */ 4325);
+/* harmony import */ var _angular_material_button__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/material/button */ 781);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/router */ 1258);
+/* harmony import */ var _angular_material_divider__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/material/divider */ 1124);
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/common */ 4364);
+/* harmony import */ var _shared_components_challenge_card_challenge_card_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../shared/components/challenge-card/challenge-card.component */ 9334);
 
 
 
@@ -1188,26 +1202,30 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function UserChallengesComponent_app_challenge_card_13_Template(rf, ctx) { if (rf & 1) {
-    const _r3 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](0, "app-challenge-card", 6);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("challengeDeleted", function UserChallengesComponent_app_challenge_card_13_Template_app_challenge_card_challengeDeleted_0_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵrestoreView"](_r3); const ctx_r2 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"](); return ctx_r2.onChallengeDeleted(); });
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+    const _r3 = _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵgetCurrentView"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](0, "app-challenge-card", 6);
+    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵlistener"]("challengeDeleted", function UserChallengesComponent_app_challenge_card_13_Template_app_challenge_card_challengeDeleted_0_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵrestoreView"](_r3); const ctx_r2 = _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵnextContext"](); return ctx_r2.onChallengeDeleted(); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const challenge_r1 = ctx.$implicit;
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("challenge", challenge_r1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("challenge", challenge_r1);
 } }
 const _c0 = function () { return ["/game/create"]; };
 class UserChallengesComponent {
-    constructor(challengesService, authService, userService) {
+    constructor(challengesService, userService) {
         this.challengesService = challengesService;
-        this.authService = authService;
         this.userService = userService;
     }
     ngOnInit() {
-        this.userEmail = this.authService.getUserEmail();
+        this.userId = this.userService.userId;
         this.userService
-            .getOne(this.userEmail)
-            .pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_6__.pluck)('challenges'), (0,rxjs_operators__WEBPACK_IMPORTED_MODULE_7__.mergeMap)((arr) => (0,rxjs__WEBPACK_IMPORTED_MODULE_8__.forkJoin)(arr.map((chal) => this.challengesService.getOne(chal.id)))))
+            .getOne(this.userId)
+            .pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_5__.tap)(x => console.log(x))
+        // pluck('challenges'),
+        // mergeMap((arr) =>
+        //   forkJoin(arr.map((chal) => this.challengesService.getOne(chal.id)))
+        // )
+        )
             .subscribe((result) => {
             this.userChallenges = result;
         });
@@ -1216,37 +1234,37 @@ class UserChallengesComponent {
         this.ngOnInit();
     }
 }
-UserChallengesComponent.ɵfac = function UserChallengesComponent_Factory(t) { return new (t || UserChallengesComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdirectiveInject"](src_app_core_services_challenge_service__WEBPACK_IMPORTED_MODULE_0__.ChallengeService), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdirectiveInject"](src_app_auth_auth_service__WEBPACK_IMPORTED_MODULE_1__.AuthService), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdirectiveInject"](src_app_core_services_user_service__WEBPACK_IMPORTED_MODULE_2__.UserService)); };
-UserChallengesComponent.ɵcmp = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdefineComponent"]({ type: UserChallengesComponent, selectors: [["app-user-challenges"]], decls: 14, vars: 3, consts: [[1, "home"], [1, "home__section", "container"], [1, "box"], ["mat-raised-button", "", "color", "primary", 3, "routerLink"], [1, "challenges"], [3, "challenge", "challengeDeleted", 4, "ngFor", "ngForOf"], [3, "challenge", "challengeDeleted"]], template: function UserChallengesComponent_Template(rf, ctx) { if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](0, "app-layout");
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](1, "div", 0);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](2, "div", 1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](3, "h2");
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](4, "Cr\u00E9er un challenge");
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](5, "div", 2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](6, "button", 3);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](7, "C'est partis");
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelement"](8, "mat-divider");
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](9, "div", 1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](10, "h2");
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](11, "Mes challenges publi\u00E9s");
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](12, "div", 4);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](13, UserChallengesComponent_app_challenge_card_13_Template, 1, 1, "app-challenge-card", 5);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+UserChallengesComponent.ɵfac = function UserChallengesComponent_Factory(t) { return new (t || UserChallengesComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdirectiveInject"](src_app_core_services_challenge_service__WEBPACK_IMPORTED_MODULE_0__.ChallengeService), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdirectiveInject"](src_app_core_services_user_service__WEBPACK_IMPORTED_MODULE_1__.UserService)); };
+UserChallengesComponent.ɵcmp = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineComponent"]({ type: UserChallengesComponent, selectors: [["app-user-challenges"]], decls: 14, vars: 3, consts: [[1, "home"], [1, "home__section", "container"], [1, "box"], ["mat-raised-button", "", "color", "primary", 3, "routerLink"], [1, "challenges"], [3, "challenge", "challengeDeleted", 4, "ngFor", "ngForOf"], [3, "challenge", "challengeDeleted"]], template: function UserChallengesComponent_Template(rf, ctx) { if (rf & 1) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](0, "app-layout");
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](1, "div", 0);
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](2, "div", 1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](3, "h2");
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtext"](4, "Cr\u00E9er un challenge");
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](5, "div", 2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](6, "button", 3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtext"](7, "C'est partis");
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelement"](8, "mat-divider");
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](9, "div", 1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](10, "h2");
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtext"](11, "Mes challenges publi\u00E9s");
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](12, "div", 4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtemplate"](13, UserChallengesComponent_app_challenge_card_13_Template, 1, 1, "app-challenge-card", 5);
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
     } if (rf & 2) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](6);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("routerLink", _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpureFunction0"](2, _c0));
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](7);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngForOf", ctx.userChallenges);
-    } }, directives: [_shared_components_layout_layout_component__WEBPACK_IMPORTED_MODULE_3__.LayoutComponent, _angular_material_button__WEBPACK_IMPORTED_MODULE_9__.MatButton, _angular_router__WEBPACK_IMPORTED_MODULE_10__.RouterLink, _angular_material_divider__WEBPACK_IMPORTED_MODULE_11__.MatDivider, _angular_common__WEBPACK_IMPORTED_MODULE_12__.NgForOf, _shared_components_challenge_card_challenge_card_component__WEBPACK_IMPORTED_MODULE_4__.ChallengeCardComponent], styles: [".challenges[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));\n  grid-gap: 2rem;\n  gap: 2rem;\n}\n.challenges__show[_ngcontent-%COMP%] {\n  width: 50%;\n}\n.home[_ngcontent-%COMP%] {\n  margin-top: 2rem;\n}\n.home__section[_ngcontent-%COMP%] {\n  margin-top: 2rem;\n  padding-bottom: 9rem;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInVzZXItY2hhbGxlbmdlcy5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGFBQUE7RUFDQSwyREFBQTtFQUNBLGNBQUE7RUFBQSxTQUFBO0FBQ0o7QUFDSTtFQUNJLFVBQUE7QUFDUjtBQUdBO0VBQ0ksZ0JBQUE7QUFBSjtBQUVJO0VBQ0ksZ0JBQUE7RUFDQSxvQkFBQTtBQUFSIiwiZmlsZSI6InVzZXItY2hhbGxlbmdlcy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5jaGFsbGVuZ2VzIHtcbiAgICBkaXNwbGF5OiBncmlkO1xuICAgIGdyaWQtdGVtcGxhdGUtY29sdW1uczogcmVwZWF0KGF1dG8tZml0LCBtaW5tYXgoMzAwcHgsIDFmcikpO1xuICAgIGdhcDogMnJlbTtcblxuICAgICZfX3Nob3cge1xuICAgICAgICB3aWR0aDogNTAlO1xuICAgIH1cbn1cblxuLmhvbWUge1xuICAgIG1hcmdpbi10b3A6IDJyZW07XG4gICAgXG4gICAgJl9fc2VjdGlvbiB7XG4gICAgICAgIG1hcmdpbi10b3A6IDJyZW07XG4gICAgICAgIHBhZGRpbmctYm90dG9tOiA5cmVtO1xuICAgIH1cblxufSJdfQ== */"] });
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](6);
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("routerLink", _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵpureFunction0"](2, _c0));
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](7);
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("ngForOf", ctx.userChallenges);
+    } }, directives: [_shared_components_layout_layout_component__WEBPACK_IMPORTED_MODULE_2__.LayoutComponent, _angular_material_button__WEBPACK_IMPORTED_MODULE_6__.MatButton, _angular_router__WEBPACK_IMPORTED_MODULE_7__.RouterLink, _angular_material_divider__WEBPACK_IMPORTED_MODULE_8__.MatDivider, _angular_common__WEBPACK_IMPORTED_MODULE_9__.NgForOf, _shared_components_challenge_card_challenge_card_component__WEBPACK_IMPORTED_MODULE_3__.ChallengeCardComponent], styles: [".challenges[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));\n  grid-gap: 2rem;\n  gap: 2rem;\n}\n.challenges__show[_ngcontent-%COMP%] {\n  width: 50%;\n}\n.home[_ngcontent-%COMP%] {\n  margin-top: 2rem;\n}\n.home__section[_ngcontent-%COMP%] {\n  margin-top: 2rem;\n  padding-bottom: 9rem;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInVzZXItY2hhbGxlbmdlcy5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGFBQUE7RUFDQSwyREFBQTtFQUNBLGNBQUE7RUFBQSxTQUFBO0FBQ0o7QUFDSTtFQUNJLFVBQUE7QUFDUjtBQUdBO0VBQ0ksZ0JBQUE7QUFBSjtBQUVJO0VBQ0ksZ0JBQUE7RUFDQSxvQkFBQTtBQUFSIiwiZmlsZSI6InVzZXItY2hhbGxlbmdlcy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5jaGFsbGVuZ2VzIHtcbiAgICBkaXNwbGF5OiBncmlkO1xuICAgIGdyaWQtdGVtcGxhdGUtY29sdW1uczogcmVwZWF0KGF1dG8tZml0LCBtaW5tYXgoMzAwcHgsIDFmcikpO1xuICAgIGdhcDogMnJlbTtcblxuICAgICZfX3Nob3cge1xuICAgICAgICB3aWR0aDogNTAlO1xuICAgIH1cbn1cblxuLmhvbWUge1xuICAgIG1hcmdpbi10b3A6IDJyZW07XG4gICAgXG4gICAgJl9fc2VjdGlvbiB7XG4gICAgICAgIG1hcmdpbi10b3A6IDJyZW07XG4gICAgICAgIHBhZGRpbmctYm90dG9tOiA5cmVtO1xuICAgIH1cblxufSJdfQ== */"] });
 
 
 /***/ }),
@@ -1304,7 +1322,7 @@ class ChallengeCardComponent {
         this.challengeDeleted = new _angular_core__WEBPACK_IMPORTED_MODULE_4__.EventEmitter();
     }
     ngOnInit() {
-        this.userEmail = this.authService.getUserEmail();
+        this.userId = this.userService.userId;
         // Get the image Url
         this.storage
             .downloadViaUrl(this.challenge.imgId)
@@ -1327,7 +1345,7 @@ class ChallengeCardComponent {
     }
 }
 ChallengeCardComponent.ɵfac = function ChallengeCardComponent_Factory(t) { return new (t || ChallengeCardComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdirectiveInject"](src_app_core_services_storage_service__WEBPACK_IMPORTED_MODULE_0__.StorageService), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdirectiveInject"](src_app_core_services_user_service__WEBPACK_IMPORTED_MODULE_1__.UserService), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdirectiveInject"](src_app_core_services_challenge_service__WEBPACK_IMPORTED_MODULE_2__.ChallengeService), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdirectiveInject"](src_app_auth_auth_service__WEBPACK_IMPORTED_MODULE_3__.AuthService)); };
-ChallengeCardComponent.ɵcmp = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineComponent"]({ type: ChallengeCardComponent, selectors: [["app-challenge-card"]], inputs: { challenge: "challenge" }, outputs: { challengeDeleted: "challengeDeleted" }, decls: 21, vars: 10, consts: [[1, "challenge"], ["mat-card-image", "", "class", "challenge__img", "alt", "image challenge", 3, "src", 4, "ngIf"], ["class", "challenge__credentials", 4, "ngIf"], [1, "challenge__content"], [1, "challenge__credentials"], [1, "challenge__title", "font-white"], [1, "challenge__bio", "font-white"], [1, "challenge__footer"], [1, "challenge__auth", "font-white"], [1, "challenge__actions"], ["mat-flat-button", "", "color", "warn", 3, "click"], ["mat-raised-button", "", "color", "primary", 1, "challenge__btn", 3, "routerLink"], ["mat-card-image", "", "alt", "image challenge", 1, "challenge__img", 3, "src"], [1, "challenge__spinner"]], template: function ChallengeCardComponent_Template(rf, ctx) { if (rf & 1) {
+ChallengeCardComponent.ɵcmp = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineComponent"]({ type: ChallengeCardComponent, selectors: [["app-challenge-card"]], inputs: { challenge: "challenge" }, outputs: { challengeDeleted: "challengeDeleted" }, decls: 19, vars: 9, consts: [[1, "challenge"], ["mat-card-image", "", "class", "challenge__img", "alt", "image challenge", 3, "src", 4, "ngIf"], ["class", "challenge__credentials", 4, "ngIf"], [1, "challenge__content"], [1, "challenge__credentials"], [1, "challenge__title", "font-white"], [1, "challenge__bio", "font-white"], [1, "challenge__footer"], [1, "challenge__auth", "font-white"], [1, "challenge__actions"], ["mat-flat-button", "", "color", "warn", 3, "click"], ["mat-raised-button", "", "color", "primary", 1, "challenge__btn", 3, "routerLink"], ["mat-card-image", "", "alt", "image challenge", 1, "challenge__img", 3, "src"], [1, "challenge__spinner"]], template: function ChallengeCardComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](0, "mat-card", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtemplate"](1, ChallengeCardComponent_img_1_Template, 1, 1, "img", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtemplate"](2, ChallengeCardComponent_div_2_Template, 2, 0, "div", 2);
@@ -1339,24 +1357,21 @@ ChallengeCardComponent.ɵcmp = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MOD
         _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](7, "p");
         _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtext"](8);
         _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](9, "p");
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](9, "p", 6);
         _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtext"](10);
         _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](11, "p", 6);
-        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtext"](12);
         _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](11, "div", 7);
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](12, "p", 8);
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtext"](13);
         _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](13, "div", 7);
-        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](14, "p", 8);
-        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtext"](15);
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](14, "mat-card-actions", 9);
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](15, "button", 10);
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵlistener"]("click", function ChallengeCardComponent_Template_button_click_15_listener() { return ctx.onDelete(); });
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtext"](16, "Supprimer");
         _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](16, "mat-card-actions", 9);
-        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](17, "button", 10);
-        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵlistener"]("click", function ChallengeCardComponent_Template_button_click_17_listener() { return ctx.onDelete(); });
-        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtext"](18, "Supprimer");
-        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](19, "button", 11);
-        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtext"](20, "R\u00E9soudre");
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](17, "button", 11);
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtext"](18, "R\u00E9soudre");
         _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
@@ -1372,13 +1387,11 @@ ChallengeCardComponent.ɵcmp = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MOD
         _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](2);
         _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtextInterpolate"](ctx.creatorEmail);
         _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtextInterpolate"](ctx.userEmail);
-        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](2);
         _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtextInterpolate1"](" ", ctx.challenge.description, " ");
         _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](3);
         _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtextInterpolate1"](" ", ctx.challenge.creatorId, " ");
         _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](4);
-        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("routerLink", _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵpureFunction1"](8, _c0, ctx.challenge.id));
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("routerLink", _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵpureFunction1"](7, _c0, ctx.challenge.id));
     } }, directives: [_angular_material_card__WEBPACK_IMPORTED_MODULE_5__.MatCard, _angular_common__WEBPACK_IMPORTED_MODULE_6__.NgIf, _angular_material_card__WEBPACK_IMPORTED_MODULE_5__.MatCardActions, _angular_material_button__WEBPACK_IMPORTED_MODULE_7__.MatButton, _angular_router__WEBPACK_IMPORTED_MODULE_8__.RouterLink, _angular_material_card__WEBPACK_IMPORTED_MODULE_5__.MatCardImage, _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_9__.MatSpinner], styles: [".challenge[_ngcontent-%COMP%] {\n  overflow: hidden;\n}\n.challenge__placholder[_ngcontent-%COMP%] {\n  height: 5000px;\n  color: red;\n}\n.challenge__spinner[_ngcontent-%COMP%] {\n  margin: 3rem auto;\n}\n.challenge__content[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  height: 100%;\n  flex: 1;\n}\n.challenge__title[_ngcontent-%COMP%] {\n  margin-bottom: 1rem;\n}\n.challenge__footer[_ngcontent-%COMP%] {\n  margin-top: 2rem;\n  display: flex;\n  justify-content: space-between;\n  align-items: flex-end;\n}\n.challenge__btn[_ngcontent-%COMP%] {\n  margin-left: 5px;\n}\n.challenge__actions[_ngcontent-%COMP%] {\n  margin-bottom: 0;\n  align-self: flex-end;\n  justify-self: flex-end;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImNoYWxsZW5nZS1jYXJkLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBRUksZ0JBQUE7QUFBSjtBQUVJO0VBQ0ksY0FBQTtFQUNBLFVBQUE7QUFBUjtBQUVJO0VBRUksaUJBQUE7QUFEUjtBQUlJO0VBQ0ksYUFBQTtFQUNBLHNCQUFBO0VBQ0EsOEJBQUE7RUFDQSxZQUFBO0VBQ0EsT0FBQTtBQUZSO0FBTUk7RUFDSSxtQkFBQTtBQUpSO0FBT0k7RUFDSSxnQkFBQTtFQUNBLGFBQUE7RUFDQSw4QkFBQTtFQUNBLHFCQUFBO0FBTFI7QUFRSTtFQUNJLGdCQUFBO0FBTlI7QUFTSTtFQUNJLGdCQUFBO0VBQ0Esb0JBQUE7RUFDQSxzQkFBQTtBQVBSIiwiZmlsZSI6ImNoYWxsZW5nZS1jYXJkLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmNoYWxsZW5nZSB7XG5cbiAgICBvdmVyZmxvdzogaGlkZGVuO1xuXG4gICAgJl9fcGxhY2hvbGRlciB7XG4gICAgICAgIGhlaWdodDogNTAwMHB4O1xuICAgICAgICBjb2xvcjogcmVkO1xuICAgIH1cbiAgICAmX19zcGlubmVyIHtcblxuICAgICAgICBtYXJnaW46IDNyZW0gYXV0bztcbiAgICB9XG4gICAgXG4gICAgJl9fY29udGVudCB7XG4gICAgICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgICAgIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XG4gICAgICAgIGp1c3RpZnktY29udGVudDogc3BhY2UtYmV0d2VlbjtcbiAgICAgICAgaGVpZ2h0OiAxMDAlO1xuICAgICAgICBmbGV4OjE7XG4gICAgfVxuXG5cbiAgICAmX190aXRsZSB7XG4gICAgICAgIG1hcmdpbi1ib3R0b206IDFyZW07XG4gICAgfVxuXG4gICAgJl9fZm9vdGVyIHtcbiAgICAgICAgbWFyZ2luLXRvcDogMnJlbTtcbiAgICAgICAgZGlzcGxheTogZmxleDtcbiAgICAgICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1iZXR3ZWVuO1xuICAgICAgICBhbGlnbi1pdGVtczogZmxleC1lbmQ7XG4gICAgfVxuXG4gICAgJl9fYnRuIHtcbiAgICAgICAgbWFyZ2luLWxlZnQ6IDVweDtcbiAgICB9XG5cbiAgICAmX19hY3Rpb25zIHtcbiAgICAgICAgbWFyZ2luLWJvdHRvbTogMDtcbiAgICAgICAgYWxpZ24tc2VsZjogZmxleC1lbmQ7XG4gICAgICAgIGp1c3RpZnktc2VsZjogZmxleC1lbmQ7XG4gICAgfVxuXG59Il19 */"] });
 
 
