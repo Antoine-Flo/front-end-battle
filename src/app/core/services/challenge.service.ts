@@ -1,8 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { from, Observable } from 'rxjs';
-import { concatMap, take } from 'rxjs/operators';
-import { AuthService } from 'src/app/auth/auth.service';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Challenge } from '../models/challenge.model';
 import { StorageService } from './storage.service';
@@ -23,7 +21,6 @@ export class ChallengeService {
     private http: HttpClient,
     private uuid: UuidService,
     private userService: UserService,
-    private authService: AuthService
   ) {}
 
 
