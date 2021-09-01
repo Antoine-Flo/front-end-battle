@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkfront_end_battle=self.webpackChunkfront_end_battle||[]).push([[952],{1952:(t,e,_)=>{_.r(e),_(6423)}}]);
