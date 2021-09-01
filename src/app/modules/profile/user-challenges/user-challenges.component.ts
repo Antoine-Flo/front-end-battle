@@ -11,26 +11,26 @@ import { UserService } from 'src/app/core/services/user.service';
   styleUrls: ['./user-challenges.component.scss'],
 })
 export class UserChallengesComponent implements OnInit {
-  userEmail: string;
+  userId: string;
   userChallengesIds: string[];
   userChallenges: any;
 
   constructor(
     private challengesService: ChallengeService,
-    private authService: AuthService,
     private userService: UserService
   ) {}
 
   ngOnInit(): void {
-    this.userEmail = this.authService.getUserEmail();
+    this.userId = this.userService.userId;
 
     this.userService
-      .getOne(this.userEmail)
+      .getOne(this.userId)
       .pipe(
-        pluck('challenges'),
-        mergeMap((arr) =>
-          forkJoin(arr.map((chal) => this.challengesService.getOne(chal.id)))
-        )
+        tap(x => console.log(x))
+        // pluck('challenges'),
+        // mergeMap((arr) =>
+        //   forkJoin(arr.map((chal) => this.challengesService.getOne(chal.id)))
+        // )
       )
       .subscribe((result) => {
         this.userChallenges = result;

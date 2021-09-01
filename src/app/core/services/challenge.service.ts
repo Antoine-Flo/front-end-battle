@@ -51,8 +51,8 @@ export class ChallengeService {
   }) {
     const uuid = this.uuid.getId();
     const imgId = this.storageService.uploadImg(challengeInfos.imgData);
-    const userEmail = this.authService.getUserEmail();
-    this.userService.getOne(userEmail);
+    const userId = this.userService.userId;
+    this.userService.getOne(userId);
     const challenge = {
       id: uuid,
       title: challengeInfos.title,
@@ -66,7 +66,7 @@ export class ChallengeService {
       id: uuid,
       title: challengeInfos.title,
     }
-    this.userService.addChallenge(userEmail, userChallenge).subscribe();
+    this.userService.addChallenge(userId, userChallenge).subscribe();
     return this.http.post(this.url, challenge, { responseType: 'text' });
   }
 
@@ -83,8 +83,8 @@ export class ChallengeService {
   /////////////////////
 
   delete(id: string) {
-    const userEmail = this.authService.getUserEmail()
-    this.userService.deleteChallenge(userEmail, { id }).subscribe()
+    const userId = this.userService.userId;
+    this.userService.deleteChallenge(userId, { id }).subscribe()
     return this.http.delete(`${this.url}/${id}`);
   }
 }

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { User } from '../models/user.model';
 import { UuidService } from './uuid.service';
@@ -11,23 +12,20 @@ import { UuidService } from './uuid.service';
 })
 export class UserService {
 
-  _userId: string;
+  url = environment.api.users
   
   public get userId() : string {
-    return this._userId;
+    
+    return localStorage.getItem('userId');
   }
-  
   
   public set userId(id : string) {
-    this._userId = id;
+    // console.log(id)
+    localStorage.setItem('userId', id);
   }
   
-
   // For documentation on the api : https://feb-api.com/api
 
-
-  url = environment.api.users
-  // url = 'https://feb-api.com/users'
 
   constructor(private http: HttpClient, private uuid: UuidService) {}
 
@@ -43,8 +41,9 @@ export class UserService {
     return this.http.get<User>(`${this.url}/${id}`);
   }
 
-  getUserId(email: string): Observable<User> {
-    return this.http.get<User>(`${this.url}/${btoa(email)}/id`);
+  getUserId(email: string): Observable<string> {
+    
+    return this.http.get<{id: string}>(`${this.url}/${email}/id`).pipe(map(res => res.id))
   }
 
   ////////////////////
@@ -59,6 +58,7 @@ export class UserService {
       username: name,
       challenges: [],
     }
+    this.userId = uuid;
     return this.http.post(this.url, user, {responseType: 'text'})
   }
 
@@ -70,12 +70,12 @@ export class UserService {
     return this.http.patch(`${this.url}/${id}`, user)
   }
 
-  addChallenge(userMail: string , userChallenge: {}) {
-    return this.http.patch(`${this.url}/${userMail}/challenge`, userChallenge)
+  addChallenge(userId: string , userChallenge: {}) {
+    return this.http.patch(`${this.url}/${userId}/challenge`, userChallenge)
   }
 
-  deleteChallenge(userMail: string , challenge: {}) {
-    return this.http.patch(`${this.url}/${userMail}/challenge`, challenge)
+  deleteChallenge(userId: string , challenge: {}) {
+    return this.http.patch(`${this.url}/${userId}/challenge`, challenge)
   }
 
   /////////////////////

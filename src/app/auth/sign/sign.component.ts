@@ -49,22 +49,17 @@ export class SignComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  connectWithGoogle() { this.authService.signinGoogle(); }
+  connectWithGoogle() {
+    this.authService.signinGoogle();
+  }
 
-  connectWithGitHub() { this.authService.signinGitHub(); }
+  connectWithGitHub() {
+    this.authService.signinGitHub();
+  }
 
   onLogin(): void {
     const { email, password } = this.logInForm.value;
-
-    this.authService
-      .logInWithEmailPassword(email, password)
-      .then(() => {
-        this.snackBar.showSuccess('Connexion réussie');
-        this.router.navigate(['home']);
-      })
-      .catch((err) => {
-        this.snackBar.showError(err.message, err.code);
-      });
+    this.authService.logInWithEmailPassword(email, password);
   }
 
   onNewAccount(): void {

@@ -7,7 +7,7 @@ import app from 'firebase';
 
 import { SnackBarService } from '../core/services/snack-bar.service';
 import { UserService } from '../core/services/user.service';
-import { catchError, map, mergeMap, tap } from 'rxjs/operators';
+import { catchError, mergeMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -28,21 +28,12 @@ export class AuthService {
       // https://firebase.google.com/docs/reference/js/firebase.User
       return of(user);
     } else {
+      this.logout();
       throwError('No user is signed in');
     }
     return EMPTY;
   }
 
-  getIdToken() {
-    return this.getFirebaseCurrentUser().pipe(
-      mergeMap((user) => user.getIdToken()),
-      catchError((err) => of(err))
-    );
-  }
-
-  getUserEmail() {
-    return app.auth().currentUser.email;
-  }
 
   async signinGoogle() {
     const provider = new app.auth.GoogleAuthProvider();
@@ -54,21 +45,30 @@ export class AuthService {
     this.signInWithProvider(provider);
   }
 
-  logInWithEmailPassword(email: string, password: string) {
-    return app.auth().signInWithEmailAndPassword(email, password);
+  async logInWithEmailPassword(email: string, password: string) {
+    return app.auth().signInWithEmailAndPassword(email, password).then(() => {
+      this.setUserId(email)
+      this.snackBar.showSuccess('Connexion réussie');
+      this.router.navigate(['home']);
+    })
+    .catch((err) => {
+      this.snackBar.showError(err.message, err.code);
+    });;
   }
 
-  createAccountWithEmailPassword(userName: string, email: string, password: string) {
+  async createAccountWithEmailPassword(
+    userName: string,
+    email: string,
+    password: string
+  ) {
     return app
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then((userCredentials) => {
-        if(userCredentials.additionalUserInfo.isNewUser) {
-
+        this.setUserId(email)
+        if (userCredentials.additionalUserInfo.isNewUser) {
           this.userService.create(email, userName).subscribe();
-
-        } 
-        console.log(userCredentials)
+        }
       });
   }
 
@@ -76,19 +76,40 @@ export class AuthService {
     this.auth.signOut().then(() => {
       this.snackBar.showSuccess('Vous êtes déconnecté.');
     });
+    localStorage.setItem('userId', '');
     return this.router.navigate(['/']);
   }
+
+  getIdToken() {
+    return this.getFirebaseCurrentUser().pipe(
+      mergeMap((user) => user.getIdToken()),
+      catchError((err) => of(err))
+    );
+  }
+
+  private setUserId(email: string) {
+    this.userService.getUserId(email).subscribe(id => {
+      this.userService.userId = id;
+    });
+  }
+
+  // private getUserEmail() {
+  //   return app.auth().currentUser.email;
+  // }
 
   private async signInWithProvider(provider) {
     return this.auth
       .signInWithPopup(provider)
       .then((cred) => {
-        this.snackBar.showSuccess('Connexion réussie');
-        this.router.navigate(['home']);
         const { email, name } = <{ email: string; name: string }>(
           cred.additionalUserInfo.profile
         );
+        this.snackBar.showSuccess('Connexion réussie');
+        this.router.navigate(['home']);
+        this.setUserId(email)
+
         if (cred.additionalUserInfo.isNewUser) {
+          
           this.userService.create(email, name).subscribe();
         }
       })

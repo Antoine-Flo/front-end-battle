@@ -14,7 +14,7 @@ export class ChallengeCardComponent implements OnInit {
   imgUrl: string;
   creatorName: string;
   creatorEmail: string;
-  userEmail: string;
+  userId: string;
   @Input() challenge: any;
   @Output() challengeDeleted = new EventEmitter<string>();
 
@@ -26,7 +26,7 @@ export class ChallengeCardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.userEmail = this.authService.getUserEmail()
+    this.userId = this.userService.userId;
     // Get the image Url
     this.storage
       .downloadViaUrl(this.challenge.imgId)
