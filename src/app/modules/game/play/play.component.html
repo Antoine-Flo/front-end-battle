@@ -3,7 +3,7 @@
 
   <app-game-layout 
     [starterCode]="defaultCode" 
-    (saveEvent)="saveEvent()"
+    (saveEvent)="saveEvent($event)"
     (cancelEvent)="cancelEvent()">
 
     <div image-preview  class="">
@@ -13,5 +13,18 @@
 
   </app-game-layout>
 
+  <app-modal *ngIf="modalSubmit" (dismiss)="modalSubmit = false">
+
+    <div class="play__result-imgs">
+
+      <img class="play__imgSubmit" alt="image preview" [src]="previewImgUrl">
+      <img class="play__imgSubmit" alt="image preview" [src]="imgUrl">
+    </div>
+
+    <p class="play__congrat">Bien joué 👍 Pour l'instant les scores ne sont pas enregistrés, patience.</p>
+    <button mat-raised-button color='primary' class="play__btn" [routerLink]="['/home']" routerLinkActive="router-link-active" >Retour au menu</button>
+
+
+  </app-modal>
 
 </app-layout>

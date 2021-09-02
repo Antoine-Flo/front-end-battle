@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { mergeMap, tap } from 'rxjs/operators';
 import { Challenge } from 'src/app/core/models/challenge.model';
 import { ChallengeService } from 'src/app/core/services/challenge.service';
+import { IframeToImgService } from 'src/app/core/services/iframe-to-img.service';
 import { StorageService } from 'src/app/core/services/storage.service';
 
 @Component({
@@ -15,7 +16,10 @@ export class PlayComponent implements OnInit {
   challenge: Challenge;
   challengeId: string;
   imgUrl: string;
-
+  code: string;
+  previewImgUrl: string;
+  
+  modalSubmit = false;
   defaultCode = `
 <!--Essayez de reproduire le modèle-->
 <!--Ecrivez votre code dans cet éditeur-->
@@ -44,7 +48,8 @@ export class PlayComponent implements OnInit {
     private router: Router,
     private chalService: ChallengeService,
     private route: ActivatedRoute,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private iframeToImgService: IframeToImgService,
   ) {}
 
   ngOnInit() {
@@ -63,8 +68,14 @@ export class PlayComponent implements OnInit {
 
   }
 
-  saveEvent() {
-    console.log("save")
+  saveEvent($event) {
+    this.code = $event.code;
+    this.iframeToImgService.convertToImg($event.body).then((imgDataURL) => {
+      this.previewImgUrl = imgDataURL;
+    });
+    // this.formChallenge.controls['title'].setValue(this.challenge.title);
+    // this.formChallenge.controls['description'].setValue(this.challenge.description);
+    this.modalSubmit = true;
   }
   
   cancelEvent() {

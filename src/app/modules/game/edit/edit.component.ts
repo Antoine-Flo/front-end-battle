@@ -76,7 +76,7 @@ export class EditComponent implements OnInit {
     };
     this.challengeService.update(this.challenge.id, challengeInfos).subscribe(() => {
       this.ngOnInit()
-      this.snackBarService.showSuccess('Challenge créé avec succès 👍');
+      this.snackBarService.showSuccess('Modifications enregistrées 👍');
       this.router.navigateByUrl('/profile/challenges')
     });
   }
