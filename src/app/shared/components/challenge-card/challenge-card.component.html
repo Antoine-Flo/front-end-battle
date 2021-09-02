@@ -9,23 +9,27 @@
 
 
   <div class="challenge__content">
-    
+
     <div class="challenge__credentials">
       <h2 class="challenge__title font-white"> {{ challenge.title }} </h2>
-      <p>{{ creatorEmail }}</p>
       <p class="challenge__bio font-white"> {{ challenge.description }} </p>
     </div>
 
     <div class="challenge__footer">
-      <!-- <p>{{ challenge | json }}</p> -->
-      <p class="challenge__auth font-white"> {{ challenge.creatorId  }} </p>
+      <p>Createur : {{ creatorName }}</p>
       <mat-card-actions class="challenge__actions">
-        <button mat-flat-button color="warn" (click)="onDelete()">Supprimer</button>
-        <button mat-raised-button color="primary" [routerLink]="['/game/play', challenge.id]"
-        class="challenge__btn">Résoudre</button>
+        <button *ngIf="userId === challenge.creatorId" mat-flat-button color="warn"
+          (click)="onDelete()">Supprimer</button>
+
+        <button *ngIf="userId === challenge.creatorId" mat-flat-button color="warn"
+          [routerLink]="['/game/edit', challenge.id]" class="challenge__btn">Modifier</button>
+
+        <button *ngIf="userId !== challenge.creatorId" mat-raised-button color="primary"
+          [routerLink]="['/game/play', challenge.id]" class="challenge__btn">Résoudre</button>
+          
       </mat-card-actions>
     </div>
-    
+
   </div>
 
 

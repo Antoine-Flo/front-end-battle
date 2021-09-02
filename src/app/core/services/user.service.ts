@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -15,12 +15,10 @@ export class UserService {
   url = environment.api.users
   
   public get userId() : string {
-    
     return localStorage.getItem('userId');
   }
   
   public set userId(id : string) {
-    // console.log(id)
     localStorage.setItem('userId', id);
   }
   
@@ -42,7 +40,6 @@ export class UserService {
   }
 
   getUserId(email: string): Observable<string> {
-    
     return this.http.get<{id: string}>(`${this.url}/${email}/id`).pipe(map(res => res.id))
   }
 
@@ -71,7 +68,11 @@ export class UserService {
   }
 
   addChallenge(userId: string , userChallenge: {}) {
-    return this.http.patch(`${this.url}/${userId}/challenge`, userChallenge)
+   
+    
+    return this.http.patch(`${this.url}/${userId}/challenge`, userChallenge, {
+      params: new HttpParams().set('action', 'add')
+    })
   }
 
   deleteChallenge(userId: string , challenge: {}) {

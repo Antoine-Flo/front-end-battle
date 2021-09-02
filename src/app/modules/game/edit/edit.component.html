@@ -1,12 +1,36 @@
 <app-layout>
 
 
-    <app-game-layout 
-      [starterCode]="defaultCode" 
-      (saveEvent)="saveEvent()"
-      (cancelEvent)="cancelEvent()">
-    </app-game-layout>
-  
-   
+  <app-game-layout 
+    *ngIf="defaultCode"
+    [starterCode]="defaultCode" 
+    (saveEvent)="saveEvent($event)"
+    (cancelEvent)="cancelEvent()">
+
+    <div image-preview  class="">
+      <h2>Aperçu</h2>
+      <img class="play__img" *ngIf="imgUrl" [src]="imgUrl" alt="">
+    </div>
+
+  </app-game-layout>
+
+  <app-modal *ngIf="modalSaveNew" (dismiss)="modalSaveNew = false">
+    <img class="imgPreview" alt="image preview" [src]="previewImgUrl">
+    <form class="create__form" [formGroup]="formChallenge" (ngSubmit)="onSubmit">
+
+      <mat-form-field color="accent" appearance="fill">
+        <mat-label>Titre</mat-label>
+        <input matInput formControlName="title">
+      </mat-form-field>
+
+      <mat-form-field color="accent" appearance="fill">
+        <mat-label for="title">Description</mat-label>
+        <textarea matInput formControlName="description"></textarea>
+      </mat-form-field>
+
+      <button mat-flat-button color="primary" (click)="onSubmit(); $event.preventDefault()" type="submit">Save</button>
+    </form>
+  </app-modal>
+
 
 </app-layout>

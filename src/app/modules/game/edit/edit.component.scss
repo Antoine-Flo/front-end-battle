@@ -1,0 +1,34 @@
+.play__img {
+    width: 400px;
+}
+
+.create {
+    display: flex;
+    margin-top: 1rem;
+  
+    & > * {
+      margin: 5px;
+    }
+  
+    &__iframe {
+      height: 525px;
+      width: 700px;
+    }
+  
+    &__btn {
+        float: right;
+        margin-right: 1rem;
+    }
+  
+    &__form {
+      display: flex;
+      flex-direction: column;
+      // background-color: var(--main-400);
+    }
+  }
+  
+  .imgPreview {
+    width: 400px;
+    height: 300px;
+  }
+  

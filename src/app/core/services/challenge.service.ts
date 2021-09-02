@@ -14,7 +14,6 @@ export class ChallengeService {
   // For documentation on the api : https://feb-api.com/api
 
   url = environment.api.challenges;
-  // url = 'https://feb-api.com/challenges';
 
   constructor(
     private storageService: StorageService,
@@ -49,14 +48,14 @@ export class ChallengeService {
     const uuid = this.uuid.getId();
     const imgId = this.storageService.uploadImg(challengeInfos.imgData);
     const userId = this.userService.userId;
-    this.userService.getOne(userId);
+    const creatorId = this.userService.userId;
     const challenge = {
       id: uuid,
       title: challengeInfos.title,
       description: challengeInfos.description,
       code: challengeInfos.code,
       imgId,
-      creatorId: 'Antoine',
+      creatorId,
     };
 
     const userChallenge = {
@@ -71,8 +70,13 @@ export class ChallengeService {
   //      PATCH      //
   /////////////////////
 
-  update(id: string, challenge: Challenge) {
-    return this.http.patch(`${this.url}/${id}`, challenge);
+  update(id: string, challengeInfos: {
+    title: string;
+    description: string;
+    code: string;
+    imgData: string;
+  }) {
+    return this.http.patch(`${this.url}/${id}`, challengeInfos);
   }
 
   /////////////////////

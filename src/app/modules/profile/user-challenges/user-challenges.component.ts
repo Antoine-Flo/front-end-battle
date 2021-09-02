@@ -26,11 +26,11 @@ export class UserChallengesComponent implements OnInit {
     this.userService
       .getOne(this.userId)
       .pipe(
-        tap(x => console.log(x))
-        // pluck('challenges'),
-        // mergeMap((arr) =>
-        //   forkJoin(arr.map((chal) => this.challengesService.getOne(chal.id)))
-        // )
+        map(user => user.challenges),
+
+        mergeMap((arr) =>
+          forkJoin(arr.map((chal) => this.challengesService.getOne(chal.id)))
+        )
       )
       .subscribe((result) => {
         this.userChallenges = result;

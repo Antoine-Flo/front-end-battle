@@ -62,8 +62,6 @@ export class GameLayoutComponent implements OnInit {
 
 body {
   margin: 0;
-  height: 525px;
-  width: 700px;
   overflow: hidden;
   background-color: #00adb5;
   position: absolute;

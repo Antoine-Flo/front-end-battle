@@ -15,7 +15,6 @@ export class CreateComponent implements OnInit {
   modalSaveNew = false;
   result: any;
   code: string;
-
   previewImgUrl: string;
 
   formChallenge = new FormGroup({
@@ -27,16 +26,16 @@ export class CreateComponent implements OnInit {
     private router: Router,
     private snackBarService: SnackBarService,
     private iframeToImgService: IframeToImgService,
-    private challenge: ChallengeService
+    private challengeService: ChallengeService
   ) {}
 
   ngOnInit() {}
 
   saveEvent($event) {
+    this.code = $event.code;
     this.iframeToImgService.convertToImg($event.body).then((imgDataURL) => {
       this.previewImgUrl = imgDataURL;
     });
-    this.code = $event.code;
     this.modalSaveNew = true;
   }
 
@@ -51,9 +50,11 @@ export class CreateComponent implements OnInit {
       code: this.code,
       imgData: this.previewImgUrl,
     };
-    this.challenge.create(challengeInfos).subscribe();
-    this.snackBarService.showSuccess('Challenge créé avec succès 👍');
-    // this.router.navigateByUrl('/profile/challenges')
+    this.challengeService.create(challengeInfos).subscribe(() => {
+      this.ngOnInit()
+      this.snackBarService.showSuccess('Challenge créé avec succès 👍');
+      this.router.navigateByUrl('/profile/challenges')
+    });
   }
 
   defaultCode = `
@@ -72,7 +73,7 @@ export class CreateComponent implements OnInit {
   }
   
   .title {
-    font-size: 2.5rem;
+    font-size: 2rem;
     color: #ddeeee;
     margin-top: 5rem;
     text-align: center;

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { pluck, tap } from 'rxjs/operators';
+import { map, pluck, tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ChallengeService } from 'src/app/core/services/challenge.service';
 import { StorageService } from 'src/app/core/services/storage.service';
@@ -13,7 +13,6 @@ import { UserService } from 'src/app/core/services/user.service';
 export class ChallengeCardComponent implements OnInit {
   imgUrl: string;
   creatorName: string;
-  creatorEmail: string;
   userId: string;
   @Input() challenge: any;
   @Output() challengeDeleted = new EventEmitter<string>();
@@ -22,26 +21,20 @@ export class ChallengeCardComponent implements OnInit {
     private storage: StorageService,
     private userService: UserService,
     private challengeService: ChallengeService,
-    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
-    this.userId = this.userService.userId;
+    this.userId = this.userService.userId
+
+    this.userService.getOne(this.challenge.creatorId).pipe(
+      map(user => user.username)
+    ).subscribe(userName => this.creatorName = userName)
+
     // Get the image Url
     this.storage
       .downloadViaUrl(this.challenge.imgId)
       .subscribe((x) => (this.imgUrl = x));
     
-    // Get the creator name and email
-    // this.userService
-    //   .getOne(this.challenge.creatorId)
-    //   .pipe(
-    //     tap(challenge => console.log(challenge)),
-    //     pluck('username'),
-    //   )
-    //   .subscribe((x) => {
-    //     this.creatorName = x;
-    //   });
   }
 
   onDelete() {

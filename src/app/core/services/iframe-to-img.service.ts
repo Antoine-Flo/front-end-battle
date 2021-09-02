@@ -15,7 +15,7 @@ export class IframeToImgService {
 
     // Create a canvas from the iframe and convert it to a blob.
     convertToImg(body: HTMLObjectElement) {
-      return html2canvas(body).then(canvas => {
+      return html2canvas(body, { useCORS: true} ).then(canvas => {
         this.imgDataURL = canvas.toDataURL();
         return this.imgDataURL;
       });
