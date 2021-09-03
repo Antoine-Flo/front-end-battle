@@ -3,14 +3,15 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss'],
+  selector: 'app-settings',
+  templateUrl: './settings.component.html',
+  styleUrls: ['./settings.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class SettingsComponent implements OnInit {
+
   user: any;
 
-  profileForm = new FormGroup({
+  settingsForm = new FormGroup({
     nom: new FormControl('', [
       Validators.required,
       Validators.minLength(3),
@@ -32,4 +33,5 @@ export class ProfileComponent implements OnInit {
   }
 
   onSubmit() {}
+
 }

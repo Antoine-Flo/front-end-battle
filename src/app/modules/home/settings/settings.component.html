@@ -1,0 +1,22 @@
+<app-layout>
+
+  <div class="settings">
+
+    <h1 class="settings__title">Mes infos</h1>
+
+    <form *ngIf="user" class="settings__form" (ngSubmit)="onSubmit()" [formGroup]="settingsForm">
+
+      <!-- <app-input class="settings__item" inputType="text"  label="Nom" [control]="settingsForm.get('nom')"></app-input> -->
+      <!-- <img *ngIf="user.photoURL" [src]="user.photoURL" alt=""> -->
+      <p>Username: {{user.username}}</p>
+      <p>Email : {{user.email}}</p>
+
+      <button mat-button class="settings__btn main-btn">Modifier</button>
+
+    </form>
+
+  </div>
+
+
+
+</app-layout>

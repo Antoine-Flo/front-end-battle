@@ -9,9 +9,10 @@ import { HomeRoutingModule } from './home-routing.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { HomeComponent } from './home/home.component';
 import { ProgressionComponent } from './progression/progression.component';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
-  declarations: [HomeComponent,  ProgressionComponent],
+  declarations: [HomeComponent,  ProgressionComponent, SettingsComponent ],
   imports: [
     SharedModule,
     FormsModule,

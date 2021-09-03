@@ -53,7 +53,7 @@ export class CreateComponent implements OnInit {
     this.challengeService.create(challengeInfos).subscribe(() => {
       this.ngOnInit()
       this.snackBarService.showSuccess('Challenge créé avec succès 👍');
-      this.router.navigateByUrl('/profile/challenges')
+      this.router.navigateByUrl('/profile')
     });
   }
 

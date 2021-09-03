@@ -4,6 +4,17 @@
 
   <div class="items">
 
+
+    <button mat-button [matMenuTriggerFor]="menu">Tuto</button>
+    <mat-menu #menu="matMenu" xPosition="before">
+      <p class="nav__tuto">
+
+        Le but du jeu est de reproduire les différents challenges proposez par les autres joueur, grace à votre code
+        Html/Css. <br> Pour ce faire, choisissez un défis qui semble à votre portée puis grace à l'éditeur de code essayez de reproduire le modèle.
+      </p>
+    </mat-menu>
+
+
     <button mat-button *ngIf="screen === 'little'" (click)="openFullscreen();">
       <mat-icon>fullscreen</mat-icon>
     </button>
@@ -18,23 +29,22 @@
     <button mat-button *ngIf="theme === 'dark'" (click)="changeToLight();">
       <mat-icon>bedtime</mat-icon>
     </button>
-    
+
     <button *ngIf="user" mat-button [matMenuTriggerFor]="beforeMenu">
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #beforeMenu="matMenu" xPosition="before">
       <button [routerLink]="['/home']" mat-menu-item>Accueil</button>
-      <button [routerLink]="['/profile']" mat-menu-item>Profile</button>
-      <mat-divider></mat-divider>
-      <button [routerLink]="['/profile/challenges']"  mat-menu-item>Mes challenges</button>
+      <button [routerLink]="['/profile']" mat-menu-item>Profil</button>
       <mat-divider></mat-divider>
       
+      <button [routerLink]="['/home/settings']" mat-menu-item>Paramètres</button>
       <button (click)="onLogOut()" mat-menu-item>
         <mat-icon>power_settings_new</mat-icon>
         <span>Se déconnecter</span>
       </button>
     </mat-menu>
   </div>
-    
+
 
 </mat-toolbar>

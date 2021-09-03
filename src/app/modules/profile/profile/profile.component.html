@@ -2,19 +2,21 @@
 
   <div class="profile">
 
-    <h1 class="profile__title">Profile</h1>
+    <h1 class="profile__title">Mon score</h1>
 
-    <form class="profile__form" (ngSubmit)="onSubmit()" [formGroup]="profileForm">
+    <form *ngIf="user" class="profile__form" (ngSubmit)="onSubmit()" [formGroup]="profileForm">
 
       <!-- <app-input class="profile__item" inputType="text"  label="Nom" [control]="profileForm.get('nom')"></app-input> -->
+      <!-- <img *ngIf="user.photoURL" [src]="user.photoURL" alt=""> -->
+      <p>{{user.username}}</p>
+      <p>Email : {{user.email}}</p>
 
-
-      <button class="profile__btn main-btn">Sauvegarder</button>
 
     </form>
 
   </div>
 
+  <app-user-challenges></app-user-challenges>
 
 
 </app-layout>

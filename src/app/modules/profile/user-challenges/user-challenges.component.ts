@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { forkJoin, from, of } from 'rxjs';
-import { concatMap, map, mergeMap, pluck, tap } from 'rxjs/operators';
-import { AuthService } from 'src/app/auth/auth.service';
+import { forkJoin } from 'rxjs';
+import { map, mergeMap } from 'rxjs/operators';
 import { ChallengeService } from 'src/app/core/services/challenge.service';
 import { UserService } from 'src/app/core/services/user.service';
 
